@@ -1,4 +1,4 @@
-# Xeros client
+# Vanguard client
 ## Run arguments
 * --local/-l: localhost connection
 * --developer/-d: developer mode
