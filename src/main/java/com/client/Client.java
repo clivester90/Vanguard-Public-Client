@@ -3435,8 +3435,6 @@ public class Client extends GameEngine implements RSClient {
 		loggedIn = false;
 		prayClicked = false;
 		loginScreenState = LoginScreenState.LOGIN;
-		captcha = null;
-		captchaInput = "";
 		frameMode(false);
 
 		try {
@@ -4771,20 +4769,8 @@ public class Client extends GameEngine implements RSClient {
 			}
 
 	}
-	/**
-	 * Runescape Loading Bar
-	 *
-	 * @param percentage
-	 * @param s
-	 * @param downloadSpeed
-	 * @param secondsRemaining
-	 * @trees
-	 */
-	public Sprite logo, loginBackground;
 
-
-
-	Sprite background = new Sprite("loginscreen/background");
+	Sprite background = new Sprite("loginscreen/loadingBackground");
 	Sprite empty_bar = new Sprite("loginscreen/general/emptybar");
 	Sprite full_bar = new Sprite("loginscreen/general/fullbar");
 
@@ -4803,15 +4789,15 @@ public class Client extends GameEngine implements RSClient {
 		int width = 540;
 		int height = 32;
 		double offset = 5.43;
-		empty_bar.drawAdvancedSprite(765 / 2 - width / 2, y + 11 - height / 2);
-		full_bar.drawAdvancedSprite(765 / 2 - width / 2, y + 11 - height / 2);
-		Rasterizer2D.drawAlphaGradient(x + ((int) Math.round(percentage * offset) / 2), y,
-			width - ((int) Math.round(percentage * offset) / 2), height, 0x000000, 0x000000, 200);
-		if (percentage >= 198) {
-			newBoldFont.drawCenteredString("Finished loading " + Configuration.CLIENT_TITLE, (765 / 2), y + height / 2, 0xffffff, 1);
+		empty_bar.drawAdvancedSprite(x, y + 11 - height / 2);
+		full_bar.drawAdvancedSprite(x, y + 11 - height / 2);
+		Rasterizer2D.drawAlphaGradient(x + ((int) Math.round(percentage * offset)), y,
+			width - ((int) Math.round(percentage * offset)), height, 0x000000, 0x000000, 200);
+		if (percentage >= 100) {
+			newBoldFont.drawCenteredString("Finished loading " + Configuration.CLIENT_TITLE, (765 / 2), y + height / 2 + 6, 0xffffff, 1);
 		} else {
-			newBoldFont.drawCenteredString("Loading " + Configuration.CLIENT_TITLE + " - Please wait - " + (percentage / 2) + "%", (765 / 2),
-				y + height / 2, 0xffffff, 1);
+			newBoldFont.drawCenteredString("Loading " + Configuration.CLIENT_TITLE + " - Please wait - " + (percentage) + "%", (765 / 2),
+				y + height / 2 + 6, 0xffffff, 1);
 		}
 		rasterProvider.drawFull(0,0);
 	}
@@ -9636,14 +9622,6 @@ public class Client extends GameEngine implements RSClient {
 		return false;
 	}
 
-	public boolean missingCaptchaInput() {
-		if (loginScreenState == LoginScreenState.CAPTCHA && captchaInput.length() == 0 && captcha != null) {
-			firstLoginMessage = "You must enter the captcha (case sensitive) or click x to exit.";
-			return true;
-		}
-		return false;
-	}
-
 	public boolean nameWhitespace() {
 		if (myUsername != null && myUsername.startsWith(" ") || myUsername.endsWith(" ") || myUsername.contains("  ")) {
 			firstLoginMessage = "Invalid username whitespace usage. Please try again.";
@@ -9661,10 +9639,6 @@ public class Client extends GameEngine implements RSClient {
 			loginScreenState = LoginScreenState.LOGIN;
 			return;
 		}
-		if (missingCaptchaInput())
-			return;
-
-		captcha = null;
 		fogEnabled = false;
 		fogOpacity = 0;
 		firstLoginMessage = "Connecting to server..";
@@ -9750,7 +9724,6 @@ public class Client extends GameEngine implements RSClient {
 					stream.writeDWord(Signlink.uid);
 					stream.writeString(s);
 					stream.writeString(s1);
-					stream.writeString(captchaInput);
 					stream.writeString(macAddress);
 					stream.writeString(FingerPrint.getFingerprint());
 					stream.doKeys();
@@ -10042,26 +10015,6 @@ public class Client extends GameEngine implements RSClient {
 			if (responseCode == 26) {
 				loginScreenState = LoginScreenState.LOGIN;
 				firstLoginMessage = "An error occurred while loading your file, contact support.";
-				return;
-			}
-			if (responseCode == 27 || responseCode == 28) {
-				try {
-					int length = ((socketStream.read() & 0xFF) << 8) + socketStream.read();
-					byte[] captchaData = new byte[length];
-					for (int i12 = 0; i12 < length; i12++)
-						captchaData[i12] = (byte) socketStream.read();
-					captcha = new Sprite(BufferedImages.toBufferedImage(captchaData));
-					captcha.setTransparency(45, 45, 45);
-					firstLoginMessage = responseCode == 27 ? "Enter the captcha (case sensitive)." : "Incorrect, enter the captcha (case sensitive).";
-					synchronized (CAPTCHA_LOCK) {
-						captchaInput = "";
-					}
-					loginScreenState = LoginScreenState.CAPTCHA;
-				} catch (IOException e) {
-					firstLoginMessage = "Captcha error occurred, contact staff.";
-					e.printStackTrace();
-				}
-
 				return;
 			}
 			if (responseCode == -1) {
@@ -10832,7 +10785,6 @@ public class Client extends GameEngine implements RSClient {
 			drawLoadingText(20, "Loading Archives...");
 
 			loadTitleScreen();
-			createScreenImages();
 			FileArchive streamLoader = streamLoaderForName(2, "config");
 			FileArchive streamLoader_1 = streamLoaderForName(3, "interface");
 			FileArchive streamLoader_2 = streamLoaderForName(4, "2d graphics");
@@ -10894,16 +10846,8 @@ public class Client extends GameEngine implements RSClient {
 			minimapImage = new Sprite(512,512);
 			// Login
 			drawLoadingText(40, "Unpacking media");
-			loginAsset0 = new Sprite("Login/remember0");
-			loginAsset1 = new Sprite("Login/remember1");
-			loginAsset2 = new Sprite("Login/remember2");
-			loginAsset3 = new Sprite("Login/remember3");
-			loginAsset4 = new Sprite("Login/logo");
-			loginScreenBackground = new Sprite("/loginscreen/background2");
-			logo2021 = new Sprite("/loginscreen/logo");
-			loginScreenBackgroundCaptcha = new Sprite("/loginscreen/captcha_background");
-			captchaExit = new Sprite("/loginscreen/captcha-exit");
-			captchaExitHover = new Sprite("/loginscreen/captcha-exit-hover");
+			loginScreenBackground = new Sprite("/loginscreen/loginBackground");
+
 			drawLoadingText(45, "Unpacking media");
 			File[] file = new File(Signlink.getCacheDirectory() + "/sprites/sprites/").listFiles();
 			int size = file.length;
@@ -15179,55 +15123,19 @@ public class Client extends GameEngine implements RSClient {
 		}
 	}
 
-
-	private Map<String, Sprite> screenImages;
-
-	private final void createScreenImages() {
-		if (screenImages != null) {
-			return;
-		}
-		screenImages = new HashMap<>();
-		screenImages.put("background", new Sprite("Login/background")); // not used
-	}
-
 	public boolean rememberMe = false;
-
-	public int announcementTicks = 0;
-	public int announcementFade = 0;
-	public int announcementMovement = Client.canvasWidth - 2;
-
-
-	public Sprite loginAsset0;
-	public Sprite loginAsset1;
-	public Sprite loginAsset2;
-	public Sprite loginAsset3;
-	public Sprite loginAsset4;
 	public String firstLoginMessage = "Please enter your username & password.";
-	Image icon = null;
-
-	public boolean rememberMeHover;
 	long lastLogin = 0;
 	long loadDelay = 0;
 	private Sprite loginScreenBackground;
-	private Sprite loginScreenBackgroundCaptcha;
-	private Sprite captchaExit;
-	private Sprite captchaExitHover;
-	private Sprite logo2021;
 
 	private Sprite captcha;
-
-	private static boolean viewNewsPanel = true;
-
 
 	public void drawLoginScreen(boolean flag) {
 		int centerX = canvasWidth / 2, centerY = canvasHeight / 2;
 
 		if(System.currentTimeMillis() - lastLogin > 50) {
-			if (loginScreenState == LoginScreenState.CAPTCHA)
-				loginScreenBackgroundCaptcha.drawAdvancedSprite(0,0);
-			else
-				loginScreenBackground.drawAdvancedSprite(0,0);
-			//logo2021.drawAdvancedSprite(386 - (logo2021.myWidth / 2),85 - (logo2021.myHeight / 2));
+			loginScreenBackground.drawAdvancedSprite(0,0);
 		}
 
 		if (Configuration.developerMode) {
@@ -15235,30 +15143,12 @@ public class Client extends GameEngine implements RSClient {
 			newSmallFont.drawString("Mouse: [" + MouseHandler.mouseX + ", " + MouseHandler.mouseY + "]", 4, 12 + 12, Integer.MAX_VALUE, 0, 255);
 		}
 
-		int j = centerY - 40;
+		int j = centerY + 160;
 
-		if (loginScreenState == LoginScreenState.CAPTCHA) {
-			if (firstLoginMessage.length() > 0) {
-				newBoldFont.drawCenteredString(firstLoginMessage, centerX - 3, j, 0xffffff, 0x191919, 255);
-				j += 30;
-			}
-
-			if (captcha != null)
-				captcha.drawAdvancedSpriteCentered(382, 446);
-
-			newBoldFont.drawString(
-				captchaInput + ((loopCycle % 40 < 20) ? "|" : ""),
-				(canvasWidth / 2) - 119, canvasHeight / 2 + 8, 0xffffff, 0x191919, 255);
-
-
-			int exitX = 494;
-			int exitY = 236;
-			Sprite exit = captchaExit.isMousedOver(exitX, exitY, getMouseX(), getMouseY()) ? captchaExitHover : captchaExit;
-			exit.drawSprite(exitX, exitY);
-		} else if (loginScreenState == LoginScreenState.LOGIN) {
+		if (loginScreenState == LoginScreenState.LOGIN) {
 			Announcements.displayAnnouncements();
 			if (firstLoginMessage.length() > 0) {
-				newBoldFont.drawCenteredString(firstLoginMessage, centerX - 0, j - 11, 0xffffff, 0x191919, 255);
+				newBoldFont.drawCenteredString(firstLoginMessage, centerX, j - 11, 0xffffff, 0x191919, 255);
 				j += 30;
 			}
 
@@ -15269,48 +15159,7 @@ public class Client extends GameEngine implements RSClient {
 			newBoldFont.drawString(
 				" " + StringUtils.passwordAsterisks(getPassword())
 					+ ((loginScreenCursorPos == 1) & (loopCycle % 40 < 20) ? "|" : ""),
-				290, 268, 0xb45f06, 0x191919, 255);
-
-			int rememberYOffset = 6;
-
-			int extraPos = 18;
-			//rememberMeHover = mouseInRegion(286 - extraPos, 264, 301 - extraPos, 267);
-			//rememberPasswordHover = mouseInRegion(416 - extraPos, 264, 433 - extraPos, 268);
-
-			//newSmallFont.drawString("Remember username", 283, 275 , 0xffffff, 0x191919, 255);
-			//newSmallFont.drawString("Remember password", 414, 275, 0xffffff, 0x191919, 255);
-
-			/*if (!informationFile.isUsernameRemembered()) {
-				if (!rememberMeHover) {
-					loginAsset0.drawSprite(264, 264);
-				} else {
-					loginAsset1.drawSprite(264, 264);
-				}
-			} else {
-				if (!rememberMeHover) {
-					loginAsset2.drawSprite(264, 264);
-				} else {
-					loginAsset3.drawSprite(264, 264);
-				}
-			}
-
-			if (!informationFile.isPasswordRemembered()) {
-				if (!rememberPasswordHover) {
-					loginAsset0.drawSprite(395, 264);
-				} else {
-					loginAsset1.drawSprite(395, 264);
-				}
-			} else {
-				if (!rememberPasswordHover) {
-					loginAsset2.drawSprite(395, 264);
-				} else {
-					loginAsset3.drawSprite(395, 264);
-				}
-			}
-
-			 */
-
-			loginAsset4.drawAdvancedSprite(canvasWidth / 2 - (336 / 2), 25 + rememberYOffset);
+				290, 265, 0xb45f06, 0x191919, 255);
 
 			int i1 = canvasWidth - 80;
 			int l1 = canvasHeight + 50;
@@ -15689,57 +15538,27 @@ public class Client extends GameEngine implements RSClient {
 	}
 
 	public boolean clickInRegion(int x1, int y1, int x2, int y2) {
-		if (MouseHandler.saveClickX >= x1 && MouseHandler.saveClickX <= x2 && MouseHandler.saveClickY >= y1 && MouseHandler.saveClickY <= y2) {
-			return true;
-		}
-		return false;
+		return MouseHandler.saveClickX >= x1 && MouseHandler.saveClickX <= x2 && MouseHandler.saveClickY >= y1 && MouseHandler.saveClickY <= y2;
 	}
 
 	public boolean mouseInRegion(int x1, int y1, int x2, int y2) {
-		if (MouseHandler.mouseX >= x1 && MouseHandler.mouseX <= x2 && MouseHandler.mouseY >= y1 && MouseHandler.mouseY <= y2) {
-			return true;
-		}
-		return false;
+		return MouseHandler.mouseX >= x1 && MouseHandler.mouseX <= x2 && MouseHandler.mouseY >= y1 && MouseHandler.mouseY <= y2;
 	}
 
 	public boolean rememberPasswordHover;
 
 	@SuppressWarnings("static-access")
 	private void processLoginScreenInput() {
-		// System.out.println("saveClickX = " + super.saveClickX + ", saveClickY = " +
-		// super.saveClickY);
-		int j = canvasHeight / 2 - 40;
-		j += 30;
-		j += 25;
-		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 272 && MouseHandler.saveClickX <= 525 && MouseHandler.saveClickY >= 184
-			&& MouseHandler.saveClickY <= 204)
+
+		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 291 && MouseHandler.saveClickX <= 490 && MouseHandler.saveClickY >= 208
+			&& MouseHandler.saveClickY <= 231)
 			loginScreenCursorPos = 0;
-		j += 15;
-		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 272 && MouseHandler.saveClickX <= 525 && MouseHandler.saveClickY >= 247
-			&& MouseHandler.saveClickY <= 267)
+		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 291 && MouseHandler.saveClickX <= 490 && MouseHandler.saveClickY >= 247
+			&& MouseHandler.saveClickY <= 270)
 			loginScreenCursorPos = 1;
-		j += 15;
 		int extraPos = 18;
-		// System.out.println("saveClickX = " + super.saveClickX + ", saveClickY = " +
-		// super.saveClickY);
 
-		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickY >= 349 && MouseHandler.saveClickY <= 359 && MouseHandler.saveClickX >= 288
-			&& MouseHandler.saveClickX <= 475) {
-			try {
-				// TODO launch forgot pw url
-				// MiscUtils.launchURL(Configuration.forgotPasswordURL);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		if (loginScreenState == LoginScreenState.CAPTCHA) {
-			if (MouseHandler.clickMode3 == 1 && captchaExit.isMousedOver(494, 236, MouseHandler.saveClickX, MouseHandler.saveClickY)) {
-				loginScreenState = LoginScreenState.LOGIN;
-				firstLoginMessage = "";
-			}
-		} else if (loginScreenState == LoginScreenState.LOGIN) {
+		if (loginScreenState == LoginScreenState.LOGIN) {
 			if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickY >= 264 && MouseHandler.saveClickY <= 266
 				&& MouseHandler.saveClickX >= 286 - extraPos && MouseHandler.saveClickX <= 301 - extraPos) {
 				informationFile.setUsernameRemembered(!informationFile.isUsernameRemembered());
@@ -15755,8 +15574,8 @@ public class Client extends GameEngine implements RSClient {
 		int k1 = canvasHeight / 2 + 50;
 		k1 += 20;
 
-		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 231 && MouseHandler.saveClickX <= 370 && MouseHandler.saveClickY >= 296
-			&& MouseHandler.saveClickY <= 333) {
+		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 278 && MouseHandler.saveClickX <= 488 && MouseHandler.saveClickY >= 300
+			&& MouseHandler.saveClickY <= 353) {
 
 			// loginScreenState = 3;
 			loginFailures = 0;
@@ -15767,8 +15586,8 @@ public class Client extends GameEngine implements RSClient {
 			// loginScreenState = 2;
 		}
 		i1 = canvasWidth / 2 + 80;
-		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= i1 - 75 && MouseHandler.saveClickX <= i1 + 75
-			&& MouseHandler.saveClickY >= k1 - 20 && MouseHandler.saveClickY <= k1 + 20) {
+		if (MouseHandler.clickMode3 == 1 && MouseHandler.saveClickX >= 278 && MouseHandler.saveClickX <= 488
+			&& MouseHandler.saveClickY >= 300 && MouseHandler.saveClickY <= 353) {
 			loginScreenState = LoginScreenState.LOGIN;
 			// myUsername = "";
 			// myPassword = "";
@@ -15785,14 +15604,7 @@ public class Client extends GameEngine implements RSClient {
 				break;
 			}
 
-			if (loginScreenState == LoginScreenState.CAPTCHA) {
-				synchronized (CAPTCHA_LOCK) {
-					captchaInput = loginScreenInput(captchaInput, l1, flag1, 12,
-						null,
-						() -> login(myUsername, getPassword(), false)
-					);
-				}
-			} else if (loginScreenState == LoginScreenState.LOGIN) {
+			if (loginScreenState == LoginScreenState.LOGIN) {
 				if (loginScreenCursorPos == 0) {
 					myUsername = loginScreenInput(myUsername, l1, flag1, 12,
 						() -> loginScreenCursorPos = 1,
@@ -18049,7 +17861,6 @@ public class Client extends GameEngine implements RSClient {
 		inCutScene = false;
 		myUsername = "";
 		setPassword("");
-		captchaInput = "";
 		genericLoadingError = false;
 		reportAbuseInterfaceID = -1;
 		spawns = new Deque();
@@ -18508,10 +18319,6 @@ public class Client extends GameEngine implements RSClient {
 
 	public String myUsername;
 	public String myPassword;
-
-	private static final Object CAPTCHA_LOCK = new Object();
-	private String captchaInput;
-
 	public void setPassword(String password) {
 		myPassword = password;
 	}

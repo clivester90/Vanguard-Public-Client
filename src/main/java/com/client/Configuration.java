@@ -36,7 +36,7 @@ public class Configuration {
 	public static final int SERVER_VERSION = 1; //this is the current one src old here
 
 
-	public static final String CLIENT_TITLE = "Vanguard | ";
+	public static final String CLIENT_TITLE = "Vanguard";
 	public static final String WEBSITE = "https://discord.gg/g6hBw3ws6w";
 	public static final String DEDICATED_SERVER_ADDRESS = "127.0.0.1"; //158.69.62.205
 	public static final String TEST_SERVER_ADDRESS = LOCAL_HOST ? "127.0.0.1" : "127.0.0.1";
@@ -54,7 +54,7 @@ public class Configuration {
 	public static String EXTERNAL_CACHE_ARCHIVE = "/archive_data/";
 	public static String INDEX_DATA_DIRECTORY = "/index_data/";
 
-	public static boolean developerMode = false;
+	public static boolean developerMode = true;
 	public static boolean loadExternalCacheArchives = false; // Always true because I can't seem to pack them correctly
 	public static boolean packIndexData = false;
 	public static boolean dumpMaps = false;

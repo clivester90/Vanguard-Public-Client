@@ -12,7 +12,7 @@ public class Announcements {
     public static int announcementFade = 0;
     public static int announcementMovement = Configuration.frameWidth - 2;
 
-    private static String[] announcements = {
+    private static final String[] announcements = {
             "Welcome to Vanguard!",
             "Owners: Grim & Dbcrazy",
             "Be sure to ::vote every 12 hours!",
