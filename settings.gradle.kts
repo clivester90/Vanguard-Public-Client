@@ -1,4 +1,4 @@
-rootProject.name = "Vanguard-Client"
+rootProject.name = "Runescape-Client"
 
 pluginManagement {
     resolutionStrategy {

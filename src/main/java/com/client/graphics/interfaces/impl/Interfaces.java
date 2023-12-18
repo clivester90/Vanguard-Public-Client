@@ -4669,7 +4669,7 @@ interfaceId+=5000;
 	public static void creditsTab(TextDrawingArea[] TDA) {
 		RSInterface tab = addInterface(44500);
 		addSprite(44501, 38, "Interfaces/profileview/IMAGE");
-		addText(44502, "Vanguard special tab", 0xff9933, true, true, -1, TDA, 2);
+		addText(44502, Configuration.CLIENT_TITLE + " special tab", 0xff9933, true, true, -1, TDA, 2);
 		addSprite(44503, 55, "Interfaces/profileview/IMAGE");
 		addText(44504, "Current Donation Tokens:", 0xff9933, true, true, -1, TDA, 0);
 		addHoverText(44505, "Visit online store", "@red@Donate to Vanguard!", TDA, 0, 0xF7AA25, true, true, 168);

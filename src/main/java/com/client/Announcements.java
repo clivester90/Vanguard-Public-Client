@@ -10,7 +10,7 @@ package com.client;
 public class Announcements {
 
     public static int announcementFade = 0;
-    public static int announcementMovement = Configuration.frameWidth - 2;
+    public static int announcementMovement = 765 - 2;
 
     private static final String[] announcements = {
             "Welcome to Vanguard!",
@@ -27,14 +27,14 @@ public class Announcements {
         announcementFade++;
 
         if (announcementMovement < - announcements[ticks].length() - 10) {
-            announcementMovement = Configuration.frameWidth + 2;
+            announcementMovement = 765 + 2;
             ticks++;
             if (ticks >= maximum) {
                 ticks = 0;
             }
         }
 
-        TextDrawingArea.drawAlphaGradient(0, 0, Configuration.frameWidth, 25, 0x783F04, 0x783F04, 205 - (int) (50 * Math.sin(announcementFade / 20.0)));
+        TextDrawingArea.drawAlphaGradient(0, 0, 765, 25, 0x783F04, 0x783F04, 205 - (int) (50 * Math.sin(announcementFade / 20.0)));
         Client.instance.smallText.method389(true, announcementMovement, 0xffd966, announcements[ticks], 17);
     }
 

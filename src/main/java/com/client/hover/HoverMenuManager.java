@@ -1,9 +1,6 @@
 package com.client.hover;
 
-import com.client.Client;
-import com.client.RSFont;
-import com.client.Rasterizer2D;
-import com.client.Sprite;
+import com.client.*;
 import com.client.definitions.ItemDefinition;
 import com.client.engine.impl.MouseHandler;
 import com.client.model.Items;
@@ -195,7 +192,7 @@ public class HoverMenuManager {
         menus.put(1464, new HoverMenu("Can be exchanged for vote points or sold to players."));
         menus.put(2996, new HoverMenu("Can be exchanged for PK points or sold to players."));
 
-        System.out.println("Vanguard has loaded " + menus.size() + "x menu hovers.");
+        System.out.println(Configuration.CLIENT_TITLE + " has loaded " + menus.size() + "x menu hovers.");
     }
 
     public static int drawType() {

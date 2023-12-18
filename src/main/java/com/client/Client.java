@@ -4039,7 +4039,7 @@ public class Client extends GameEngine implements RSClient {
 							case "--developer":
 							case "-d":
 								Configuration.developerMode = true;
-								Configuration.cacheName = Configuration.CACHE_NAME_DEV;
+								Configuration.CACHE_NAME = Configuration.CACHE_NAME_DEV;
 								System.out.println("Developer mode enabled.");
 								break;
 							case "--local":
@@ -4052,10 +4052,6 @@ public class Client extends GameEngine implements RSClient {
 								} else {
 									throw new IllegalArgumentException("Cannot have custom ip and local enabled.");
 								}
-								break;
-							case "test_server":
-								port = Configuration.TEST_PORT;
-								System.out.println("Test server enabled.");
 								break;
 
 							case "pack_data":
@@ -4084,7 +4080,6 @@ public class Client extends GameEngine implements RSClient {
 
 			Signlink.createCacheDirectory();
 			enableExceptionLogging(); // Don't remove this!
-			Configuration.clientTitle = windowTitleBuilder.toString();
 			nodeID = 1;
 			portOff = 0;
 			setHighMem();
@@ -10043,7 +10038,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 		loginScreenState = LoginScreenState.LOGIN;
 		logger.debug("Went to end of login method.");
-		firstLoginMessage = "Vanguard is being updated.";
+		firstLoginMessage = Configuration.CLIENT_TITLE +  " is being updated.";
 	}
 
 
@@ -13675,9 +13670,9 @@ public class Client extends GameEngine implements RSClient {
 			j %= 60;
 			int yPosition = !isResized() ? 329 : canvasHeight - 165;
 			if (j < 10)
-				aTextDrawingArea_1271.method385(0xffff00, "Vanguard will be updating: " + l + ":0" + j, yPosition, 5);
+				aTextDrawingArea_1271.method385(0xffff00, Configuration.CLIENT_TITLE + " will be updating: " + l + ":0" + j, yPosition, 5);
 			else
-				aTextDrawingArea_1271.method385(0xffff00, "Vanguard will be updating: " + l + ":" + j, yPosition, 5);
+				aTextDrawingArea_1271.method385(0xffff00, Configuration.CLIENT_TITLE +  " will be updating: " + l + ":" + j, yPosition, 5);
 
 			anInt849++;
 			if (anInt849 > 75) {
