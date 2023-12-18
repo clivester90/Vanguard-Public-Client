@@ -235,7 +235,7 @@ public class HoverManager {
 		HoverMenu menu = menus.get(hintId);
 
 		if (menu != null) {
-			String text[] = split(menu.text, 20).split("\n");
+			String[] text = split(menu.text, 20).split("\n");
 
 			int height = (text.length * 12) + (menu.items != null ? 40 : 0);
 

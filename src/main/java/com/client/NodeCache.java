@@ -42,7 +42,7 @@ final class NodeCache {
 			return;
 		} catch (RuntimeException runtimeexception) {
 			Signlink.reporterror("91499, " + node + ", " + l + ", " + (byte) 7
-					+ ", " + runtimeexception.toString());
+					+ ", " + runtimeexception);
 		}
 		throw new RuntimeException();
 	}

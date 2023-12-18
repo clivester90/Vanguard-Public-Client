@@ -15,7 +15,7 @@ public enum SoundType {
             case AREA_SOUND:
                 return Preferences.getPreferences().areaSoundVolume;
             default:
-                throw new IllegalStateException("Didn't handle " + toString());
+                throw new IllegalStateException("Didn't handle " + this);
         }
     }
 }

@@ -212,7 +212,7 @@ public final class Signlink implements Runnable {
 	}
 
 	public static String findcachedirORIG() {
-		String as[] = { "c:/windows/", "c:/winnt/", "d:/windows/", "d:/winnt/",
+		String[] as = { "c:/windows/", "c:/winnt/", "d:/windows/", "d:/winnt/",
 				"e:/windows/", "e:/winnt/", "f:/windows/", "f:/winnt/", "c:/",
 				"~/", "/tmp/", "", "c:/rscache", "/rscache" };
 		if (storeid < 32 || storeid > 34)
@@ -221,7 +221,7 @@ public final class Signlink implements Runnable {
 		for (int i = 0; i < as.length; i++)
 			try {
 				String s1 = as[i];
-				if (s1.length() > 0) {
+				if (!s1.isEmpty()) {
 					File file = new File(s1);
 					if (!file.exists())
 						continue;
@@ -292,7 +292,7 @@ public final class Signlink implements Runnable {
 		threadreq = runnable;
 	}
 
-	public static synchronized boolean wavesave(byte abyte0[], int i) {
+	public static synchronized boolean wavesave(byte[] abyte0, int i) {
 		if (i > 0x1e8480)
 			return false;
 		if (savereq != null) {
@@ -318,7 +318,7 @@ public final class Signlink implements Runnable {
 		}
 	}
 
-	public static synchronized void midisave(byte abyte0[], int i) {
+	public static synchronized void midisave(byte[] abyte0, int i) {
 		if (i > 0x1e8480)
 			return;
 		if (savereq != null) {

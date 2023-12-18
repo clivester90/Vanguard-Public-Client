@@ -171,7 +171,7 @@ public final class GraphicsDefinition {
 	}
 
 	public final int anInt400;
-	public static GraphicsDefinition cache[];
+	public static GraphicsDefinition[] cache;
 	public int id;
 	private int modelId;
 	public int animationId;

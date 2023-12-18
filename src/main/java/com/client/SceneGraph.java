@@ -27,7 +27,7 @@ public final class SceneGraph implements RSScene {
     public static final Set<RSTile> tilesToRemove = new HashSet<RSTile>();
 
 
-    public SceneGraph(int heightMap[][][]) {
+    public SceneGraph(int[][][] heightMap) {
         int yLocSize = 104;// was parameter
         int xLocSize = 104;// was parameter
         int zLocSize = 4;// was parameter
@@ -907,7 +907,7 @@ public final class SceneGraph implements RSScene {
         }
     }
 
-    public void drawTileMinimapSD(int pixels[], int drawIndex, int zLoc, int xLoc, int yLoc) {
+    public void drawTileMinimapSD(int[] pixels, int drawIndex, int zLoc, int xLoc, int yLoc) {
         int leftOverWidth = 512;// was parameter
         Tile tile = tileArray[zLoc][xLoc][yLoc];
         if (tile == null)
@@ -936,8 +936,8 @@ public final class SceneGraph implements RSScene {
         int rotation = shapedTile.rotation;
         int underlayRGB = shapedTile.colourRGB;
         int overlayRGB = shapedTile.colourRGBA;
-        int shapePoints[] = tileVertices[shape];
-        int shapePointIndices[] = tileVertexIndices[rotation];
+        int[] shapePoints = tileVertices[shape];
+        int[] shapePointIndices = tileVertexIndices[rotation];
         int shapePtr = 0;
         if (underlayRGB != 0) {
             for (int i = 0; i < 4; i++) {
@@ -962,14 +962,14 @@ public final class SceneGraph implements RSScene {
         }
     }
 
-    public static void buildVisibilityMap(int i, int j, int viewportWidth, int viewportHeight, int ai[]) {
+    public static void buildVisibilityMap(int i, int j, int viewportWidth, int viewportHeight, int[] ai) {
         xMin = 0;
         yMin = 0;
         SceneGraph.xMax = viewportWidth;
         SceneGraph.yMax = viewportHeight;
         viewportHalfWidth = viewportWidth / 2;
         viewportHalfHeight = viewportHeight / 2;
-        boolean aflag[][][][] = new boolean[9][32][53][53];
+        boolean[][][][] aflag = new boolean[9][32][53][53];
         for (int zAngle = 128; zAngle <= 384; zAngle += 32) {
             for (int xyAngle = 0; xyAngle < 2048; xyAngle += 64) {
                 camUpDownY = Model.SINE[zAngle];
@@ -1473,7 +1473,7 @@ public final class SceneGraph implements RSScene {
             int j = currentTile.anInt1309;
             int k = currentTile.z1AnInt1307;
             int l = currentTile.anInt1310;
-            Tile aclass30_sub3[][] = tileArray[k];
+            Tile[][] aclass30_sub3 = tileArray[k];
             if (currentTile.aBoolean1322) {
                 if (flag) {
                     if (k > 0) {
@@ -2365,7 +2365,7 @@ public final class SceneGraph implements RSScene {
 
     private void occlude() {
         int sceneClusterCount = sceneClusterCounts[currentRenderPlane];
-        SceneCluster sceneClusters[] = SceneGraph.sceneClusters[currentRenderPlane];
+        SceneCluster[] sceneClusters = SceneGraph.sceneClusters[currentRenderPlane];
         anInt475 = 0;
         for (int sceneIndex = 0; sceneIndex < sceneClusterCount; sceneIndex++) {
             SceneCluster sceneCluster = sceneClusters[sceneIndex];

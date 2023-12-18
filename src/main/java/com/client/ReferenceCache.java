@@ -43,7 +43,7 @@ public final class ReferenceCache {
 			return;
 		} catch (RuntimeException runtimeexception) {
 			Signlink.reporterror("47547, " + nodeSub + ", " + l + ", "
-					+ (byte) 2 + ", " + runtimeexception.toString());
+					+ (byte) 2 + ", " + runtimeexception);
 		}
 		throw new RuntimeException();
 	}

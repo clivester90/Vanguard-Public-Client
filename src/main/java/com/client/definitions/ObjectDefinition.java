@@ -1104,7 +1104,7 @@ public final class ObjectDefinition implements RSObjectComposition {
 	public static int[] streamIndices;
 	public boolean blocksProjectile;
 	public int mapscene;
-	public int configs[];
+	public int[] configs;
 	public int supportItems;
 	public int sizeY;
 	public boolean contouredGround;
@@ -1129,7 +1129,7 @@ public final class ObjectDefinition implements RSObjectComposition {
 	private int translateZ;
 	private int[] recolorToFind;
 	public static ReferenceCache baseModels = new ReferenceCache(500);
-	public String actions[];
+	public String[] actions;
 
 	@Override
 	public int getAccessBitMask() {

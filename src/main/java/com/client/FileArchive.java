@@ -41,7 +41,7 @@ public class FileArchive {
 		}
 	}
 
-	public void a(byte abyte0[]) {
+	public void a(byte[] abyte0) {
 		Buffer stream = new Buffer(abyte0);
 		int fileSize = stream.read3Bytes();
 		int fileBlock = stream.read3Bytes();
@@ -60,7 +60,7 @@ public class FileArchive {
 			stream = new Buffer(data);
 			aBoolean732 = true;
 		} else if (fileBlock != fileSize) { // Read from something else
-			byte abyte1[] = new byte[fileSize];
+			byte[] abyte1 = new byte[fileSize];
 			Class13.method225(abyte1, fileSize, abyte0, fileBlock, 6);
 			data = abyte1;
 			stream = new Buffer(data);
@@ -89,7 +89,7 @@ public class FileArchive {
 	}
 
 	private byte[] getDataForName(String s) {
-		byte abyte0[] = null; // was a parameter
+		byte[] abyte0 = null; // was a parameter
 		int nameHash = 0;
 		s = s.toUpperCase();
 		for (int j = 0; j < s.length(); j++)

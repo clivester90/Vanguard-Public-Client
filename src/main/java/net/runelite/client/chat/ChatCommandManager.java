@@ -142,13 +142,9 @@ public class ChatCommandManager implements ChatboxInputListener
 		}
 
 		BiPredicate<ChatInput, String> input = chatCommand.getInput();
-		if (input == null)
-		{
-			return false;
-		}
+        return input != null && input.test(chatboxInput, message);
 
-		return input.test(chatboxInput, message);
-	}
+    }
 
 	@Override
 	public boolean onPrivateMessageInput(PrivateMessageInput privateMessageInput)
@@ -163,13 +159,9 @@ public class ChatCommandManager implements ChatboxInputListener
 		}
 
 		BiPredicate<ChatInput, String> input = chatCommand.getInput();
-		if (input == null)
-		{
-			return false;
-		}
+        return input != null && input.test(privateMessageInput, message);
 
-		return input.test(privateMessageInput, message);
-	}
+    }
 
 	private static String extractCommand(String message)
 	{

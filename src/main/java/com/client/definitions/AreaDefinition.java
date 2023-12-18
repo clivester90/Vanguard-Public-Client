@@ -27,7 +27,7 @@ public final class AreaDefinition {
     public String name = "";
     public int fontColor = -1;
     public int field3297 = -1;
-    public String actions[];
+    public String[] actions;
     public int fontSize = -1;
 
 

@@ -59,7 +59,7 @@ public final class Varp {
 		aBoolean713 = false;
 	}
 
-	public static Varp cache[];
+	public static Varp[] cache;
 	private static int anInt702;
 	private static int[] anIntArray703;
 	public int anInt709;

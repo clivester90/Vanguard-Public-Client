@@ -347,7 +347,7 @@ public class Client extends GameEngine implements RSClient {
 			widget.scrollPosition = scrollPosition;
 		} else if (text.startsWith(":scpfind:")) {
 			RSInterface widget = RSInterface.interfaceCache[frame];
-			sendString(7, widget.scrollPosition + "");
+			sendString(7, String.valueOf(widget.scrollPosition));
 		}
 
 		return;
@@ -388,8 +388,8 @@ public class Client extends GameEngine implements RSClient {
 		canvasWidth = !isResized() ? 765 : bounds.highX;
 		canvasHeight = !isResized() ? 503 : bounds.highY;
 		cameraZoom = !isResized() ? 600 : 850;
-		changeTabArea = !isResized() ? false : true;
-		changeChatArea = !isResized() ? false : true;
+		changeTabArea = isResized();
+		changeChatArea = isResized();
 		setMaxCanvasSize(canvasWidth, canvasHeight);
 		ResizeableChanged event = new ResizeableChanged();
 		event.setResized(resizable);
@@ -506,8 +506,8 @@ public class Client extends GameEngine implements RSClient {
 
 	private void drawChannelButtons() {
 
-		String text[] = { "On", "Friends", "Off", "Hide" };
-		int textColor[] = { 65280, 0xffff00, 0xff0000, 65535 };
+		String[] text = { "On", "Friends", "Off", "Hide" };
+		int[] textColor = { 65280, 0xffff00, 0xff0000, 65535 };
 		int yOffset = (!isResized() ? 338 : canvasHeight - 165);
 
 		if (hideChatArea) {
@@ -594,7 +594,7 @@ public class Client extends GameEngine implements RSClient {
 		/**
 		 * Updates button per tick.
 		 */
-		newSmallFont.drawCenteredString(""+dateFormat.format(new Date().getTime()), 459, 157 + yOffset, 0xffffff, 0);
+		newSmallFont.drawCenteredString(dateFormat.format(new Date().getTime()), 459, 157 + yOffset, 0xffffff, 0);
 
 
 		smallText.method389(true, 26, 0xffffff, "All", 157 + yOffset);
@@ -679,7 +679,7 @@ public class Client extends GameEngine implements RSClient {
 
 					int itemAmount = grandExchangeItemSearch.getItemSearchResultAmount();
 
-					if (amountOrNameInput.length() == 0) {
+					if (amountOrNameInput.isEmpty()) {
 						newRegularFont.drawCenteredString("Start typing the name of an item to search for it.", 259,
 								70 + yOffset, 0, -1);
 					} else if (itemAmount == 0) {
@@ -687,7 +687,7 @@ public class Client extends GameEngine implements RSClient {
 					} else {
 						Rasterizer2D.setDrawingArea(134 + yOffset, 8, 497, 29 + yOffset);
 						for (int itemId = 0; itemId < itemAmount; itemId++) {
-							int itemResults[] = grandExchangeItemSearch.getItemSearchResults();
+							int[] itemResults = grandExchangeItemSearch.getItemSearchResults();
 
 							if (itemResults[itemId] != -1) {
 								final int startX = xPosition + rowCountX * 160;
@@ -914,7 +914,7 @@ public class Client extends GameEngine implements RSClient {
 							if (chatTypeView == 11 || chatTypeView == 0) {
 								newRegularFont.drawBasicString("[", 19, yPos - 1 + yOffset, 0, -1);
 								newRegularFont.drawBasicString("]", clanNameWidth + 16 + 10, yPos - 1 + yOffset, 0, -1);
-								newRegularFont.drawBasicString("" + capitalize(clanname) + "", 25, yPos - 1 + yOffset,
+								newRegularFont.drawBasicString(capitalize(clanname), 25, yPos - 1 + yOffset,
 										255, -1);
 								newRegularFont.drawBasicString(chatNames[k] + ":", j2 - 17, yPos);
 								j2 += newRegularFont.getTextWidth(chatNames[k]) + 7;
@@ -932,7 +932,7 @@ public class Client extends GameEngine implements RSClient {
 				drawScrollbar(114, chatAreaScrollLength - anInt1089 - 113, 6 + yOffset, 496, chatAreaScrollLength);
 				String fixedString;
 				if (localPlayer != null && localPlayer.displayName != null) {
-					if (localPlayer.title.length() > 0) {
+					if (!localPlayer.title.isEmpty()) {
 						fixedString = "<col=" + localPlayer.titleColor + ">" + localPlayer.title + "</col>" + " "
 								+ localPlayer.displayName;
 					} else {
@@ -1224,7 +1224,7 @@ public class Client extends GameEngine implements RSClient {
 		byte[] data = fileToByteArray(file);
 		if (data != null && data.length > 0) {
 			decompressors[cacheIndex].write(data.length, data, fileIndex);
-			System.out.println("Packed " + file.toString() + " to index " + cacheIndex);
+			System.out.println("Packed " + file + " to index " + cacheIndex);
 			return true;
 		} else {
 			System.out.println("No file to pack: " + file);
@@ -1278,7 +1278,7 @@ public class Client extends GameEngine implements RSClient {
 
 	public static final byte[] ReadFile(String s) {
 		try {
-			byte abyte0[];
+			byte[] abyte0;
 			File file = new File(s);
 			int i = (int) file.length();
 			abyte0 = new byte[i];
@@ -1288,7 +1288,7 @@ public class Client extends GameEngine implements RSClient {
 			totalRead++;
 			return abyte0;
 		} catch (Exception e) {
-			System.out.println((new StringBuilder()).append("Read Error: ").append(s).toString());
+			System.out.println((new StringBuilder()).append("Read Error: ").append(s));
 			return null;
 		}
 	}
@@ -1308,7 +1308,7 @@ public class Client extends GameEngine implements RSClient {
 			byte[] aByte = new byte[(int) Model.length()];
 			FileInputStream fis = new FileInputStream(Model);
 			fis.read(aByte);
-			System.out.println("" + Index + " aByte = [" + aByte + "]!");
+			System.out.println(Index + " aByte = [" + aByte + "]!");
 			fis.close();
 			return aByte;
 		} catch (Exception e) {
@@ -1340,7 +1340,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 	}
 
-	public void saveMidi(boolean flag, byte abyte0[]) {
+	public void saveMidi(boolean flag, byte[] abyte0) {
 		Signlink.midifade = flag ? 1 : 0;
 		Signlink.midisave(abyte0, abyte0.length);
 	}
@@ -1382,7 +1382,7 @@ public class Client extends GameEngine implements RSClient {
 					int i4 = (mapCoordinates[i3] >> 8) * 64 - baseX;
 					int k5 = (mapCoordinates[i3] & 0xff) * 64 - baseY;
 
-					byte abyte0[] = terrainData[i3];
+					byte[] abyte0 = terrainData[i3];
 
 					if (abyte0 != null)
 						currentMapRegion.method180(abyte0, k5, i4, (currentRegionX - 6) * 8, (currentRegionY - 6) * 8,
@@ -1392,7 +1392,7 @@ public class Client extends GameEngine implements RSClient {
 				for (int j4 = 0; j4 < k2; j4++) {
 					int l5 = (mapCoordinates[j4] >> 8) * 64 - baseX;
 					int k7 = (mapCoordinates[j4] & 0xff) * 64 - baseY;
-					byte abyte2[] = terrainData[j4];
+					byte[] abyte2 = terrainData[j4];
 					if (abyte2 == null && currentRegionY < 800)
 						currentMapRegion.initiateVertexHeights(k7, 64, 64, l5);
 				}
@@ -1407,7 +1407,7 @@ public class Client extends GameEngine implements RSClient {
 				stream.createFrame(0);
 
 				for (int i6 = 0; i6 < k2; i6++) {
-					byte abyte1[] = objectData[i6];
+					byte[] abyte1 = objectData[i6];
 					if (abyte1 != null) {
 						int l8 = (mapCoordinates[i6] >> 8) * 64 - baseX;
 						int k9 = (mapCoordinates[i6] & 0xff) * 64 - baseY;
@@ -1556,7 +1556,7 @@ public class Client extends GameEngine implements RSClient {
 	}
 
 	public void renderMapScene(int i) {
-		int ai[] = minimapImage.myPixels;
+		int[] ai = minimapImage.myPixels;
 		int j = ai.length;
 
 		for (int k = 0; k < j; k++)
@@ -1821,12 +1821,10 @@ public class Client extends GameEngine implements RSClient {
 						if (!(class9_1.contentType == 206 && interfaceIsSelected(class9_1))) {
 							if (/*(class9_1.type == 4 && class9_1.message.length() > 0) || */class9_1.type == 5) {
 
-								boolean drawOptions = true;
+								boolean drawOptions = class9_1.parentID != 37128 || showClanOptions;
 
 								// HARDCODE CLICKABLE TEXT HERE
-								if (class9_1.parentID == 37128) { // Clan chat interface, dont show options for guests
-									drawOptions = showClanOptions;
-								}
+								// Clan chat interface, dont show options for guests
 
 								if (drawOptions) {
 									for (int action = class9_1.actions.length - 1; action >= 0; action--) {
@@ -1886,9 +1884,7 @@ public class Client extends GameEngine implements RSClient {
 				} else {
 					if (class9_1.atActionType == RSInterface.OPTION_OK && mouseX >= drawX && mouseY >= drawY && mouseX < drawX + class9_1.width
 							&& mouseY < drawY + class9_1.height) {
-						boolean flag = false;
-						if (class9_1.contentType != 0)
-							flag = buildFriendsListMenu(class9_1);
+						boolean flag = class9_1.contentType != 0 && buildFriendsListMenu(class9_1);
 						if (!flag) {
 							menuActionName[menuActionRow] = class9_1.tooltip;
 							menuActionID[menuActionRow] = 315;
@@ -2001,7 +1997,7 @@ public class Client extends GameEngine implements RSClient {
 							&& mouseY < drawY + class9_1.height) {
 
 						if (class9_1.actions != null) {
-							if ((class9_1.type == 4 && class9_1.message.length() > 0) || class9_1.type == 5) {
+							if ((class9_1.type == 4 && !class9_1.message.isEmpty()) || class9_1.type == 5) {
 								for (int action = class9_1.actions.length - 1; action >= 0; action--) {
 									if (class9_1.actions[action] != null) {
 										HoverMenuManager.reset();
@@ -2908,7 +2904,7 @@ public class Client extends GameEngine implements RSClient {
 				break;
 			}
 		} catch (RuntimeException runtimeexception) {
-			Signlink.reporterror("18622, " + false + ", " + l + ", " + runtimeexception.toString());
+			Signlink.reporterror("18622, " + false + ", " + l + ", " + runtimeexception);
 			throw new RuntimeException();
 		}
 	}
@@ -3107,7 +3103,7 @@ public class Client extends GameEngine implements RSClient {
 					{ 176, 5 }, { 205, 8 }, { 22, 300 }, { 49, 304 }, { 77, 304 }, { 111, 303 }, { 147, 301 },
 					{ 180, 303 }, { 204, 303 }, { 204, 303 } };
 			if (Client.tabInterfaceIDs[Client.tabID] != -1) {
-				if(getUserSettings().isOldGameframe() == false) {
+				if(!getUserSettings().isOldGameframe()) {
 					if (Client.tabID == 0)
 						redStones[0].drawSprite(5 + xOffset, 0 + yOffset);
 					if (Client.tabID == 1)
@@ -3404,7 +3400,7 @@ public class Client extends GameEngine implements RSClient {
 				return;
 			}
 		} catch (RuntimeException runtimeexception) {
-			Signlink.reporterror("15283, " + (byte) 68 + ", " + l + ", " + runtimeexception.toString());
+			Signlink.reporterror("15283, " + (byte) 68 + ", " + l + ", " + runtimeexception);
 		}
 		throw new RuntimeException();
 	}
@@ -3676,7 +3672,7 @@ public class Client extends GameEngine implements RSClient {
 			canMute = !canMute;
 		if (j >= 601 && j <= 612) {
 			clearTopInterfaces();
-			if (reportAbuseInput.length() > 0) {
+			if (!reportAbuseInput.isEmpty()) {
 				stream.createFrame(218);
 				stream.writeQWord(StringUtils.longForName(reportAbuseInput));
 				stream.writeUnsignedByte(j - 601);
@@ -3706,7 +3702,7 @@ public class Client extends GameEngine implements RSClient {
 			if (id > 0) {
 				k3 = i1;
 			}
-			int ai[] = minimapImage.myPixels;
+			int[] ai = minimapImage.myPixels;
 			int k4 = 24624 + l * 4 + (103 - i) * 512 * 4;
 			int i5 = ObjectKeyUtil.getObjectId(id);
 			ObjectDefinition class46_2 = ObjectDefinition.lookup(i5);
@@ -3795,7 +3791,7 @@ public class Client extends GameEngine implements RSClient {
 				int l4 = 0xeeeeee;
 				if (id > 0)
 					l4 = 0xee0000;
-				int ai1[] = minimapImage.myPixels;
+				int[] ai1 = minimapImage.myPixels;
 				int l5 = 24624 + l * 4 + (103 - i) * 512 * 4;
 				if (l2 == 0 || l2 == 2) {
 					ai1[l5 + 1536] = l4;
@@ -3958,7 +3954,7 @@ public class Client extends GameEngine implements RSClient {
 		int output = 0;
 		for (byte lvl = 1; lvl < 100; lvl++) {
 			points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-			output = (int) Math.floor(points / 4);
+			output = (int) (double) (points / 4);
 			if ((output - 1) >= exp) {
 				return lvl;
 			}
@@ -4142,7 +4138,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 		boolean flag = true;
 		for (int j = 0; j < terrainData.length; j++) {
-			byte abyte0[] = objectData[j];
+			byte[] abyte0 = objectData[j];
 			if (abyte0 != null) {
 				try {
 					int k = (mapCoordinates[j] >> 8) * 64 - baseX;
@@ -4872,7 +4868,7 @@ public class Client extends GameEngine implements RSClient {
 	}
 
 	private FileArchive streamLoaderForName(int i, String archiveName) {
-		byte abyte0[] = null;
+		byte[] abyte0 = null;
 		try {
 			if (decompressors[0] != null) {
 				abyte0 = decompressors[0].read(i);
@@ -4930,7 +4926,7 @@ public class Client extends GameEngine implements RSClient {
 		return NumberFormat.getInstance().format(number);
 	}
 
-	public int settings[];
+	public int[] settings;
 
 	private void updateSettings() {
 		settings[809] = Configuration.alwaysLeftClickAttack ? 1 : 0;
@@ -5413,7 +5409,7 @@ public class Client extends GameEngine implements RSClient {
 								ItemDefinition def = ItemDefinition.lookup(ii);
 
 								if (def.name == null || def.noted_item_id == ii - 1 || def.unnoted_item_id == ii - 1
-									|| RSInterface.interfaceCache[61254].message.length() == 0) {
+									|| RSInterface.interfaceCache[61254].message.isEmpty()) {
 									continue;
 								}
 
@@ -6896,7 +6892,7 @@ public class Client extends GameEngine implements RSClient {
 								+ (i1 + baseX) + "," + (j1 + baseY) + ")";
 					else
 						menuActionName[menuActionRow] = "Examine @cya@" + class46.name;
-					if (debugModels == true) {
+					if (debugModels) {
 						menuActionName[menuActionRow] = "Examine @cya@" + class46.name + " @gre@ID: @whi@" + l1
 								+ " @gre@X, Y: @whi@" + (i1 + baseX) + "," + (j1 + baseY) + " @gre@Models: @whi@"
 								+ Arrays.toString(class46.objectModels);
@@ -6968,7 +6964,7 @@ public class Client extends GameEngine implements RSClient {
 							menuActionRow++;
 						} else if (spellSelected == 1) {
 							if ((spellUsableOn & 1) == 1) {
-								menuActionName[menuActionRow] = spellTooltip + " @lre@" + itemDef.name + "";
+								menuActionName[menuActionRow] = spellTooltip + " @lre@" + itemDef.name;
 								menuActionID[menuActionRow] = 94;
 								menuActionCmd1[menuActionRow] = item.ID;
 								menuActionCmd2[menuActionRow] = i1;
@@ -7002,7 +6998,7 @@ public class Client extends GameEngine implements RSClient {
 									menuActionRow++;
 								}
 							menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
-							if (debugModels == true) {
+							if (debugModels) {
 								menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@"
 										+ item.ID + "@gre@)";
 							}
@@ -7213,7 +7209,7 @@ public class Client extends GameEngine implements RSClient {
 			if(devConsole.console_open) {
 				devConsole.command_input(j);
 			} else if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
-				if (j == 8 && reportAbuseInput.length() > 0)
+				if (j == 8 && !reportAbuseInput.isEmpty())
 					reportAbuseInput = reportAbuseInput.substring(0, reportAbuseInput.length() - 1);
 				if ((j >= 97 && j <= 122 || j >= 65 && j <= 90 || j >= 48 && j <= 57 || j == 32)
 					&& reportAbuseInput.length() < 12)
@@ -7223,7 +7219,7 @@ public class Client extends GameEngine implements RSClient {
 					promptInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && promptInput.length() > 0) {
+				if (j == 8 && !promptInput.isEmpty()) {
 					promptInput = promptInput.substring(0, promptInput.length() - 1);
 					inputTaken = true;
 				}
@@ -7239,13 +7235,13 @@ public class Client extends GameEngine implements RSClient {
 						delFriend(l1);
 					}
 
-					if (friendsListAction == 557 && promptInput.length() > 0) {//money pouch
+					if (friendsListAction == 557 && !promptInput.isEmpty()) {//money pouch
 						inputString = "::withdrawmp " + promptInput;
 						sendPacket(103);
 					}
 
 
-					if (friendsListAction == 3 && promptInput.length() > 0) {
+					if (friendsListAction == 3 && !promptInput.isEmpty()) {
 						stream.createFrame(126);
 						stream.writeUnsignedByte(0);
 						int k = stream.currentPosition;
@@ -7303,12 +7299,12 @@ public class Client extends GameEngine implements RSClient {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if (j == 8 && !amountOrNameInput.isEmpty()) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
 				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
+					if (!amountOrNameInput.isEmpty()) {
 						if (amountOrNameInput.toLowerCase().contains("k")) {
 							amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
 						} else if (amountOrNameInput.toLowerCase().contains("m")) {
@@ -7335,7 +7331,7 @@ public class Client extends GameEngine implements RSClient {
 					Bank.searchingBankString += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && Bank.searchingBankString.length() > 0) {
+				if (j == 8 && !Bank.searchingBankString.isEmpty()) {
 					Bank.searchingBankString = Bank.searchingBankString.substring(0, Bank.searchingBankString.length() - 1);
 					inputTaken = true;
 				}
@@ -7348,12 +7344,12 @@ public class Client extends GameEngine implements RSClient {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if (j == 8 && !amountOrNameInput.isEmpty()) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
 				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
+					if (!amountOrNameInput.isEmpty()) {
 						stream.createFrame(60);
 						stream.writeUnsignedByte(amountOrNameInput.length() + 1);
 						stream.writeString(amountOrNameInput);
@@ -7370,7 +7366,7 @@ public class Client extends GameEngine implements RSClient {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if (j == 8 && !amountOrNameInput.isEmpty()) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
@@ -7384,12 +7380,12 @@ public class Client extends GameEngine implements RSClient {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if (j == 8 && !amountOrNameInput.isEmpty()) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
 				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
+					if (!amountOrNameInput.isEmpty()) {
 						if (amountOrNameInput.toLowerCase().contains("k")) {
 							amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
 						} else if (amountOrNameInput.toLowerCase().contains("m")) {
@@ -7420,12 +7416,12 @@ public class Client extends GameEngine implements RSClient {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if (j == 8 && !amountOrNameInput.isEmpty()) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
 				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
+					if (!amountOrNameInput.isEmpty()) {
 						if (amountOrNameInput.toLowerCase().contains("k")) {
 							amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
 						} else if (amountOrNameInput.toLowerCase().contains("m")) {
@@ -7449,7 +7445,7 @@ public class Client extends GameEngine implements RSClient {
 						return;
 					}
 					if (j >= 32 && j <= 122 && rsi.message.length() < rsi.characterLimit) {
-						if (rsi.inputRegex.length() > 0) {
+						if (!rsi.inputRegex.isEmpty()) {
 							pattern = Pattern.compile(rsi.inputRegex);
 							matcher = pattern.matcher(Character.toString(((char) j)));
 							if (matcher.matches()) {
@@ -7461,7 +7457,7 @@ public class Client extends GameEngine implements RSClient {
 							inputTaken = true;
 						}
 					}
-					if (j == 8 && rsi.message.length() > 0) {
+					if (j == 8 && !rsi.message.isEmpty()) {
 						rsi.message = rsi.message.substring(0, rsi.message.length() - 1);
 						if (rsi.inputFieldListener != null)
 							rsi.inputFieldListener.accept(rsi.message);
@@ -7495,7 +7491,7 @@ public class Client extends GameEngine implements RSClient {
 								}
 							}
 						}
-					} else if (rsi.updatesEveryInput && rsi.message.length() > 0 && j != 10 && j != 13) {
+					} else if (rsi.updatesEveryInput && !rsi.message.isEmpty() && j != 10 && j != 13) {
 						SpawnContainer.get().update(rsi.message);
 						if (rsi.inputFieldListener != null)
 							rsi.inputFieldListener.accept(rsi.message);
@@ -7508,7 +7504,7 @@ public class Client extends GameEngine implements RSClient {
 							stream.writeString(rsi.message);
 							return;
 						}
-					} else if ((j == 10 || j == 13) && rsi.message.length() > 0 && !rsi.updatesEveryInput) {
+					} else if ((j == 10 || j == 13) && !rsi.message.isEmpty() && !rsi.updatesEveryInput) {
 						inputString = "";
 						promptInput = "";
 						if (rsi.inputFieldListener != null)
@@ -7527,14 +7523,14 @@ public class Client extends GameEngine implements RSClient {
 						inputString += (char) j;
 						inputTaken = true;
 					}
-					if (j == 8 && inputString.length() > 0) {
+					if (j == 8 && !inputString.isEmpty()) {
 						inputString = inputString.substring(0, inputString.length() - 1);
 						inputTaken = true;
 					}
 					if (j == 9)
 						pmTabToReply();
 
-					if ((j == 13 || j == 10) && inputString.length() > 0) {
+					if ((j == 13 || j == 10) && !inputString.isEmpty()) {
 						if (inputString.startsWith("::")) {
 							inputString = inputString.toLowerCase();
 						}
@@ -7571,15 +7567,13 @@ public class Client extends GameEngine implements RSClient {
 
 
 						if (inputString.equals("::317")) {
-							if(getUserSettings().isOldGameframe() == false) {
+							if(!getUserSettings().isOldGameframe()) {
 								getUserSettings().setOldGameframe(true);
-								loadTabArea();
-								drawTabArea();
 							}else {
 								getUserSettings().setOldGameframe(false);
-								loadTabArea();
-								drawTabArea();
 							}
+							loadTabArea();
+							drawTabArea();
 						}
 						if (inputString.equals("::togglecounter"))
 							drawExperienceCounter = !drawExperienceCounter;
@@ -7591,9 +7585,8 @@ public class Client extends GameEngine implements RSClient {
 						}
 
 						if (inputString.equals("::snow") && (j == 13 || j == 10) && Configuration.CHRISTMAS) {
-							snowVisible = snowVisible ? false : true;
-							pushMessage("The snow has been set to " + (snowVisible ? "visible" : "invisible") + ".", 0,
-								"");
+							snowVisible = !snowVisible;
+							pushMessage("The snow has been set to " + (snowVisible ? "visible" : "invisible") + ".", 0, "");
 							loadRegion();
 						}
 
@@ -7705,7 +7698,7 @@ public class Client extends GameEngine implements RSClient {
 						if (inputString.equals("::uint")) {
 							TextDrawingArea aTextDrawingArea_1273 = new TextDrawingArea(true, "q8_full" + fontFilter(),
 								titleStreamLoader);
-							TextDrawingArea aclass30_sub2_sub1_sub4s[] = { smallText, XPFONT, aTextDrawingArea_1271,
+							TextDrawingArea[] aclass30_sub2_sub1_sub4s = { smallText, XPFONT, aTextDrawingArea_1271,
 								aTextDrawingArea_1273 };
 							FileArchive streamLoader_1 = streamLoaderForName(3, "interface");
 							FileArchive streamLoader_2 = streamLoaderForName(4, "2d graphics");
@@ -7887,7 +7880,7 @@ public class Client extends GameEngine implements RSClient {
 								// TextDrawingArea aTextDrawingArea_1273 = new
 								// TextDrawingArea(true, "q8_full" + fontFilter(),
 								// titleStreamLoader);
-								TextDrawingArea aclass30_sub2_sub1_sub4s[] = { smallText, aTextDrawingArea_1271,
+								TextDrawingArea[] aclass30_sub2_sub1_sub4s = { smallText, aTextDrawingArea_1271,
 									chatTextDrawingArea, aTextDrawingArea_1273 };
 								FileArchive streamLoader_1 = streamLoaderForName(3, "interface");
 								FileArchive streamLoader_2 = streamLoaderForName(4, "2d graphics");
@@ -7983,7 +7976,7 @@ public class Client extends GameEngine implements RSClient {
 							localPlayer.anInt1531 = i3;
 							localPlayer.textCycle = 150;
 							String crown = PlayerRights.buildCrownString(localPlayer.getDisplayedRights());
-							if (localPlayer.title.length() > 0) {
+							if (!localPlayer.title.isEmpty()) {
 								pushMessage(localPlayer.textSpoken, 2, crown + "<col=" + localPlayer.titleColor + ">"
 									+ localPlayer.title + "</col> " + localPlayer.displayName);
 							} else {
@@ -8007,29 +8000,29 @@ public class Client extends GameEngine implements RSClient {
 
 	public static String formatCoins(long amount) {
 		if (amount >= 1_000 && amount < 1_000_000) {
-			return "" + (amount / 1_000) + "K";
+			return (amount / 1_000) + "K";
 		}
 
 		if (amount >= 1_000_000 && amount < 1_000_000_000) {
-			return "" + (amount / 1_000_000) + "M";
+			return (amount / 1_000_000) + "M";
 		}
 
 		if (amount >= 1_000_000_000 && amount < 1_000_000_000_000L) {
-			return "" + (amount / 1_000_000_000) + "B";
+			return (amount / 1_000_000_000) + "B";
 		}
 
 		if (amount >= 1_000_000_000_000L && amount < 1_000_000_000_000_000L) {
-			return "" + (amount / 1_000_000_000_000L) + "T";
+			return (amount / 1_000_000_000_000L) + "T";
 		}
 
 		if (amount >= 1_000_000_000_000_000L && amount < 1_000_000_000_000_000_000L) {
-			return "" + (amount / 1_000_000_000_000_000L) + "F";
+			return (amount / 1_000_000_000_000_000L) + "F";
 		}
 
 		if (amount >= 1_000_000_000_000_000_000L) {
-			return "" + (amount / 1_000_000_000_000_000_000L) + "A";
+			return (amount / 1_000_000_000_000_000_000L) + "A";
 		}
-		return "" + amount;
+		return String.valueOf(amount);
 	}
 
 
@@ -8653,7 +8646,7 @@ public class Client extends GameEngine implements RSClient {
 				}
 
 				aBoolean1031 = false;
-				Model aclass30_sub2_sub4_sub6s[] = new Model[7];
+				Model[] aclass30_sub2_sub4_sub6s = new Model[7];
 				int i2 = 0;
 				for (int j2 = 0; j2 < 7; j2++) {
 					int k2 = myAppearance[j2];
@@ -9053,7 +9046,7 @@ public class Client extends GameEngine implements RSClient {
 		long[] chatTimes = new long[500];
 
 		for (int i = 0; i < chatTypes.length; i++) {
-			if (this.chatMessages[i] != null && this.chatMessages[i].length() > 0) {
+			if (this.chatMessages[i] != null && !this.chatMessages[i].isEmpty()) {
 				chatMessages[index] = this.chatMessages[i];
 				chatTypes[index] = this.chatTypes[i];
 				chatNames[index] = this.chatNames[i];
@@ -9710,7 +9703,7 @@ public class Client extends GameEngine implements RSClient {
 						inStream.readQWord();
 					}
 
-					int ai[] = new int[4];
+					int[] ai = new int[4];
 					ai[0] = (int) (Math.random() * 99999999D);
 					ai[1] = (int) (Math.random() * 99999999D);
 					ai[2] = (int) (aLong1215 >> 32);
@@ -10074,7 +10067,7 @@ public class Client extends GameEngine implements RSClient {
 		bigY[l3++] = localY;
 		boolean flag1 = false;
 		int j4 = bigX.length;
-		int ai[][] = collisionMaps[plane].clipData;
+		int[][] ai = collisionMaps[plane].clipData;
 		while (i4 != l3) {
 			j3 = bigX[i4];
 			k3 = bigY[i4];
@@ -10445,7 +10438,7 @@ public class Client extends GameEngine implements RSClient {
 			menuActionCmd3[menuActionRow] = j;
 			menuActionRow++;
 
-			if (debugModels == true) {
+			if (debugModels) {
 				if (System.currentTimeMillis() - debugDelay > 1000 && entityDef.models != null) {
 					String modelIds = Arrays.toString(entityDef.models);
 					String regColors = Arrays.toString(entityDef.originalColors);
@@ -10481,7 +10474,7 @@ public class Client extends GameEngine implements RSClient {
 		if (player.title.length() < 0)
 			s = player.displayName + combatDiffColor(localPlayer.combatLevel, player.combatLevel) + " (level: "
 					+ player.combatLevel + ")";
-		else if (player.title.length() != 0)
+		else if (!player.title.isEmpty())
 			s = "@or1@" + player.title + "@whi@ " + player.displayName
 					+ combatDiffColor(localPlayer.combatLevel, player.combatLevel) + " (level: " + player.combatLevel
 					+ ")";
@@ -10953,7 +10946,7 @@ public class Client extends GameEngine implements RSClient {
 			scrollBar1 = new Sprite(streamLoader_2, "scrollbar", 0);
 			scrollBar2 = new Sprite(streamLoader_2, "scrollbar", 1);
 			for (int i = 0; i < modIconss.length; i++) {
-				modIconss[i] = new Sprite("Player/MODICONS " + i + "");
+				modIconss[i] = new Sprite("Player/MODICONS " + i);
 			}
 
 			for (int index = 0; index < GameTimerHandler.TIMER_IMAGES.length; index++) {
@@ -11004,12 +10997,12 @@ public class Client extends GameEngine implements RSClient {
 
 			drawLoadingText(90, "Unpacking interfaces");
 
-			TextDrawingArea allFonts[] = { smallText, aTextDrawingArea_1271, chatTextDrawingArea,
+			TextDrawingArea[] allFonts = { smallText, aTextDrawingArea_1271, chatTextDrawingArea,
 					aTextDrawingArea_1273 };
 			RSInterface.unpack(streamLoader_1, allFonts, streamLoader_2, new RSFont[] {newSmallFont, newRegularFont, newBoldFont, newFancyFont});
 			drawLoadingText(92, "Preparing game engine");
 
-			if(getUserSettings().isOldGameframe() == false) {
+			if(!getUserSettings().isOldGameframe()) {
 				mapBack = new Sprite("Gameframe/fixed/mapBack");
 			}else {
 				mapBack = new Sprite("Gameframe317/fixed/mapBack");
@@ -11965,7 +11958,7 @@ public class Client extends GameEngine implements RSClient {
 								int clanMates = 0;
 								for (int i = 18155; i < 18244; i++) {
 									RSInterface line = RSInterface.interfaceCache[i];
-									if (line.message.length() > 0) {
+									if (!line.message.isEmpty()) {
 										clanMates++;
 									}
 								}
@@ -11976,7 +11969,7 @@ public class Client extends GameEngine implements RSClient {
 								for (int i = class9_1.id + 1; i < class9_1.id + 1 + 100; i++) {
 									RSInterface line = RSInterface.interfaceCache[i];
 									if (line != null && line.message != null) {
-										if (line.message.length() > 0) {
+										if (!line.message.isEmpty()) {
 											members++;
 										}
 									}
@@ -12239,7 +12232,7 @@ public class Client extends GameEngine implements RSClient {
 							TextDrawingArea textDrawingArea = class9_1.textDrawingAreas;
 							String s = class9_1.message;
 							if (interfaceStringText) {
-								s = class9_1.id + "";
+								s = String.valueOf(class9_1.id);
 							}
 							boolean flag1 = false;
 							if (anInt1039 == class9_1.id || anInt1048 == class9_1.id || anInt1026 == class9_1.id)
@@ -12249,7 +12242,7 @@ public class Client extends GameEngine implements RSClient {
 								i4 = class9_1.secondaryColor;
 								if (flag1 && class9_1.anInt239 != 0)
 									i4 = class9_1.anInt239;
-								if (class9_1.aString228.length() > 0)
+								if (!class9_1.aString228.isEmpty())
 									s = class9_1.aString228;
 							} else {
 								i4 = class9_1.textColor;
@@ -12288,7 +12281,7 @@ public class Client extends GameEngine implements RSClient {
 								if(i4 == 49152)
 									i4 = 0xffffff;
 							}
-							for (int l6 = _y + textDrawingArea.anInt1497; s.length() > 0; l6 += textDrawingArea.anInt1497) {
+							for (int l6 = _y + textDrawingArea.anInt1497; !s.isEmpty(); l6 += textDrawingArea.anInt1497) {
 								if (s.indexOf("%") != -1) {
 									do {
 										int k7 = s.indexOf("%1");
@@ -12358,7 +12351,7 @@ public class Client extends GameEngine implements RSClient {
 									}
 								}
 								if (interfaceStringText) {
-									s1 = "" + class9_1.id;
+									s1 = String.valueOf(class9_1.id);
 								}
 
 								if (class9_1.type == RSInterface.TYPE_TEXT_DRAW_FROM_LEFT) {
@@ -12463,7 +12456,7 @@ public class Client extends GameEngine implements RSClient {
 							 */
 
 							TextDrawingArea textDrawingArea_2 = aTextDrawingArea_1271;
-							for (String s1 = class9_1.message; s1.length() > 0;) {
+							for (String s1 = class9_1.message; !s1.isEmpty();) {
 								if (s1.indexOf("%") != -1) {
 									do {
 										int k7 = s1.indexOf("%1");
@@ -12562,8 +12555,7 @@ public class Client extends GameEngine implements RSClient {
 							Rasterizer2D.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0, boxWidth);
 							Rasterizer2D.fillPixels(xPos, boxWidth, boxHeight, 0, yPos);
 							String s2 = class9_1.message;
-							for (int j11 = yPos + textDrawingArea_2.anInt1497 + 2; s2
-									.length() > 0; j11 += textDrawingArea_2.anInt1497 + 1) {// anInt1497
+							for (int j11 = yPos + textDrawingArea_2.anInt1497 + 2; !s2.isEmpty(); j11 += textDrawingArea_2.anInt1497 + 1) {// anInt1497
 								if (s2.indexOf("%") != -1) {
 									do {
 										int k7 = s2.indexOf("%1");
@@ -12901,7 +12893,7 @@ public class Client extends GameEngine implements RSClient {
 						}
 
 					if (interfaceText) {
-						newSmallFont.drawString(class9_1.id + "", _x - 12, _y, 0xFFFFFFFF, 0, 256);
+						newSmallFont.drawString(String.valueOf(class9_1.id), _x - 12, _y, 0xFFFFFFFF, 0, 256);
 					}
 				} catch (Exception | StackOverflowError e) {
 					System.err.println(String.format("Error on interface child, parentId=%s, childIndex=%s, childId=%s", rsInterface.id, childId, rsInterface.children[childId]));
@@ -13001,7 +12993,7 @@ public class Client extends GameEngine implements RSClient {
 	}
 
 	public void loadTabArea() {
-		if(getUserSettings().isOldGameframe() == false) {
+		if(!getUserSettings().isOldGameframe()) {
 			for (int i = 0; i < redStones.length; i++)
 				redStones[i] = new Sprite("Gameframe/redstones/redstone" + i);
 
@@ -13057,7 +13049,7 @@ public class Client extends GameEngine implements RSClient {
 				}
 
 			}
-			int ai[] = anIntArray1190;
+			int[] ai = anIntArray1190;
 			anIntArray1190 = anIntArray1191;
 			anIntArray1191 = ai;
 		}
@@ -13194,7 +13186,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 		if ((i & 0x10) != 0) {
 			int j1 = stream.method427();
-			byte abyte0[] = new byte[j1];
+			byte[] abyte0 = new byte[j1];
 			Buffer stream_1 = new Buffer(abyte0);
 			stream.readBytes(j1, 0, abyte0);
 			aStreamArray895s[j] = stream_1;
@@ -13445,7 +13437,7 @@ public class Client extends GameEngine implements RSClient {
 						String valueText = Preferences.getPreferences().groundItemTextShowMoreThan;
 						int showValue = 0;
 						try {
-							showValue = valueText.length() == 0 ? 0 : Integer.parseInt(valueText);
+							showValue = valueText.isEmpty() ? 0 : Integer.parseInt(valueText);
 						} catch (NumberFormatException e) {
 							Preferences.getPreferences().groundItemTextShowMoreThan = "";
 							if (Configuration.developerMode) {
@@ -13460,8 +13452,8 @@ public class Client extends GameEngine implements RSClient {
 							String[] show = Preferences.getPreferences().groundItemTextShow.split(",");
 							String itemNameFormatted = itemDef.getName().toLowerCase();
 
-							boolean showItem = Arrays.stream(show).anyMatch(showTxt -> showTxt.length() > 0 && itemNameFormatted.contains(showTxt.trim()));
-							boolean hideItem = Arrays.stream(hide).anyMatch(hideTxt -> hideTxt.length() > 0 && itemNameFormatted.contains(hideTxt.trim()));
+							boolean showItem = Arrays.stream(show).anyMatch(showTxt -> !showTxt.isEmpty() && itemNameFormatted.contains(showTxt.trim()));
+							boolean hideItem = Arrays.stream(hide).anyMatch(hideTxt -> !hideTxt.isEmpty() && itemNameFormatted.contains(hideTxt.trim()));
 
 							if (!showItem && (hideItem || value < showValue)) {
 								continue;
@@ -13729,7 +13721,7 @@ public class Client extends GameEngine implements RSClient {
 			stream.writeQWord(l);
 			return;
 		} catch (RuntimeException runtimeexception) {
-			Signlink.reporterror("45688, " + l + ", " + 4 + ", " + runtimeexception.toString());
+			Signlink.reporterror("45688, " + l + ", " + 4 + ", " + runtimeexception);
 		}
 		throw new RuntimeException();
 	}
@@ -14031,7 +14023,7 @@ public class Client extends GameEngine implements RSClient {
 
 			return;
 		} catch (RuntimeException runtimeexception) {
-			Signlink.reporterror("47229, " + 3 + ", " + l + ", " + runtimeexception.toString());
+			Signlink.reporterror("47229, " + 3 + ", " + l + ", " + runtimeexception);
 		}
 		throw new RuntimeException();
 	}
@@ -14054,7 +14046,7 @@ public class Client extends GameEngine implements RSClient {
 		if (widget.scripts == null || id >= widget.scripts.length)
 			return -2;
 		try {
-			int script[] = widget.scripts[id];
+			int[] script = widget.scripts[id];
 			int accumulator = 0;
 			int counter = 0;
 			int operator = 0;
@@ -14687,7 +14679,7 @@ public class Client extends GameEngine implements RSClient {
 		if (health > 1_000_000_000) {
 			infinity.drawSprite(10 + xOffset - xOff, 59 - yOff);
 		} else {
-			smallText.method382(getOrbTextColor(health), 15 + xOffset - xOff, "" + cHP, 67 - yOff, true);
+			smallText.method382(getOrbTextColor(health), 15 + xOffset - xOff, cHP, 67 - yOff, true);
 		}
 	}
 
@@ -14717,7 +14709,7 @@ public class Client extends GameEngine implements RSClient {
 		sword.drawSprite((isFixed ? 64 : 64) + xOffset, isFixed ? 138 : 143);
 
 		smallText.method382(getOrbTextColor((int) (percent * 100)),
-				(isFixed ? 53 : 53) + xOffset, specialAttack + "", isFixed ? 159 : 164,
+				(isFixed ? 53 : 53) + xOffset, String.valueOf(specialAttack), isFixed ? 159 : 164,
 				true);
 	}
 
@@ -14743,7 +14735,7 @@ public class Client extends GameEngine implements RSClient {
 		if (level > 1_000_000_000) {
 			infinity.drawSprite(11 + xOffset - xOff, 94 - yOff);
 		} else {
-			smallText.method382(getOrbTextColor((int) (percent * 100)), 14 + xOffset - xOff, level + "", 101 - yOff, true);
+			smallText.method382(getOrbTextColor((int) (percent * 100)), 14 + xOffset - xOff, String.valueOf(level), 101 - yOff, true);
 		}
 
 
@@ -14769,7 +14761,7 @@ public class Client extends GameEngine implements RSClient {
 		} else {
 			cacheSprite1[running ? 12 : 11].drawSprite(43 + xOffset - xMinus, 117 - yOff);
 		}
-		smallText.method382(getOrbTextColor((int) (percent * 100)), 25 + xOffset - xMinus, level + "", 135 - yOff,
+		smallText.method382(getOrbTextColor((int) (percent * 100)), 25 + xOffset - xMinus, String.valueOf(level), 135 - yOff,
 				true);
 	}
 
@@ -14803,7 +14795,7 @@ public class Client extends GameEngine implements RSClient {
 			moneyPouchCoins.drawSprite((!Client.instance.isResized() ? xOffset + 170 : canvasWidth - 57), (!Client.instance.isResized() ? 134 : 160));
 			String amount = RSInterface.interfaceCache[8135].message;
 			long getAmount = Long.parseLong(amount);
-			smallText.method382(getMoneyOrbColor(getAmount), (!Client.instance.isResized() ? xOffset +  205 : canvasWidth - 22), formatCoins(getAmount) + "", (!Client.instance.isResized() ? 153 : 178), true);
+			smallText.method382(getMoneyOrbColor(getAmount), (!Client.instance.isResized() ? xOffset +  205 : canvasWidth - 22), formatCoins(getAmount), (!Client.instance.isResized() ? 153 : 178), true);
 		} else {
 
 			Rasterizer2D.fillCircle((!Client.instance.isResized() ? xOffset + 179 : canvasWidth - 49), (!Client.instance.isResized() ? 142 : 168), 15, 0x6E6D6D);
@@ -14811,7 +14803,7 @@ public class Client extends GameEngine implements RSClient {
 			moneyPouchCoins.drawSprite((!Client.instance.isResized() ? xOffset + 170 : canvasWidth - 57), (!Client.instance.isResized() ? 134 : 160));
 			String amount = RSInterface.interfaceCache[8135].message;
 			long getAmount = Long.parseLong(amount);
-			smallText.method382(getMoneyOrbColor(getAmount), (!Client.instance.isResized() ? xOffset + 205 : canvasWidth - 22), formatCoins(getAmount) + "", (!Client.instance.isResized() ? 153 : 178), true);
+			smallText.method382(getMoneyOrbColor(getAmount), (!Client.instance.isResized() ? xOffset + 205 : canvasWidth - 22), formatCoins(getAmount), (!Client.instance.isResized() ? 153 : 178), true);
 		}
 	}
 
@@ -15147,7 +15139,7 @@ public class Client extends GameEngine implements RSClient {
 
 		if (loginScreenState == LoginScreenState.LOGIN) {
 			Announcements.displayAnnouncements();
-			if (firstLoginMessage.length() > 0) {
+			if (!firstLoginMessage.isEmpty()) {
 				newBoldFont.drawCenteredString(firstLoginMessage, centerX, j - 11, 0xffffff, 0x191919, 255);
 				j += 30;
 			}
@@ -15621,7 +15613,7 @@ public class Client extends GameEngine implements RSClient {
 	}
 
 	private String loginScreenInput(String current, int l1, boolean flag1, int maxWidth, Runnable tab, Runnable enter) {
-		if (l1 == 8 && current.length() > 0)
+		if (l1 == 8 && !current.isEmpty())
 			current = current.substring(0, current.length() - 1);
 		if (l1 == 9) {
 			if (tab != null)
@@ -16397,12 +16389,12 @@ public class Client extends GameEngine implements RSClient {
 						}
 
 						if (Configuration.developerMode) {
-							System.out.println("Map files: " + mapFiles.toString());
+							System.out.println("Map files: " + mapFiles);
 						}
 					}
 					if (incomingPacket == 241) {
 						int totalLegitChunks = 0;
-						int totalChunks[] = new int[676];
+						int[] totalChunks = new int[676];
 						for (int z = 0; z < 4; z++) {
 							for (int x = 0; x < 13; x++) {
 								for (int y = 0; y < 13; y++) {
@@ -16970,7 +16962,7 @@ public class Client extends GameEngine implements RSClient {
 							return true;
 						}
 						if (text.startsWith(":pollOn")) {
-							String option[] = text.split("-");
+							String[] option = text.split("-");
 							pollActive = Boolean.parseBoolean(option[1]);
 							incomingPacket = -1;
 							return true;
@@ -18025,7 +18017,7 @@ public class Client extends GameEngine implements RSClient {
 	private final int[] anIntArray968;
 	private final int[] anIntArray969;
 	public final Decompressor[] decompressors;
-	public int variousSettings[];
+	public int[] variousSettings;
 	private boolean aBoolean972;
 	private final int anInt975;
 	private final int[] anIntArray976;
@@ -18238,7 +18230,7 @@ public class Client extends GameEngine implements RSClient {
 	private Sprite aClass30_Sub2_Sub1_Sub1_1201;
 	private Sprite aClass30_Sub2_Sub1_Sub1_1202;
 	private final int[] anIntArray1203;
-	public static int PLAYER_BODY_RECOLOURS[] = { 9104, 10275, 7595, 3610, 7975, 8526, 918, -26734, 24466, 10145, -6882, 5027,
+	public static int[] PLAYER_BODY_RECOLOURS = { 9104, 10275, 7595, 3610, 7975, 8526, 918, -26734, 24466, 10145, -6882, 5027,
 			1457, 16565, -30545, 25486, 24, 5392, 10429, 3673, -27335, -21957, 192, 687, 412, 21821, 28835, -15460,
 			-14019 };
 	private static boolean flagged;
@@ -18261,7 +18253,7 @@ public class Client extends GameEngine implements RSClient {
 	private boolean songChanging;
 	private final int[] anIntArray1229;
 	private CollisionMap[] collisionMaps;
-	public static int anIntArray1232[];
+	public static int[] anIntArray1232;
 	private int[] mapCoordinates;
 	private int[] terrainIndices;
 	private int[] objectIndices;
@@ -18571,7 +18563,7 @@ public class Client extends GameEngine implements RSClient {
 			return 120;
 		for (int lvl = 1; lvl <= 120; lvl++) {
 			points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-			output = (int) Math.floor(points / 4);
+			output = (int) (double) (points / 4);
 			if (output >= exp) {
 				return lvl;
 			}
@@ -18582,152 +18574,152 @@ public class Client extends GameEngine implements RSClient {
 	public void updateSkillStrings(int i) {
 		switch (i) {
 			case 0:
-				sendFrame126("" + currentLevels[0] + "", 4004);
-				sendFrame126("" + getLevelForXP(currentExp[0]) + "", 4005);
-				sendFrame126("" + currentExp[0] + "", 4044);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[0]) + 1) + "", 4045);
+				sendFrame126(String.valueOf(currentLevels[0]), 4004);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[0])), 4005);
+				sendFrame126(String.valueOf(currentExp[0]), 4044);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[0]) + 1)), 4045);
 				break;
 
 			case 1:
-				sendFrame126("" + currentLevels[1] + "", 4008);
-				sendFrame126("" + getLevelForXP(currentExp[1]) + "", 4009);
-				sendFrame126("" + currentExp[1] + "", 4056);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[1]) + 1) + "", 4057);
+				sendFrame126(String.valueOf(currentLevels[1]), 4008);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[1])), 4009);
+				sendFrame126(String.valueOf(currentExp[1]), 4056);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[1]) + 1)), 4057);
 				break;
 
 			case 2:
-				sendFrame126("" + currentLevels[2] + "", 4006);
-				sendFrame126("" + getLevelForXP(currentExp[2]) + "", 4007);
-				sendFrame126("" + currentExp[2] + "", 4050);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[2]) + 1) + "", 4051);
+				sendFrame126(String.valueOf(currentLevels[2]), 4006);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[2])), 4007);
+				sendFrame126(String.valueOf(currentExp[2]), 4050);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[2]) + 1)), 4051);
 				break;
 
 			case 3:
-				sendFrame126("" + currentLevels[3] + "", 4016);
-				sendFrame126("" + getLevelForXP(currentExp[3]) + "", 4017);
-				sendFrame126("" + currentExp[3] + "", 4080);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[3]) + 1) + "", 4081);
+				sendFrame126(String.valueOf(currentLevels[3]), 4016);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[3])), 4017);
+				sendFrame126(String.valueOf(currentExp[3]), 4080);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[3]) + 1)), 4081);
 				break;
 
 			case 4:
-				sendFrame126("" + currentLevels[4] + "", 4010);
-				sendFrame126("" + getLevelForXP(currentExp[4]) + "", 4011);
-				sendFrame126("" + currentExp[4] + "", 4062);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[4]) + 1) + "", 4063);
+				sendFrame126(String.valueOf(currentLevels[4]), 4010);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[4])), 4011);
+				sendFrame126(String.valueOf(currentExp[4]), 4062);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[4]) + 1)), 4063);
 				break;
 
 			case 5:
-				sendFrame126("" + currentLevels[5] + "", 4012);
-				sendFrame126("" + getLevelForXP(currentExp[5]) + "", 4013);
-				sendFrame126("" + currentExp[5] + "", 4068);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[5]) + 1) + "", 4069);
-				sendFrame126("" + currentLevels[5] + "/" + getLevelForXP(currentExp[5]) + "", 687);// Prayer
+				sendFrame126(String.valueOf(currentLevels[5]), 4012);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[5])), 4013);
+				sendFrame126(String.valueOf(currentExp[5]), 4068);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[5]) + 1)), 4069);
+				sendFrame126(currentLevels[5] + "/" + getLevelForXP(currentExp[5]), 687);// Prayer
 				// frame
 				break;
 
 			case 6:
-				sendFrame126("" + currentLevels[6] + "", 4014);
-				sendFrame126("" + getLevelForXP(currentExp[6]) + "", 4015);
-				sendFrame126("" + currentExp[6] + "", 4074);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[6]) + 1) + "", 4075);
+				sendFrame126(String.valueOf(currentLevels[6]), 4014);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[6])), 4015);
+				sendFrame126(String.valueOf(currentExp[6]), 4074);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[6]) + 1)), 4075);
 				break;
 
 			case 7:
-				sendFrame126("" + currentLevels[7] + "", 4034);
-				sendFrame126("" + getLevelForXP(currentExp[7]) + "", 4035);
-				sendFrame126("" + currentExp[7] + "", 4134);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[7]) + 1) + "", 4135);
+				sendFrame126(String.valueOf(currentLevels[7]), 4034);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[7])), 4035);
+				sendFrame126(String.valueOf(currentExp[7]), 4134);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[7]) + 1)), 4135);
 				break;
 
 			case 8:
-				sendFrame126("" + currentLevels[8] + "", 4038);
-				sendFrame126("" + getLevelForXP(currentExp[8]) + "", 4039);
-				sendFrame126("" + currentExp[8] + "", 4146);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[8]) + 1) + "", 4147);
+				sendFrame126(String.valueOf(currentLevels[8]), 4038);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[8])), 4039);
+				sendFrame126(String.valueOf(currentExp[8]), 4146);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[8]) + 1)), 4147);
 				break;
 
 			case 9:
-				sendFrame126("" + currentLevels[9] + "", 4026);
-				sendFrame126("" + getLevelForXP(currentExp[9]) + "", 4027);
-				sendFrame126("" + currentExp[9] + "", 4110);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[9]) + 1) + "", 4111);
+				sendFrame126(String.valueOf(currentLevels[9]), 4026);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[9])), 4027);
+				sendFrame126(String.valueOf(currentExp[9]), 4110);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[9]) + 1)), 4111);
 				break;
 
 			case 10:
-				sendFrame126("" + currentLevels[10] + "", 4032);
-				sendFrame126("" + getLevelForXP(currentExp[10]) + "", 4033);
-				sendFrame126("" + currentExp[10] + "", 4128);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[10]) + 1) + "", 4129);
+				sendFrame126(String.valueOf(currentLevels[10]), 4032);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[10])), 4033);
+				sendFrame126(String.valueOf(currentExp[10]), 4128);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[10]) + 1)), 4129);
 				break;
 
 			case 11:
-				sendFrame126("" + currentLevels[11] + "", 4036);
-				sendFrame126("" + getLevelForXP(currentExp[11]) + "", 4037);
-				sendFrame126("" + currentExp[11] + "", 4140);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[11]) + 1) + "", 4141);
+				sendFrame126(String.valueOf(currentLevels[11]), 4036);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[11])), 4037);
+				sendFrame126(String.valueOf(currentExp[11]), 4140);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[11]) + 1)), 4141);
 				break;
 
 			case 12:
-				sendFrame126("" + currentLevels[12] + "", 4024);
-				sendFrame126("" + getLevelForXP(currentExp[12]) + "", 4025);
-				sendFrame126("" + currentExp[12] + "", 4104);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[12]) + 1) + "", 4105);
+				sendFrame126(String.valueOf(currentLevels[12]), 4024);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[12])), 4025);
+				sendFrame126(String.valueOf(currentExp[12]), 4104);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[12]) + 1)), 4105);
 				break;
 
 			case 13:
-				sendFrame126("" + currentLevels[13] + "", 4030);
-				sendFrame126("" + getLevelForXP(currentExp[13]) + "", 4031);
-				sendFrame126("" + currentExp[13] + "", 4122);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[13]) + 1) + "", 4123);
+				sendFrame126(String.valueOf(currentLevels[13]), 4030);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[13])), 4031);
+				sendFrame126(String.valueOf(currentExp[13]), 4122);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[13]) + 1)), 4123);
 				break;
 
 			case 14:
-				sendFrame126("" + currentLevels[14] + "", 4028);
-				sendFrame126("" + getLevelForXP(currentExp[14]) + "", 4029);
-				sendFrame126("" + currentExp[14] + "", 4116);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[14]) + 1) + "", 4117);
+				sendFrame126(String.valueOf(currentLevels[14]), 4028);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[14])), 4029);
+				sendFrame126(String.valueOf(currentExp[14]), 4116);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[14]) + 1)), 4117);
 				break;
 
 			case 15:
-				sendFrame126("" + currentLevels[15] + "", 4020);
-				sendFrame126("" + getLevelForXP(currentExp[15]) + "", 4021);
-				sendFrame126("" + currentExp[15] + "", 4092);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[15]) + 1) + "", 4093);
+				sendFrame126(String.valueOf(currentLevels[15]), 4020);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[15])), 4021);
+				sendFrame126(String.valueOf(currentExp[15]), 4092);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[15]) + 1)), 4093);
 				break;
 
 			case 16:
-				sendFrame126("" + currentLevels[16] + "", 4018);
-				sendFrame126("" + getLevelForXP(currentExp[16]) + "", 4019);
-				sendFrame126("" + currentExp[16] + "", 4086);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[16]) + 1) + "", 4087);
+				sendFrame126(String.valueOf(currentLevels[16]), 4018);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[16])), 4019);
+				sendFrame126(String.valueOf(currentExp[16]), 4086);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[16]) + 1)), 4087);
 				break;
 
 			case 17:
-				sendFrame126("" + currentLevels[17] + "", 4022);
-				sendFrame126("" + getLevelForXP(currentExp[17]) + "", 4023);
-				sendFrame126("" + currentExp[17] + "", 4098);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[17]) + 1) + "", 4099);
+				sendFrame126(String.valueOf(currentLevels[17]), 4022);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[17])), 4023);
+				sendFrame126(String.valueOf(currentExp[17]), 4098);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[17]) + 1)), 4099);
 				break;
 
 			case 18:
-				sendFrame126("" + currentLevels[18] + "", 12166);
-				sendFrame126("" + getLevelForXPSlayer(currentExp[18]) + "", 12167);
-				sendFrame126("" + currentExp[18] + "", 12171);
-				sendFrame126("" + getXPForLevel(getLevelForXPSlayer(currentExp[18]) + 1) + "", 12172);
+				sendFrame126(String.valueOf(currentLevels[18]), 12166);
+				sendFrame126(String.valueOf(getLevelForXPSlayer(currentExp[18])), 12167);
+				sendFrame126(String.valueOf(currentExp[18]), 12171);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXPSlayer(currentExp[18]) + 1)), 12172);
 				break;
 
 			case 19:
-				sendFrame126("" + currentLevels[19] + "", 13926);
-				sendFrame126("" + getLevelForXP(currentExp[19]) + "", 13927);
-				sendFrame126("" + currentExp[19] + "", 13921);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[19]) + 1) + "", 13922);
+				sendFrame126(String.valueOf(currentLevels[19]), 13926);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[19])), 13927);
+				sendFrame126(String.valueOf(currentExp[19]), 13921);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[19]) + 1)), 13922);
 				break;
 
 			case 20: // runecraft
-				sendFrame126("" + currentLevels[20] + "", 4152);
-				sendFrame126("" + getLevelForXP(currentExp[20]) + "", 4153);
-				sendFrame126("" + currentExp[20] + "", 4157);
-				sendFrame126("" + getXPForLevel(getLevelForXP(currentExp[20]) + 1) + "", 4159);
+				sendFrame126(String.valueOf(currentLevels[20]), 4152);
+				sendFrame126(String.valueOf(getLevelForXP(currentExp[20])), 4153);
+				sendFrame126(String.valueOf(currentExp[20]), 4157);
+				sendFrame126(String.valueOf(getXPForLevel(getLevelForXP(currentExp[20]) + 1)), 4159);
 				break;
 
 			// hunter is 21

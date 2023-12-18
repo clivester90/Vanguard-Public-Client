@@ -246,10 +246,7 @@ public class HoverMenuManager {
         if (Client.instance.menuOpen) {
             return false;
         }
-        if (hintId == -1) {
-            return false;
-        }
-        return showMenu;
+        return hintId != -1 && showMenu;
     }
 
     public static void drawHintMenu() {

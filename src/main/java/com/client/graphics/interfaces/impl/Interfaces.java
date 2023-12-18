@@ -226,7 +226,7 @@ public final class Interfaces extends RSInterface {
 
 	}
 
-	public static void pollInterface(TextDrawingArea tda[]) {
+	public static void pollInterface(TextDrawingArea[] tda) {
 		RSInterface rsi = addInterface(21406);
 		RSInterface scroll = addInterface(21407);
 
@@ -273,7 +273,7 @@ public final class Interfaces extends RSInterface {
 		rsi.child(1, 21408, 96, 10);
 	}
 
-	public static void pollResults(TextDrawingArea tda[]) {
+	public static void pollResults(TextDrawingArea[] tda) {
         RSInterface rsi = addInterface(21429);
 
         int childId = 21430;

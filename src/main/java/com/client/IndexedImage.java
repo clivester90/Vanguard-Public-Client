@@ -5,7 +5,7 @@ import net.runelite.rs.api.RSIndexedSprite;
 public final class IndexedImage extends Rasterizer2D implements RSIndexedSprite {
 
 	public final int[] palette;
-	public byte palettePixels[];
+	public byte[] palettePixels;
 	public int subWidth;
 	public int subHeight;
 	public int xOffset;
@@ -83,7 +83,7 @@ public final class IndexedImage extends Rasterizer2D implements RSIndexedSprite 
 			return;
 		}
 
-		byte raster[] = new byte[width * height];
+		byte[] raster = new byte[width * height];
 
 		int i = 0;
 		for(int y = 0; y < subHeight; y++) {
@@ -99,7 +99,7 @@ public final class IndexedImage extends Rasterizer2D implements RSIndexedSprite 
 	}
 
 	public void flipHorizontally() {
-		byte raster[] = new byte[subWidth * subHeight];
+		byte[] raster = new byte[subWidth * subHeight];
 		int pixel = 0;
 		for (int y = 0; y < subHeight; y++) {
 			for (int x = subWidth - 1; x >= 0; x--) {
@@ -111,7 +111,7 @@ public final class IndexedImage extends Rasterizer2D implements RSIndexedSprite 
 	}
 
 	public void flipVertically() {
-		byte raster[] = new byte[subWidth * subHeight];
+		byte[] raster = new byte[subWidth * subHeight];
 		int pixel = 0;
 		for (int y = subHeight - 1; y >= 0; y--) {
 			for (int x = 0; x < subWidth; x++) {
@@ -199,7 +199,7 @@ public final class IndexedImage extends Rasterizer2D implements RSIndexedSprite 
 
 	}
 
-	private void draw(int i, int raster[], byte image[], int destStep, int destIndex, int width, int sourceIndex, int ai1[], int sourceStep) {
+	private void draw(int i, int[] raster, byte[] image, int destStep, int destIndex, int width, int sourceIndex, int[] ai1, int sourceStep) {
 		int minX = -(width >> 2);
 		width = -(width & 3);
 		for (int y = -i; y < 0; y++) {

@@ -218,15 +218,15 @@ public final class AnimationDefinition {
 		replayMode = 2;
 	}
 
-	public static AnimationDefinition anims[];
+	public static AnimationDefinition[] anims;
 	public int id;
 	public int frameCount;
-	public int primaryFrames[];
-	public int secondaryFrames[];
-	public int frameSounds[];
+	public int[] primaryFrames;
+	public int[] secondaryFrames;
+	public int[] frameSounds;
 	public int[] durations;
 	public int loopOffset;
-	public int interleaveOrder[];
+	public int[] interleaveOrder;
 	public boolean stretches;
 	public int forcedPriority;
 	public int playerOffhand;
@@ -307,7 +307,7 @@ public final class AnimationDefinition {
 		writer.newLine();
 	}
 
-	public int chatFrameIds[];
+	public int[] chatFrameIds;
 	private int skeletalRangeBegin = -1;
 	private int skeletalRangeEnd = -1;
 	private int skeletalId = -1;

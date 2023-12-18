@@ -833,7 +833,7 @@ public class Rasterizer2D extends Cacheable implements RSRasterizer2D {
     Rasterizer2D() {
     }
 
-    public static int pixels[];
+    public static int[] pixels;
     public static int width;
     public static int height;
     public static int topY;

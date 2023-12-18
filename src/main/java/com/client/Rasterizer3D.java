@@ -665,7 +665,7 @@ public final class Rasterizer3D extends Rasterizer2D {
         }
     }
 
-    public static void drawGouraudScanline(int var0[], int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+    public static void drawGouraudScanline(int[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
         if (!Client.instance.isResized()
                 && world && var1 <= 259086) { //(512+4)+(334+4)*765
             var1 += 3064; //4+4*765
@@ -1081,7 +1081,7 @@ public final class Rasterizer3D extends Rasterizer2D {
         }
     }
 
-    private static void drawFlatTexturedScanline(int dest[], int dest_off, int loops, int start_x, int end_x) {
+    private static void drawFlatTexturedScanline(int[] dest, int dest_off, int loops, int start_x, int end_x) {
         if (!Client.instance.isResized() && world && dest_off <= 259086) {
             dest_off += 3064; //4+4*765
         }
@@ -2193,10 +2193,10 @@ public final class Rasterizer3D extends Rasterizer2D {
     public static int originViewY;
     private static int[] anIntArray1468;
     public static final int[] anIntArray1469;
-    public static int SINE[];
-    public static int COSINE[];
-    public static int scanOffsets[];
-    public static int hslToRgb[] = new int[0x10000];
+    public static int[] SINE;
+    public static int[] COSINE;
+    public static int[] scanOffsets;
+    public static int[] hslToRgb = new int[0x10000];
 
     static {
         anIntArray1468 = new int[512];

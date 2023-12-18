@@ -51,8 +51,8 @@ public class RSInterface {
 		}
 	}
 
-	public static void unpack(FileArchive streamLoader, TextDrawingArea textDrawingAreas[],
-							  FileArchive streamLoader_1, RSFont[] newFontSystem) {
+	public static void unpack(FileArchive streamLoader, TextDrawingArea[] textDrawingAreas,
+                              FileArchive streamLoader_1, RSFont[] newFontSystem) {
 		aMRUNodes_238 = new ReferenceCache(50000);
 		Buffer stream = new Buffer(streamLoader.readFile("data"));
 		newFonts = newFontSystem;
@@ -138,7 +138,7 @@ public class RSInterface {
 						rsInterface.spritesX[j2] = stream.readSignedWord();
 						rsInterface.spritesY[j2] = stream.readSignedWord();
 						String s1 = stream.readString();
-						if (streamLoader_1 != null && s1.length() > 0) {
+						if (streamLoader_1 != null && !s1.isEmpty()) {
 							int i5 = s1.lastIndexOf(",");
 							rsInterface.sprites[j2] = method207(Integer.parseInt(s1.substring(i5 + 1)), streamLoader_1,
 									s1.substring(0, i5));
@@ -148,7 +148,7 @@ public class RSInterface {
 				rsInterface.actions = new String[6];
 				for (int l3 = 0; l3 < 5; l3++) {
 					rsInterface.actions[l3] = stream.readString();
-					if (rsInterface.actions[l3].length() == 0)
+					if (rsInterface.actions[l3].isEmpty())
 						rsInterface.actions[l3] = null;
 					if (rsInterface.parentID == 3822)
 						rsInterface.actions[4] = "Sell X";
@@ -187,13 +187,13 @@ public class RSInterface {
 			if (rsInterface.type == 5) {
 				rsInterface.drawsTransparent = false;
 				String s = stream.readString();
-				if (streamLoader_1 != null && s.length() > 0) {
+				if (streamLoader_1 != null && !s.isEmpty()) {
 					int i4 = s.lastIndexOf(",");
 					rsInterface.sprite1 = method207(Integer.parseInt(s.substring(i4 + 1)), streamLoader_1,
 							s.substring(0, i4));
 				}
 				s = stream.readString();
-				if (streamLoader_1 != null && s.length() > 0) {
+				if (streamLoader_1 != null && !s.isEmpty()) {
 					int j4 = s.lastIndexOf(",");
 					rsInterface.sprite2 = method207(Integer.parseInt(s.substring(j4 + 1)), streamLoader_1,
 							s.substring(0, j4));
@@ -239,7 +239,7 @@ public class RSInterface {
 				rsInterface.actions = new String[6];
 				for (int k4 = 0; k4 < 5; k4++) {
 					rsInterface.actions[k4] = stream.readString();
-					if (rsInterface.actions[k4].length() == 0)
+					if (rsInterface.actions[k4].isEmpty())
 						rsInterface.actions[k4] = null;
 				}
 
@@ -256,7 +256,7 @@ public class RSInterface {
 			if (rsInterface.atActionType == 1 || rsInterface.atActionType == 4 || rsInterface.atActionType == 5
 					|| rsInterface.atActionType == 6) {
 				rsInterface.tooltip = stream.readString();
-				if (rsInterface.tooltip.length() == 0) {
+				if (rsInterface.tooltip.isEmpty()) {
 					if (rsInterface.atActionType == 1)
 						rsInterface.tooltip = "Ok";
 					if (rsInterface.atActionType == 4)
@@ -408,7 +408,7 @@ public class RSInterface {
 	}
 	
 	public static void hoverButton(int id, String tooltip, int enabledSprite, int disabledSprite, String buttonText,
-			TextDrawingArea tda[], int idx, int colour, int hoveredColour, boolean centerText) {
+                                   TextDrawingArea[] tda, int idx, int colour, int hoveredColour, boolean centerText) {
 		RSInterface tab = addInterface(id);
 		tab.tooltip = tooltip;
 		tab.atActionType = 1;
@@ -504,9 +504,7 @@ public class RSInterface {
 	}
 
 	public boolean hasItem(int itemId) {
-		if (inventoryItemId == null)
-			return false;
-		return Arrays.stream(inventoryItemId).anyMatch(it -> it - 1 == itemId);
+		return inventoryItemId != null && Arrays.stream(inventoryItemId).anyMatch(it -> it - 1 == itemId);
 	}
 
 	public void removeItem(int slot) {
@@ -566,13 +564,13 @@ public class RSInterface {
 	}
 
 	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, MenuItem menuItem,
-			TextDrawingArea tda[], int idx) {
+                                    TextDrawingArea[] tda, int idx) {
 		dropdownMenu(id, width, defaultOption, options, menuItem,
 				new int[] { 0x0d0d0b, 0x464644, 0x473d32, 0x51483c, 0x787169 }, false, tda, idx);
 	}
 
 	public static void dropdownMenu(int id, int width, int defaultOption, String[] options, MenuItem menuItem,
-			int[] dropdownColours, boolean centerText, TextDrawingArea tda[], int idx) {
+                                    int[] dropdownColours, boolean centerText, TextDrawingArea[] tda, int idx) {
 		RSInterface menu = addInterface(id);
 		menu.type = TYPE_DROPDOWN;
 		menu.textDrawingAreas = tda[idx];
@@ -2828,11 +2826,11 @@ public class RSInterface {
 		return rsInterface;
 	}
 
-	public static void addText(int id, String text, TextDrawingArea wid[], int idx, int color) {
+	public static void addText(int id, String text, TextDrawingArea[] wid, int idx, int color) {
 		addText(id, TYPE_TEXT, text, wid, idx, color);
 	}
 
-	public static RSInterface addText(int id, int type, String text, TextDrawingArea wid[], int idx, int color) {
+	public static RSInterface addText(int id, int type, String text, TextDrawingArea[] wid, int idx, int color) {
 		RSInterface rsinterface = addTab(id);
 		rsinterface.id = id;
 		rsinterface.parentID = id;
@@ -2894,8 +2892,8 @@ public class RSInterface {
 		}
 	}
 
-	public static void addHoverText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color,
-									boolean center, boolean textShadowed, int width, int height) {
+	public static void addHoverText(int id, String text, String tooltip, TextDrawingArea[] tda, int idx, int color,
+                                    boolean center, boolean textShadowed, int width, int height) {
 		RSInterface rsinterface = addInterface(id);
 		rsinterface.id = id;
 		rsinterface.parentID = id;
@@ -2918,8 +2916,8 @@ public class RSInterface {
 		rsinterface.tooltip = tooltip;
 	}
 
-	public static void addHoverText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color,
-			boolean center, boolean textShadowed, int width) {
+	public static void addHoverText(int id, String text, String tooltip, TextDrawingArea[] tda, int idx, int color,
+                                    boolean center, boolean textShadowed, int width) {
 		RSInterface rsinterface = addInterface(id);
 		rsinterface.id = id;
 		rsinterface.parentID = id;
@@ -3092,7 +3090,7 @@ public class RSInterface {
 		RSinterface.childY[frame] = Y;
 	}
 
-	public static void textSize(int id, TextDrawingArea tda[], int idx) {
+	public static void textSize(int id, TextDrawingArea[] tda, int idx) {
 		RSInterface rsi = interfaceCache[id];
 		rsi.textDrawingAreas = tda[idx];
 	}
@@ -3379,7 +3377,7 @@ public class RSInterface {
 		tab.anInt239 = 0;
 	}
 
-	public static RSInterface addText(int id, String text, TextDrawingArea tda[], int idx, int color, boolean centered) {
+	public static RSInterface addText(int id, String text, TextDrawingArea[] tda, int idx, int color, boolean centered) {
 		RSInterface rsi = interfaceCache[id] = new RSInterface();
 		if (centered)
 			rsi.centerText = true;
@@ -3414,8 +3412,8 @@ public class RSInterface {
 		tab.anInt239 = 0;
 	}
 
-	public static void addText(int id, String text, TextDrawingArea tda[], int idx, int color, boolean center,
-			boolean shadow) {
+	public static void addText(int id, String text, TextDrawingArea[] tda, int idx, int color, boolean center,
+                               boolean shadow) {
 		RSInterface tab = addTabInterface(id);
 		tab.parentID = id;
 		tab.id = id;
@@ -3459,7 +3457,7 @@ public class RSInterface {
 		tab.textColor = textColor;
 		tab.textShadow = textShadow;
 		tab.stringContainer = new ArrayList<>();
-		if (defaultMessage != null && defaultMessage.length() > 0) {
+		if (defaultMessage != null && !defaultMessage.isEmpty()) {
 			for (int index = 0; index < 100; index++) {
 				tab.stringContainer.add(defaultMessage + " " + index);
 			}
@@ -3865,11 +3863,11 @@ public class RSInterface {
 	public boolean drawsTransparent;
 	public Sprite sprite1;
 	public static int anInt208;
-	public Sprite sprites[];
-	public static RSInterface interfaceCache[];
-	public int anIntArray212[];
+	public Sprite[] sprites;
+	public static RSInterface[] interfaceCache;
+	public int[] anIntArray212;
 	public int contentType;// anInt214
-	public int spritesX[];
+	public int[] spritesX;
 	public int anInt216;
 	public int atActionType;
 	public String spellName;
@@ -3879,10 +3877,10 @@ public class RSInterface {
 	public String selectedActionName;
 	public boolean centerText;
 	public int scrollPosition;
-	public String actions[];
+	public String[] actions;
 
 
-	public int scripts[][];
+	public int[][] scripts;
 	public boolean aBoolean227;
 	public String aString228;
 	public int mOverInterToTrigger;
@@ -3897,19 +3895,19 @@ public class RSInterface {
 	public boolean autocastDefensive;
 	private static ReferenceCache aMRUNodes_238;
 	public int anInt239;
-	public int children[];
-	public int childX[];
+	public int[] children;
+	public int[] childX;
 	public boolean usableItemInterface;
 	public TextDrawingArea textDrawingAreas;
 	public int invSpritePadY;
-	public int anIntArray245[];
+	public int[] anIntArray245;
 	public int anInt246;
-	public int spritesY[];
+	public int[] spritesY;
 	public String message;
 	public boolean isInventoryInterface;
 	public int id;
-	public int inventoryAmounts[];
-	public int inventoryItemId[];
+	public int[] inventoryAmounts;
+	public int[] inventoryItemId;
 	public boolean allowInvDraggingToOtherContainers;
 	public boolean smallInvSprites;
 	public boolean hideInvStackSizes;
@@ -3937,7 +3935,7 @@ public class RSInterface {
 	public int modelZoom;
 	public int modelRotation1;
 	public int modelRotation2;
-	public int childY[];
+	public int[] childY;
 	public boolean inventoryhover;
 	public boolean isItemSearchComponent;
 	public int itemSearchSelectedId, itemSearchSelectedSlot = -1;
@@ -3946,7 +3944,7 @@ public class RSInterface {
 
 	public int grandExchangeSlot;
 
-	public int colorTypes[];
+	public int[] colorTypes;
 	public byte progressBarState, progressBarPercentage;
 
 	public double progressBar2021Percentage = 1.0;
@@ -4034,14 +4032,14 @@ public class RSInterface {
 		component.colorTypes = colorTypes;
 	}
 
-	public static void addClickableText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color,
-										boolean center, boolean shadow, int width, int height) {
+	public static void addClickableText(int id, String text, String tooltip, TextDrawingArea[] tda, int idx, int color,
+                                        boolean center, boolean shadow, int width, int height) {
 		addClickableText(id, text, tooltip, tda, idx, color, center, shadow, width);
 		interfaceCache[id].height = height;
 	}
 
-	public static void addClickableText(int id, String text, String tooltip, TextDrawingArea tda[], int idx, int color,
-			boolean center, boolean shadow, int width) {
+	public static void addClickableText(int id, String text, String tooltip, TextDrawingArea[] tda, int idx, int color,
+                                        boolean center, boolean shadow, int width) {
 		RSInterface tab = addTabInterface(id);
 		tab.parentID = id;
 		tab.id = id;
@@ -4359,8 +4357,8 @@ public class RSInterface {
 	public int colourEnabled;
 	public int hoverColorDisabled;
 	public int hoverColorEnabled;
-	public static void addText(int id, String text, TextDrawingArea tda[], int idx, int color,
-							   boolean center, boolean shadow, int hoverColour, String tooltip, int widthHover) {
+	public static void addText(int id, String text, TextDrawingArea[] tda, int idx, int color,
+                               boolean center, boolean shadow, int hoverColour, String tooltip, int widthHover) {
 		RSInterface tab = addTabInterface(id);
 		tab.parentID = id;
 		tab.id = id;
@@ -4423,8 +4421,8 @@ public class RSInterface {
 
 
 	public boolean ignoreItemAmounts;
-	public int inv[];
-	public int invStackSizes[];
+	public int[] inv;
+	public int[] invStackSizes;
 	public boolean removeStackableNumber;
 	public static RSInterface addToItemGroup(int interfaceId, int itemId, int w, int h, int x, int y,
 											 boolean actions, String action1, String action2, String action3, boolean forceEmpty,

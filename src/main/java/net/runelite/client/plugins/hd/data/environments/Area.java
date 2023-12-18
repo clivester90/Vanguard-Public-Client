@@ -1275,7 +1275,7 @@ public enum Area
 
 	public boolean containsPoint(int pointX, int pointY, int pointZ)
 	{
-		for (AABB aabb : this.getAabbs())
+		for (AABB aabb : getAabbs())
 		{
 			if (aabb.contains(pointX, pointY, pointZ))
 			{

@@ -694,12 +694,8 @@ public class WorldArea
 		Tile[][][] tiles = client.getScene().getTiles();
 		Tile sourceTile = tiles[plane][cmpThisX][cmpThisY];
 		Tile targetTile = tiles[other.getPlane()][cmpOtherX][cmpOtherY];
-		if (sourceTile == null || targetTile == null)
-		{
-			return false;
-		}
-		return sourceTile.hasLineOfSightTo(targetTile);
-	}
+        return sourceTile != null && targetTile != null && sourceTile.hasLineOfSightTo(targetTile);
+    }
 
 	/**
 	 * Determine if this WorldArea has line of sight to another WorldArea.

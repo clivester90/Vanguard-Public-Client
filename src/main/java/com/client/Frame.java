@@ -12,10 +12,10 @@ public final class Frame {
             FrameBase class18 = new FrameBase(stream);
 			int k1 = stream.readUShort();
 			animationlist[file] = new Frame[(int)(k1*3)];
-			int ai[] = new int[500];
-			int ai1[] = new int[500];
-			int ai2[] = new int[500];
-			int ai3[] = new int[500];
+			int[] ai = new int[500];
+			int[] ai1 = new int[500];
+			int[] ai2 = new int[500];
+			int[] ai3 = new int[500];
 			for(int l1 = 0; l1 < k1; l1++) {
 				int i2 = stream.readUShort();
 				Frame class36 = animationlist[file][i2] = new Frame();
@@ -116,14 +116,14 @@ public final class Frame {
 		return i == -1;
 	}
 	
-	public static Frame animationlist[][];
+	public static Frame[][] animationlist;
 	public int anInt636;
 	public FrameBase base;
 	public int transformationCount;
-	public int transformationIndices[];
-	public int transformX[];
-	public int transformY[];
-	public int transformZ[];
+	public int[] transformationIndices;
+	public int[] transformX;
+	public int[] transformY;
+	public int[] transformZ;
 	public static Client clientInstance;
 
 }

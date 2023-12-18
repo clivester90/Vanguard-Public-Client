@@ -18,7 +18,7 @@ public final class Buffer1 extends Cacheable {
 
 
 
-    public byte payload[];
+    public byte[] payload;
     public int currentPosition;
     public int bitPosition;
     private static final int[] BIT_MASKS = { 0, 1, 3, 7, 15, 31, 63, 127, 255,
@@ -124,7 +124,7 @@ public final class Buffer1 extends Cacheable {
             payload[currentPosition++] = (byte) (int) value;
         } catch (RuntimeException runtimeexception) {
             Signlink.reporterror("14395, " + 5 + ", " + value + ", "
-                    + runtimeexception.toString());
+                    + runtimeexception);
             throw new RuntimeException();
         }
     }
@@ -136,7 +136,7 @@ public final class Buffer1 extends Cacheable {
         payload[currentPosition++] = 10;
     }
 
-    public void writeBytes(byte data[], int offset, int length) {
+    public void writeBytes(byte[] data, int offset, int length) {
         for (int index = length; index < length + offset; index++)
             payload[currentPosition++] = data[index];
     }
@@ -215,12 +215,12 @@ public final class Buffer1 extends Cacheable {
         int index = currentPosition;
         while (payload[currentPosition++] != 10)
             ;
-        byte data[] = new byte[currentPosition - index - 1];
+        byte[] data = new byte[currentPosition - index - 1];
         System.arraycopy(payload, index, data, index - index, currentPosition - 1 - index);
         return data;
     }
 
-    public void readBytes(int offset, int length, byte data[]) {
+    public void readBytes(int offset, int length, byte[] data) {
         for (int index = length; index < length + offset; index++)
             data[index] = payload[currentPosition++];
     }
@@ -389,13 +389,13 @@ public final class Buffer1 extends Cacheable {
                 + (payload[currentPosition - 2] & 0xff);
     }
 
-    public void writeReverseDataA(byte data[], int length, int offset) {
+    public void writeReverseDataA(byte[] data, int length, int offset) {
         for (int index = (length + offset) - 1; index >= length; index--) {
             payload[currentPosition++] = (byte) (data[index] + 128);
         }
     }
 
-    public void readReverseData(byte data[], int offset, int length) {
+    public void readReverseData(byte[] data, int offset, int length) {
         for (int index = (length + offset) - 1; index >= length; index--) {
             data[index] = payload[currentPosition++];
         }

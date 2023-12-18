@@ -915,12 +915,8 @@ public class ProceduralGenerator
 	public boolean isOverlayFace(Tile tile, int face)
 	{
 		int tileShapeIndex = tile.getSceneTileModel().getShape() - 1;
-		if (face >= getTileOverlayTris(tileShapeIndex).length)
-		{
-			return false;
-		}
-		return getTileOverlayTris(tileShapeIndex)[face];
-	}
+        return face < getTileOverlayTris(tileShapeIndex).length && getTileOverlayTris(tileShapeIndex)[face];
+    }
 
 	int[][] tileVertices(Tile tile)
 	{
@@ -1104,12 +1100,8 @@ public class ProceduralGenerator
 			return !overlay.blended;
 		}
 		Underlay underlay = Underlay.getUnderlay(client.getScene().getUnderlayIds()[z][x][y], tile, client, plugin);
-		if (underlay != Underlay.NONE)
-		{
-			return !underlay.blended;
-		}
-		return false;
-	}
+        return underlay != Underlay.NONE && !underlay.blended;
+    }
 
 
 	WaterType getSeasonalWaterType(WaterType waterType)

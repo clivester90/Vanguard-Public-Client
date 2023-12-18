@@ -203,7 +203,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			if (materials.size() <= 1 || numChars < 26)
 			{
 				StringBuilder sb = new StringBuilder("Materials: { ");
-				if (materials.size() == 0)
+				if (materials.isEmpty())
 				{
 					sb.append("null");
 				}
@@ -307,7 +307,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 		for (String line : lines)
 		{
 			Pair<String, String> pair = splitter.apply(line);
-			if (pair.getRight().length() == 0)
+			if (pair.getRight().isEmpty())
 			{
 				int halfWidth = fm.stringWidth(pair.getLeft()) / 2;
 				leftWidth = Math.max(leftWidth, halfWidth);
@@ -346,7 +346,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			Pair<String, String> pair = splitter.apply(line);
 			offsetY += lineHeight;
 			Point p;
-			if (pair.getRight().length() == 0)
+			if (pair.getRight().isEmpty())
 			{
 				// centered
 				p = new Point(

@@ -10,7 +10,7 @@ import com.client.Client;
  */
 public class TabBindings {
 
-	public static int tabBindings[] = {
+	public static int[] tabBindings = {
 			KeyEvent.VK_F5,
 			-1,
 			-1,

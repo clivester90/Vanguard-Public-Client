@@ -89,12 +89,9 @@ public class ContainableFrame extends JFrame
 		{
 			return true; // JDK-8247209
 		}
-		if (isVersionOrGreater(javaVersion, 12, -1, -1))
-		{
-			return false; // unpatched
-		}
-		return isVersionOrGreater(javaVersion, 11, 0, 8); // JDK-8243374
-	}
+        // JDK-8243374
+        return !isVersionOrGreater(javaVersion, 12, -1, -1) && isVersionOrGreater(javaVersion, 11, 0, 8); // unpatched
+    }
 
 	@VisibleForTesting
 	static boolean jdk8243925(String javaVersion)
@@ -111,12 +108,9 @@ public class ContainableFrame extends JFrame
 		{
 			return true; // JDK-8261342
 		}
-		if (isVersionOrGreater(javaVersion, 12, -1, -1))
-		{
-			return false; // unpatched
-		}
-		return isVersionOrGreater(javaVersion, 11, 0, 9);  // JDK-8243374
-	}
+        // JDK-8243374
+        return !isVersionOrGreater(javaVersion, 12, -1, -1) && isVersionOrGreater(javaVersion, 11, 0, 9); // unpatched
+    }
 
 	private static boolean isVersionOrGreater(String javaVersion, int versionMajor, int versionMinor, int versionPatch)
 	{
@@ -153,13 +147,9 @@ public class ContainableFrame extends JFrame
 		}
 
 		i = Integer.compare(patch, versionPatch);
-		if (i != 0)
-		{
-			return i > 0;
-		}
+        return i == 0 || i > 0;
 
-		return true;
-	}
+    }
 
 	@Setter
 	private ExpandResizeType expandResizeType;

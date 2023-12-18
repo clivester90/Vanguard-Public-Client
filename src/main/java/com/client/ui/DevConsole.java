@@ -39,13 +39,13 @@ public class DevConsole {
 
     public void command_input(int j)
     {
-        if(j == 8 && console_input.length() > 0 && console_input.length() <= 40)
+        if(j == 8 && !console_input.isEmpty() && console_input.length() <= 40)
             console_input = console_input.substring(0, console_input.length() - 1);
 
         if(j >= 32 && j <= 122 && console_input.length() < 40)
             console_input += (char)j;
 
-        if((j == 13 || j == 10) && console_input.length() > 0 && console_input.length() <= 40)
+        if((j == 13 || j == 10) && !console_input.isEmpty() && console_input.length() <= 40)
         {
             print_message(console_input, 0);
             send_command_packet(console_input);

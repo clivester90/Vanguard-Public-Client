@@ -61,7 +61,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 			}
 			if (expectedSize > 0 && j >= expectedSize) {
 				waiting = true;
-				byte abyte0[] = ioBuffer;
+				byte[] abyte0 = ioBuffer;
 				int i1 = 0;
 				if (current != null) {
 					abyte0 = current.buffer;
@@ -126,7 +126,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 			new File("./temp/index1/").mkdirs();
 		for (int i = 0; i < getModelCount(); i++) {
 			try {
-				byte abyte[] = clientInstance.decompressors[1].read(i);
+				byte[] abyte = clientInstance.decompressors[1].read(i);
 				if (abyte == null || abyte.length == 0)
 					continue;
 				File map = new File("./temp/index1/" + i + ".gz");
@@ -144,7 +144,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 			new File("./temp/index4/").mkdirs();
 		for (int i = 0; i < mapIndices2.length; i++) {
 			try {
-				byte abyte[] = clientInstance.decompressors[4].read(mapIndices2[i]);
+				byte[] abyte = clientInstance.decompressors[4].read(mapIndices2[i]);
 				if (abyte == null || abyte.length == 0)
 					continue;
 				File map = new File("./temp/index4/"+mapIndices2[i]+".gz");
@@ -157,7 +157,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		}
 		for (int i = 0; i < mapIndices3.length; i++) {
 			try {
-				byte abyte[] = clientInstance.decompressors[4].read(mapIndices3[i]);
+				byte[] abyte = clientInstance.decompressors[4].read(mapIndices3[i]);
 				if (abyte == null || abyte.length == 0)
 					continue;
 				File map = new File("./temp/index4/"+mapIndices3[i]+".gz");
@@ -521,7 +521,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		}
 		while (onDemandData != null) {
 			waiting = true;
-			byte abyte0[] = null;
+			byte[] abyte0 = null;
 			if (clientInstance.decompressors[0] != null)
 				abyte0 = clientInstance.decompressors[onDemandData.dataType + 1].read(onDemandData.ID);
 			synchronized (aClass19_1370) {
@@ -564,7 +564,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 				}
 			}
 			for (int j = 0; j < 4; j++) {
-				byte abyte0[] = fileStatus[j];
+				byte[] abyte0 = fileStatus[j];
 				int k = abyte0.length;
 				for (int l = 0; l < k; l++)
 					if (abyte0[l] == anInt1332) {

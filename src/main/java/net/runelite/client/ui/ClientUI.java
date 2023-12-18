@@ -668,19 +668,10 @@ public class ClientUI
 		return null;
 	}
 
-	private boolean showWarningOnExit()
-	{
-		if (config.warningOnExit() == WarningOnExit.ALWAYS)
-		{
-			return true;
-		}
-
-		if (config.warningOnExit() == WarningOnExit.LOGGED_IN && client instanceof Client)
-		{
-			return ((Client) client).getGameState() != GameState.LOGIN_SCREEN;
-		}
-
-		return false;
+	private boolean showWarningOnExit() {
+		return config.warningOnExit() == WarningOnExit.ALWAYS
+				|| config.warningOnExit() == WarningOnExit.LOGGED_IN && client instanceof Client
+				&& ((Client) client).getGameState() != GameState.LOGIN_SCREEN;
 	}
 
 	private void shutdownClient()

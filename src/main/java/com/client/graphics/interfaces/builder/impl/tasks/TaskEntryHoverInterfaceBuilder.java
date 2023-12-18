@@ -43,7 +43,7 @@ public class TaskEntryHoverInterfaceBuilder extends InterfaceBuilder {
         addNewText(nextInterface(), difficulty, 0, 0, false, false);
         child(x + 2, y);
 
-        if (difficulty.length() != 0) {
+        if (!difficulty.isEmpty()) {
             y += getLineHeight(difficulty);
         }
 
@@ -71,7 +71,7 @@ public class TaskEntryHoverInterfaceBuilder extends InterfaceBuilder {
 
         // Rewards header
 
-        String rewards = taskEntry.getExtraRewards().length() != 0 || taskEntry.getRewards() != null ? "Rewards" : "";
+        String rewards = !taskEntry.getExtraRewards().isEmpty() || taskEntry.getRewards() != null ? "Rewards" : "";
         addNewText(nextInterface(), rewards, 0, 0, true, false);
         child(centerX, y);
         y += getLineHeight(rewards);
@@ -114,7 +114,7 @@ public class TaskEntryHoverInterfaceBuilder extends InterfaceBuilder {
     }
 
     private int getLineHeight(String text) {
-        if (text == null || text.length() == 0) return 0;
+        if (text == null || text.isEmpty()) return 0;
         int lines = 1;
         while (true) {
             int nlIndex = text.indexOf("\\n");

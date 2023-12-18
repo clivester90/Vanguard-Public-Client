@@ -432,7 +432,7 @@ public class XpTrackerPlugin extends Plugin
 		for (Skill skill : COMBAT)
 		{
 			final XpUpdateResult updateResult = xpState.updateNpcKills(skill, npc, npcManager.getHealth(npc.getId()));
-			final boolean updated = XpUpdateResult.UPDATED.equals(updateResult);
+			final boolean updated = XpUpdateResult.UPDATED == updateResult;
 			xpPanel.updateSkillExperience(updated, xpPauseState.isPaused(skill), skill, xpState.getSkillSnapshot(skill));
 		}
 

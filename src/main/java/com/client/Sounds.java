@@ -106,7 +106,7 @@ final class Sounds {
 			if (aClass6Array329[i2] != null) {
 				int j2 = (aClass6Array329[i2].anInt113 * 22050) / 1000;
 				int i3 = (aClass6Array329[i2].anInt114 * 22050) / 1000;
-				int ai[] = aClass6Array329[i2].method167(j2,
+				int[] ai = aClass6Array329[i2].method167(j2,
 						aClass6Array329[i2].anInt113);
 				for (int l3 = 0; l3 < j2; l3++)
 					aByteArray327[l3 + i3 + 44] += (byte) (ai[l3] >> 8);

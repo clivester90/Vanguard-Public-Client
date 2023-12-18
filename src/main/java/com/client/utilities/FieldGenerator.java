@@ -21,7 +21,7 @@ public class FieldGenerator {
     }
 
     public void add(String definitionName, int id) {
-        if (definitionName != null && definitionName.length() > 0
+        if (definitionName != null && !definitionName.isEmpty()
                 && !definitionName.equalsIgnoreCase("null")
                 && !definitionName.contains("col=")
                 && !definitionName.equals("Dwarf remains")

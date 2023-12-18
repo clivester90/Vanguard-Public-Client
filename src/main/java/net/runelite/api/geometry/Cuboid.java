@@ -48,10 +48,6 @@ public class Cuboid
 		{
 			return false;
 		}
-		if (worldPoint.getY() < southWest.getY() || worldPoint.getY() > northEast.getY())
-		{
-			return false;
-		}
-		return worldPoint.getX() >= southWest.getX() && worldPoint.getX() <= northEast.getX();
+		return worldPoint.getY() >= southWest.getY() && worldPoint.getY() <= northEast.getY() && worldPoint.getX() >= southWest.getX() && worldPoint.getX() <= northEast.getX();
 	}
 }

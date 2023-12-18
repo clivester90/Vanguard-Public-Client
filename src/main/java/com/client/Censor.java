@@ -29,7 +29,7 @@ final class Censor {
 		anIntArray625 = new int[i];
 		for (int j = 0; j < i; j++) {
 			anIntArray625[j] = stream.readUnsignedByte();
-			char ac[] = new char[stream.readUnsignedByte()];
+			char[] ac = new char[stream.readUnsignedByte()];
 			for (int k = 0; k < ac.length; k++)
 				ac[k] = (char) stream.readUnsignedByte();
 
@@ -57,14 +57,14 @@ final class Censor {
 			anIntArray620[i] = stream.readUShort();
 	}
 
-	private static void method493(Buffer stream, char ac[][], byte abyte0[][][]) {
+	private static void method493(Buffer stream, char[][] ac, byte[][][] abyte0) {
 		for (int j = 0; j < ac.length; j++) {
-			char ac1[] = new char[stream.readUnsignedByte()];
+			char[] ac1 = new char[stream.readUnsignedByte()];
 			for (int k = 0; k < ac1.length; k++)
 				ac1[k] = (char) stream.readUnsignedByte();
 
 			ac[j] = ac1;
-			byte abyte1[][] = new byte[stream.readUnsignedByte()][2];
+			byte[][] abyte1 = new byte[stream.readUnsignedByte()][2];
 			for (int l = 0; l < abyte1.length; l++) {
 				abyte1[l][0] = (byte) stream.readUnsignedByte();
 				abyte1[l][1] = (byte) stream.readUnsignedByte();
@@ -76,9 +76,9 @@ final class Censor {
 
 	}
 
-	private static void method494(char ac[][], Buffer stream) {
+	private static void method494(char[][] ac, Buffer stream) {
 		for (int j = 0; j < ac.length; j++) {
-			char ac1[] = new char[stream.readUnsignedByte()];
+			char[] ac1 = new char[stream.readUnsignedByte()];
 			for (int k = 0; k < ac1.length; k++)
 				ac1[k] = (char) stream.readUnsignedByte();
 
@@ -87,7 +87,7 @@ final class Censor {
 
 	}
 
-	private static void method495(char ac[]) {
+	private static void method495(char[] ac) {
 		int i = 0;
 		for (int j = 0; j < ac.length; j++) {
 			if (method496(ac[j]))
@@ -109,7 +109,7 @@ final class Censor {
 
 	public static String doCensor(String s) {
 		System.currentTimeMillis();
-		char ac[] = s.toCharArray();
+		char[] ac = s.toCharArray();
 		method495(ac);
 		String s1 = (new String(ac)).trim();
 		ac = s1.toLowerCase().toCharArray();
@@ -120,7 +120,7 @@ final class Censor {
 		method514(ac);
 		for (int j = 0; j < exceptions.length; j++) {
 			for (int k = -1; (k = s2.indexOf(exceptions[j], k + 1)) != -1;) {
-				char ac1[] = exceptions[j].toCharArray();
+				char[] ac1 = exceptions[j].toCharArray();
 				System.arraycopy(ac1, 0, ac, k, ac1.length);
 
 			}
@@ -132,13 +132,13 @@ final class Censor {
 		return (new String(ac)).trim(); // xxx chat filter, return s to avoid
 	}
 
-	private static void method498(char ac[], char ac1[]) {
+	private static void method498(char[] ac, char[] ac1) {
 		for (int j = 0; j < ac.length; j++)
 			if (ac1[j] != '*' && isUpperCaseLetter(ac[j]))
 				ac1[j] = ac[j];
 	}
 
-	private static void method499(char ac[]) {
+	private static void method499(char[] ac) {
 		boolean flag = true;
 		for (int j = 0; j < ac.length; j++) {
 			char c = ac[j];
@@ -154,7 +154,7 @@ final class Censor {
 		}
 	}
 
-	private static void method500(char ac[]) {
+	private static void method500(char[] ac) {
 		for (int i = 0; i < 2; i++) {
 			for (int j = aCharArrayArray621.length - 1; j >= 0; j--)
 				method509(aByteArrayArrayArray622[j], ac, aCharArrayArray621[j]);
@@ -162,18 +162,18 @@ final class Censor {
 		}
 	}
 
-	private static void method501(char ac[]) {
-		char ac1[] = ac.clone();
-		char ac2[] = { '(', 'a', ')' };
+	private static void method501(char[] ac) {
+		char[] ac1 = ac.clone();
+		char[] ac2 = { '(', 'a', ')' };
 		method509(null, ac1, ac2);
-		char ac3[] = ac.clone();
-		char ac4[] = { 'd', 'o', 't' };
+		char[] ac3 = ac.clone();
+		char[] ac4 = { 'd', 'o', 't' };
 		method509(null, ac3, ac4);
 		for (int i = aCharArrayArray623.length - 1; i >= 0; i--)
 			method502(ac, aCharArrayArray623[i], ac3, ac1);
 	}
 
-	private static void method502(char ac[], char ac1[], char ac2[], char ac3[]) {
+	private static void method502(char[] ac, char[] ac1, char[] ac2, char[] ac3) {
 		if (ac1.length > ac.length)
 			return;
 		int j;
@@ -220,7 +220,7 @@ final class Censor {
 
 	}
 
-	private static int method503(char ac[], char ac1[], int j) {
+	private static int method503(char[] ac, char[] ac1, int j) {
 		if (j == 0)
 			return 2;
 		for (int k = j - 1; k >= 0; k--) {
@@ -243,7 +243,7 @@ final class Censor {
 		return !method517(ac[j - 1]) ? 0 : 1;
 	}
 
-	private static int method504(char ac[], int i, char ac1[]) {
+	private static int method504(char[] ac, int i, char[] ac1) {
 		if (i + 1 == ac1.length)
 			return 2;
 		for (int j = i + 1; j < ac1.length; j++) {
@@ -265,20 +265,20 @@ final class Censor {
 		return !method517(ac1[i + 1]) ? 0 : 1;
 	}
 
-	private static void method505(char ac[]) {
-		char ac1[] = ac.clone();
-		char ac2[] = { 'd', 'o', 't' };
+	private static void method505(char[] ac) {
+		char[] ac1 = ac.clone();
+		char[] ac2 = { 'd', 'o', 't' };
 		method509(null, ac1, ac2);
-		char ac3[] = ac.clone();
-		char ac4[] = { 's', 'l', 'a', 's', 'h' };
+		char[] ac3 = ac.clone();
+		char[] ac4 = { 's', 'l', 'a', 's', 'h' };
 		method509(null, ac3, ac4);
 		for (int i = 0; i < aCharArrayArray624.length; i++)
 			method506(ac3, aCharArrayArray624[i], anIntArray625[i], ac1, ac);
 
 	}
 
-	private static void method506(char ac[], char ac1[], int i, char ac2[],
-			char ac3[]) {
+	private static void method506(char[] ac, char[] ac1, int i, char[] ac2,
+                                  char[] ac3) {
 		if (ac1.length > ac3.length)
 			return;
 		int j;
@@ -382,7 +382,7 @@ final class Censor {
 		}
 	}
 
-	private static int method507(char ac[], int j, char ac1[]) {
+	private static int method507(char[] ac, int j, char[] ac1) {
 		if (j == 0)
 			return 2;
 		for (int k = j - 1; k >= 0; k--) {
@@ -404,7 +404,7 @@ final class Censor {
 		return !method517(ac[j - 1]) ? 0 : 1;
 	}
 
-	private static int method508(char ac[], char ac1[], int i) {
+	private static int method508(char[] ac, char[] ac1, int i) {
 		if (i + 1 == ac.length)
 			return 2;
 		for (int j = i + 1; j < ac.length; j++) {
@@ -427,7 +427,7 @@ final class Censor {
 		return !method517(ac[i + 1]) ? 0 : 1;
 	}
 
-	private static void method509(byte abyte0[][], char ac[], char ac1[]) {
+	private static void method509(byte[][] abyte0, char[] ac, char[] ac1) {
 		if (ac1.length > ac.length)
 			return;
 		int j;
@@ -500,7 +500,7 @@ final class Censor {
 						for (; !flag7 && k2 < l; k2++)
 							if (k2 >= 0
 									&& (!method517(ac[k2]) || ac[k2] == '\'')) {
-								char ac2[] = new char[3];
+								char[] ac2 = new char[3];
 								int j3;
 								for (j3 = 0; j3 < 3; j3++) {
 									if (k2 + j3 >= ac.length
@@ -552,7 +552,7 @@ final class Censor {
 
 	}
 
-	private static boolean method510(byte byte0, byte abyte0[][], byte byte2) {
+	private static boolean method510(byte byte0, byte[][] abyte0, byte byte2) {
 		int i = 0;
 		if (abyte0[i][0] == byte0 && abyte0[i][1] == byte2)
 			return true;
@@ -705,7 +705,7 @@ final class Censor {
 			return 27;
 	}
 
-	private static void method514(char ac[]) {
+	private static void method514(char[] ac) {
 		int j;
 		int k = 0;
 		int l = 0;
@@ -738,7 +738,7 @@ final class Censor {
 		}
 	}
 
-	private static int method515(char ac[], int i) {
+	private static int method515(char[] ac, int i) {
 		for (int k = i; k < ac.length && k >= 0; k++)
 			if (ac[k] >= '0' && ac[k] <= '9')
 				return k;
@@ -746,7 +746,7 @@ final class Censor {
 		return -1;
 	}
 
-	private static int method516(char ac[], int j) {
+	private static int method516(char[] ac, int j) {
 		for (int k = j; k < ac.length && k >= 0; k++)
 			if (ac[k] < '0' || ac[k] > '9')
 				return k;
@@ -778,7 +778,7 @@ final class Censor {
 		return c >= 'A' && c <= 'Z';
 	}
 
-	private static boolean method523(char ac[]) {
+	private static boolean method523(char[] ac) {
 		boolean flag = true;
 		for (int i = 0; i < ac.length; i++)
 			if (!isDigit(ac[i]) && ac[i] != 0)
@@ -803,7 +803,7 @@ final class Censor {
 		return false;
 	}
 
-	private static int method524(char ac[]) {
+	private static int method524(char[] ac) {
 		if (ac.length > 6)
 			return 0;
 		int k = 0;

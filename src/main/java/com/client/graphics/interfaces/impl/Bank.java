@@ -212,7 +212,7 @@ public class Bank extends RSInterface {
             // Update search container items
             RSInterface searchContainer = interfaceCache[SEARCH_CONTAINER];
             searchContainer.resetItems();
-            if (searchingBankString.length() > 0) {
+            if (!searchingBankString.isEmpty()) {
                 for (int index = 0; index < ITEM_CONTAINERS.length; index++) {
                     RSInterface container = interfaceCache[ITEM_CONTAINERS[index]];
                     for (int itemIndex = 0; itemIndex < container.inventoryItemId.length; itemIndex++) {

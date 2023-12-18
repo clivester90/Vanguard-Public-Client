@@ -25,7 +25,7 @@ public class Renderable extends Cacheable implements RSRenderable {
         modelBaseY = 1000;
     }
 
-    VertexNormal normals[];
+    VertexNormal[] normals;
     public int modelBaseY; // modelHeight
 
     @Override

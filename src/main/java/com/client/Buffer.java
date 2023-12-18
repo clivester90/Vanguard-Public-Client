@@ -79,7 +79,7 @@ public final class Buffer extends Cacheable {
         return buffer2;
     }
 
-    public Buffer(byte abyte0[]) {
+    public Buffer(byte[] abyte0) {
         payload = abyte0;
         currentPosition = 0;
     }
@@ -198,7 +198,7 @@ public final class Buffer extends Cacheable {
             payload[currentPosition++] = (byte) (int) l;
         } catch (RuntimeException runtimeexception) {
             Signlink.reporterror("14395, " + 5 + ", " + l + ", "
-                    + runtimeexception.toString());
+                    + runtimeexception);
             throw new RuntimeException();
         }
     }
@@ -214,7 +214,7 @@ public final class Buffer extends Cacheable {
 		payload[currentPosition++] = (byte) i;
 	}
 
-    public void writeBytes(byte abyte0[], int length, int startingPosition) {
+    public void writeBytes(byte[] abyte0, int length, int startingPosition) {
         for (int k = startingPosition; k < startingPosition + length; k++)
             payload[currentPosition++] = abyte0[k];
     }
@@ -375,12 +375,12 @@ public final class Buffer extends Cacheable {
         int i = currentPosition;
         while (payload[currentPosition++] != 10)
             ;
-        byte abyte0[] = new byte[currentPosition - i - 1];
+        byte[] abyte0 = new byte[currentPosition - i - 1];
         System.arraycopy(payload, i, abyte0, i - i, currentPosition - 1 - i);
         return abyte0;
     }
 
-    public void readBytes(int length, int offset, byte abyte0[]) {
+    public void readBytes(int length, int offset, byte[] abyte0) {
         for (int l = offset; l < offset + length; l++)
             abyte0[l] = payload[currentPosition++];
     }
@@ -425,11 +425,11 @@ public final class Buffer extends Cacheable {
     public void doKeys() {
         int i = currentPosition;
         currentPosition = 0;
-        byte abyte0[] = new byte[i];
+        byte[] abyte0 = new byte[i];
         readBytes(i, 0, abyte0);
         BigInteger biginteger2 = new BigInteger(abyte0);
         BigInteger biginteger3 = biginteger2.modPow(RSA_EXPONENT, RSA_MODULUS);
-        byte abyte1[] = biginteger3.toByteArray();
+        byte[] abyte1 = biginteger3.toByteArray();
         currentPosition = 0;
         writeUnsignedByte(abyte1.length);
         writeBytes(abyte1, abyte1.length, 0);
@@ -556,13 +556,13 @@ public final class Buffer extends Cacheable {
     public void setOffset(int var11) {
         currentPosition = var11;
     }
-    public void method441(int i, byte abyte0[], int j) {
+    public void method441(int i, byte[] abyte0, int j) {
         for (int k = (i + j) - 1; k >= i; k--)
             payload[currentPosition++] = (byte) (abyte0[k] + 128);
 
     }
 
-    public void method442(int i, int j, byte abyte0[]) {
+    public void method442(int i, int j, byte[] abyte0) {
         for (int k = (j + i) - 1; k >= j; k--)
             abyte0[k] = payload[currentPosition++];
 
@@ -579,7 +579,7 @@ public final class Buffer extends Cacheable {
         return payload.length;
     }
 
-    public byte payload[];
+    public byte[] payload;
     public int currentPosition;
     public int bitPosition;
     public static final int[] anIntArray1409 = {0, 1, 3, 7, 15, 31, 63, 127,

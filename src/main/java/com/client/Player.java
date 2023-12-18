@@ -48,7 +48,7 @@ public final class Player extends Entity implements RSPlayer {
 				// spotAnim.anInt414, -30, -50, -30, true);
 				model_3.light(64 + spotAnim.modelBrightness,
 						850 + spotAnim.modelShadow, -30, -50, -30, true);
-				Model aclass30_sub2_sub4_sub6_1s[] = { model, model_3 };
+				Model[] aclass30_sub2_sub4_sub6_1s = { model, model_3 };
 				model = new Model(aclass30_sub2_sub4_sub6_1s);
 			}
 		}
@@ -68,7 +68,7 @@ public final class Player extends Entity implements RSPlayer {
 					model_1.rotate90Degrees();
 				} else if (super.getTurnDirection() == 1536)
 					model_1.rotate90Degrees();
-				Model aclass30_sub2_sub4_sub6s[] = { model, model_1 };
+				Model[] aclass30_sub2_sub4_sub6s = { model, model_1 };
 				model = new Model(aclass30_sub2_sub4_sub6s);
 				if (super.getTurnDirection() == 512)
 					model_1.rotate90Degrees();
@@ -233,7 +233,7 @@ public final class Player extends Entity implements RSPlayer {
 			}
 		}
 		if (model_1 == null) {
-			Model aclass30_sub2_sub4_sub6s[] = new Model[12];
+			Model[] aclass30_sub2_sub4_sub6s = new Model[12];
 			int j2 = 0;
 			for (int l2 = 0; l2 < 12; l2++) {
 				int i3 = equipment[l2];
@@ -329,7 +329,7 @@ public final class Player extends Entity implements RSPlayer {
 
 		if (flag)
 			return null;
-		Model aclass30_sub2_sub4_sub6s[] = new Model[12];
+		Model[] aclass30_sub2_sub4_sub6s = new Model[12];
 		int k = 0;
 		for (int l = 0; l < 12; l++) {
 			int i1 = equipment[l];

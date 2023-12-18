@@ -18,24 +18,24 @@ public final class MapRegion {
 	private final byte[][][] shading;
 	private final int[][][] anIntArrayArrayArray135;
 	public byte[][][] overlayTypes;
-	private static final int COSINE_VERTICES[] = { 1, 0, -1, 0 };
+	private static final int[] COSINE_VERTICES = { 1, 0, -1, 0 };
 	private final int[][] tileLighting;
-	private static final int anIntArray140[] = { 16, 32, 64, 128 };
+	private static final int[] anIntArray140 = { 16, 32, 64, 128 };
 	public byte[][][] underlays;
-	private static final int SINE_VERTICIES[] = { 0, -1, 0, 1 };
+	private static final int[] SINE_VERTICIES = { 0, -1, 0, 1 };
 	public static int maximumPlane = 99;
 	private final int regionSizeX;
 	private final int regionSizeY;
 	private final byte[][][] overlayOrientations;
 	private final byte[][][] tileFlags;
 	public static boolean lowMem = false;
-	private static final int anIntArray152[] = { 1, 2, 4, 8 };
+	private static final int[] anIntArray152 = { 1, 2, 4, 8 };
 
 	private static final int BLOCKED_TILE = 1;
 	public static final int BRIDGE_TILE = 2;
 	private static final int FORCE_LOWEST_PLANE = 8;
 
-	public MapRegion(byte fileFlags[][][], int tileHeights[][][]) {
+	public MapRegion(byte[][][] fileFlags, int[][][] tileHeights) {
 		maximumPlane = 99;
 		regionSizeX = 104;
 		regionSizeY = 104;
@@ -62,7 +62,7 @@ public final class MapRegion {
 		return l >> 19 & 0xff;
 	}
 
-	public final void createRegionScene(CollisionMap maps[], SceneGraph scene) {
+	public final void createRegionScene(CollisionMap[] maps, SceneGraph scene) {
 		try {
 
 			for (int z = 0; z < 4; z++) {
@@ -81,7 +81,7 @@ public final class MapRegion {
 			}
 			int mapLight = Client.instance.isHdMinimapEnabled() ? 52 : 96;
 			for (int z = 0; z < 4; z++) {
-				byte shading[][] = this.shading[z];
+				byte[][] shading = this.shading[z];
 
 				char diffusion = '\u0300';
 				byte lightX = -50;
@@ -873,7 +873,7 @@ public final class MapRegion {
 		return class46.modelTypeCached(j);
 	}
 
-	public final void loadMapChunk(int i, int j, CollisionMap clips[], int l, int i1, byte abyte0[], int j1, int k1, int l1) {
+	public final void loadMapChunk(int i, int j, CollisionMap[] clips, int l, int i1, byte[] abyte0, int j1, int k1, int l1) {
 		for (int i2 = 0; i2 < 8; i2++) { //Add clipping
 			for (int j2 = 0; j2 < 8; j2++)
 				if (l + i2 > 0 && l + i2 < 103 && l1 + j2 > 0 && l1 + j2 < 103)
@@ -896,7 +896,7 @@ public final class MapRegion {
 
 	}
 
-	public final void method180(byte abyte0[], int i, int j, int k, int l, CollisionMap aclass11[]) {
+	public final void method180(byte[] abyte0, int i, int j, int k, int l, CollisionMap[] aclass11) {
 		for (int i1 = 0; i1 < 4; i1++) {
 			for (int j1 = 0; j1 < 64; j1++) {
 				for (int k1 = 0; k1 < 64; k1++)
@@ -988,7 +988,7 @@ public final class MapRegion {
 		}
 	}
 
-	public final void readObjectMap(CollisionMap aclass11[], SceneGraph worldController, int i, int j, int k, int l, byte abyte0[], int i1, int j1, int k1) {
+	public final void readObjectMap(CollisionMap[] aclass11, SceneGraph worldController, int i, int j, int k, int l, byte[] abyte0, int i1, int j1, int k1) {
 		label0: {
 			Buffer stream = new Buffer(abyte0);
 			int l1 = -1;
@@ -1387,7 +1387,7 @@ public final class MapRegion {
 		return bool;
 	}
 
-	public final void method190(int i, CollisionMap aclass11[], int j, SceneGraph worldController, byte abyte0[]) {
+	public final void method190(int i, CollisionMap[] aclass11, int j, SceneGraph worldController, byte[] abyte0) {
 		label0: {
 			Buffer stream = new Buffer(abyte0);
 			int l = -1;

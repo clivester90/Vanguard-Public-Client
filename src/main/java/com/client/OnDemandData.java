@@ -10,7 +10,7 @@ public final class OnDemandData extends Cacheable {
 	}
 
 	int dataType;
-	byte buffer[];
+	byte[] buffer;
 	int ID;
 	boolean incomplete;
 	int loopCycle;

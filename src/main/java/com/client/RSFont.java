@@ -403,7 +403,7 @@ public class RSFont extends Rasterizer2D {
 							if (effectString.startsWith(startImage)) {
 								try {
 									String sub = effectString.substring(4);
-									if (sub.length() > 0) {
+									if (!sub.isEmpty()) {
 										int imageId = Integer.parseInt(sub);
 										if (imageId > -1) {
 											Sprite icon = chatImages[imageId];
@@ -422,7 +422,7 @@ public class RSFont extends Rasterizer2D {
 							} else if (effectString.startsWith(startIcon)) {
 								try {
 									String sub = effectString.substring(5);
-									if (sub.length() > 0) {
+									if (!sub.isEmpty()) {
 										int imageId = Integer.parseInt(sub);
 										if (imageId > -1) {
 											Sprite icon = iconPack[imageId];
@@ -441,7 +441,7 @@ public class RSFont extends Rasterizer2D {
 							} else if (effectString.startsWith(startClanImage)) {
 								try {
 									String sub = effectString.substring(5);
-									if (sub.length() > 0) {
+									if (!sub.isEmpty()) {
 										int imageId = Integer.parseInt(sub);
 										if (imageId > -1) {
 											Sprite icon = clanImages[imageId];
@@ -980,7 +980,7 @@ public class RSFont extends Rasterizer2D {
 		}
 	}
 
-	private void createCharacterPixels(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, int j1, int k1) {
+	private void createCharacterPixels(int[] ai, byte[] abyte0, int i, int j, int k, int l, int i1, int j1, int k1) {
 		int l1 = -(l >> 2);
 		l = -(l & 3);
 		for(int i2 = -i1; i2 < 0; i2++) {

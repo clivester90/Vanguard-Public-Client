@@ -81,7 +81,7 @@ public final class IDK {
 	public Model method538() {
 		if (modelIds == null)
 			return null;
-		Model aclass30_sub2_sub4_sub6s[] = new Model[modelIds.length];
+		Model[] aclass30_sub2_sub4_sub6s = new Model[modelIds.length];
 		for (int i = 0; i < modelIds.length; i++)
 			aclass30_sub2_sub4_sub6s[i] = Model.getModel(modelIds[i]);
 
@@ -113,7 +113,7 @@ public final class IDK {
 	}
 
 	public Model headModel() {
-		Model aclass30_sub2_sub4_sub6s[] = new Model[5];
+		Model[] aclass30_sub2_sub4_sub6s = new Model[5];
 		int j = 0;
 		for (int k = 0; k < 5; k++)
 			if (models[k] != -1)
@@ -144,7 +144,7 @@ public final class IDK {
 	}
 
 	public static int length;
-	public static IDK cache[];
+	public static IDK[] cache;
 	public int bodyPartId;
 	private int[] modelIds;
 	private int[] colourToFind;

@@ -1401,7 +1401,7 @@ public final class NpcDefinition implements RSNPCComposition {
 
         if (flag1)
             return null;
-        Model aclass30_sub2_sub4_sub6s[] = new Model[chatheadModels.length];
+        Model[] aclass30_sub2_sub4_sub6s = new Model[chatheadModels.length];
         for (int j = 0; j < chatheadModels.length; j++)
             aclass30_sub2_sub4_sub6s[j] = Model.getModel(chatheadModels[j]);
 
@@ -1442,7 +1442,7 @@ public final class NpcDefinition implements RSNPCComposition {
         return var3 == -1 ? null : lookup(var3);
     }
 
-    public Model method164(int j, int k, int ai[]) {
+    public Model method164(int j, int k, int[] ai) {
         if (configs != null) {
             NpcDefinition entityDef = method161();
             if (entityDef == null)
@@ -1459,7 +1459,7 @@ public final class NpcDefinition implements RSNPCComposition {
 
             if (flag)
                 return null;
-            Model aclass30_sub2_sub4_sub6s[] = new Model[models.length];
+            Model[] aclass30_sub2_sub4_sub6s = new Model[models.length];
             for (int j1 = 0; j1 < models.length; j1++)
                 aclass30_sub2_sub4_sub6s[j1] = Model.getModel(models[j1]);
 
@@ -1598,7 +1598,7 @@ public final class NpcDefinition implements RSNPCComposition {
     public int combatLevel;
     public final int anInt64;
     public String name;
-    public String actions[];
+    public String[] actions;
     public int walkingAnimation;
     public byte size;
     public int[] newColors;
@@ -1617,7 +1617,7 @@ public final class NpcDefinition implements RSNPCComposition {
     public int ambient;
     public int npcWidth;
     public boolean onMinimap;
-    public int configs[];
+    public int[] configs;
     public String description;
     public int npcHeight;
     public int contrast;

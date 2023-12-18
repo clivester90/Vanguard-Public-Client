@@ -61,7 +61,7 @@ public final class Npc extends Entity implements RSNPC {
 							spotAnim.resizeZ);
 				model_2.light(64 + spotAnim.modelBrightness,
 						850 + spotAnim.modelShadow, -30, -50, -30, true);
-				Model aModel[] = { model, model_2 };
+				Model[] aModel = { model, model_2 };
 				model = new Model(aModel);
 			}
 		}

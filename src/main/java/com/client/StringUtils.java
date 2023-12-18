@@ -40,7 +40,7 @@ public final class StringUtils {
 			if (l % 37L == 0L)
 				return "invalid_name";
 			int i = 0;
-			char ac[] = new char[12];
+			char[] ac = new char[12];
 			while (l != 0L) {
 				long l1 = l;
 				l /= 37L;
@@ -49,7 +49,7 @@ public final class StringUtils {
 			return new String(ac, 12 - i, i);
 		} catch (RuntimeException runtimeexception) {
 			Signlink.reporterror("81570, " + l + ", " + (byte) -99 + ", "
-					+ runtimeexception.toString());
+					+ runtimeexception);
 		}
 		throw new RuntimeException();
 	}
@@ -70,8 +70,8 @@ public final class StringUtils {
 	}
 
 	public static String fixName(String s) {
-		if (s.length() > 0) {
-			char ac[] = s.toCharArray();
+		if (!s.isEmpty()) {
+			char[] ac = s.toCharArray();
 			for (int j = 0; j < ac.length; j++)
 				if (ac[j] == '_') {
 					ac[j] = ' ';

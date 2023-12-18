@@ -116,12 +116,8 @@ public enum SlayerUnlock
 	{
 		if (isOwned(client))
 		{
-			if (toggleVarbit == null)
-			{
-				return true;
-			}
-			return client.getVar(toggleVarbit) == 0;
-		}
+            return toggleVarbit == null || client.getVar(toggleVarbit) == 0;
+        }
 		return false;
 	}
 }

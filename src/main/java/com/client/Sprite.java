@@ -280,7 +280,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 	}
 
 
-	public Sprite(byte data[], Component component) {
+	public Sprite(byte[] data, Component component) {
 		try {
 			Image image =  Toolkit.getDefaultToolkit().createImage(data);
 			MediaTracker mediatracker = new MediaTracker(component);
@@ -465,7 +465,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void set24BitPixels(int width, int height, int destPixels[], int srcPixels[], int srcAlpha, int destOffset, int srcOffset, int destStep, int srcStep) {
+	private void set24BitPixels(int width, int height, int[] destPixels, int[] srcPixels, int srcAlpha, int destOffset, int srcOffset, int destStep, int srcStep) {
 		int srcColor;
 		int destAlpha;
 		for (int loop = -height; loop < 0; loop++) {
@@ -500,7 +500,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		maxWidth = indexBuffer.readUShort();
 		maxHeight = indexBuffer.readUShort();
 		int pixelCount = indexBuffer.readUnsignedByte();
-		int raster[] = new int[pixelCount];
+		int[] raster = new int[pixelCount];
 
 		for (int pixel = 0; pixel < pixelCount - 1; pixel++) {
 			raster[pixel + 1] = indexBuffer.readTriByte();
@@ -575,7 +575,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 	}
 
 	public void method345() {
-		int ai[] = new int[maxWidth * maxHeight];
+		int[] ai = new int[maxWidth * maxHeight];
 		for (int j = 0; j < myHeight; j++) {
 			System.arraycopy(myPixels, j * myWidth, ai, j + drawOffsetY * maxWidth + drawOffsetX, myWidth);
 		}
@@ -626,7 +626,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void method347(int i, int j, int k, int l, int i1, int k1, int ai[], int ai1[]) {
+	private void method347(int i, int j, int k, int l, int i1, int k1, int[] ai, int[] ai1) {
 		int l1 = -(j >> 2);
 		j = -(j & 3);
 		for (int i2 = -k; i2 < 0; i2++) {
@@ -889,7 +889,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void method349(int ai[], int ai1[], int j, int k, int l, int i1, int j1, int k1) {
+	private void method349(int[] ai, int[] ai1, int j, int k, int l, int i1, int j1, int k1) {
 		int i;// was parameter
 		int l1 = -(l >> 2);
 		l = -(l & 3);
@@ -934,7 +934,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void method351(int i, int j, int ai[], int ai1[], int l, int i1, int j1, int k1, int l1) {
+	private void method351(int i, int j, int[] ai, int[] ai1, int l, int i1, int j1, int k1, int l1) {
 		int k;// was parameter
 		int j2 = 256 - k1;
 		for (int k2 = -i1; k2 < 0; k2++) {
@@ -954,7 +954,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 	}
 
 
-	public void rotate(int i, int j, int ai[], int k, int ai1[], int i1, int j1, int k1, int l1, int i2) {
+	public void rotate(int i, int j, int[] ai, int k, int[] ai1, int i1, int j1, int k1, int l1, int i2) {
 		try {
 			int j2 = -l1 / 2;
 			int k2 = -i / 2;
@@ -1045,7 +1045,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	public Sprite(byte spriteData[]) {
+	public Sprite(byte[] spriteData) {
 		try {
 			Image image =  Toolkit.getDefaultToolkit().createImage(spriteData);
 			ImageIcon sprite = new ImageIcon(image);
@@ -1065,7 +1065,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	public static Image create(byte spriteData[]) {
+	public static Image create(byte[] spriteData) {
 		return Toolkit.getDefaultToolkit().createImage(spriteData);
 	}
 
@@ -1150,7 +1150,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void renderARGBPixels(int spriteWidth, int spriteHeight, int spritePixels[], int renderAreaPixels[], int pixel, int alphaValue, int i, int l, int j1) {
+	private void renderARGBPixels(int spriteWidth, int spriteHeight, int[] spritePixels, int[] renderAreaPixels, int pixel, int alphaValue, int i, int l, int j1) {
 		int pixelColor;
 		int alphaLevel;
 		int alpha = alphaValue;
@@ -1181,7 +1181,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	private void method355(int ai[], int i, byte abyte0[], int j, int ai1[], int k, int l, int i1, int j1, int k1) {
+	private void method355(int[] ai, int i, byte[] abyte0, int j, int[] ai1, int k, int l, int i1, int j1, int k1) {
 		int l1 = -(i >> 2);
 		i = -(i & 3);
 		for (int j2 = -j; j2 < 0; j2++) {
@@ -1258,7 +1258,7 @@ public final class Sprite extends Rasterizer2D implements RSSpritePixels {
 		}
 	}
 
-	public int myPixels[];
+	public int[] myPixels;
 	public int myWidth;
 	public int myHeight;
 	public int drawOffsetX;

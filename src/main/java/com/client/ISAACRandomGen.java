@@ -5,7 +5,7 @@ package com.client;
 
 public final class ISAACRandomGen {
 
-	public ISAACRandomGen(int seed[]) {
+	public ISAACRandomGen(int[] seed) {
 		memory = new int[256];
 		results = new int[256];
 		System.arraycopy(seed, 0, results, 0, seed.length);

@@ -63,8 +63,8 @@ public class SpawnContainer extends RSInterface {
 		try {
 			for (int i = 0; i < 100_000; i++) {
 				ItemDefinition def = ItemDefinition.lookup(i);
-				if (def != null && def.name != null && def.name.length() > 0 && !def.name.contains("Dwarf remains")
-					&& (message.length() == 0 || def.name.toLowerCase().contains(message))) {
+				if (def != null && def.name != null && !def.name.isEmpty() && !def.name.contains("Dwarf remains")
+					&& (message.isEmpty() || def.name.toLowerCase().contains(message))) {
 					matches.add(i + 1);
 					if (matches.size() >= containerCount - 1)
 						break;

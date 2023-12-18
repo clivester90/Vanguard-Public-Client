@@ -3,7 +3,7 @@ package com.client;
 public final class ModelHeader
 {
 
-	public byte data[];
+	public byte[] data;
 	public int vertexCount;
 	public int triangleCount;
 	public int texturedTriangleCount;

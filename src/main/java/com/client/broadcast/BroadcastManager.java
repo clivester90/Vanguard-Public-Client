@@ -58,10 +58,7 @@ public class BroadcastManager {
 
     public static boolean isDisplayed() {
         Broadcast b = broadcasts[getHighestIndex()];
-        if (b == null || b.message == null) {
-            return false;
-        }
-        return b.time > System.currentTimeMillis();
+        return b != null && b.message != null && b.time > System.currentTimeMillis();
     }
 
     public static void display(Client client) {

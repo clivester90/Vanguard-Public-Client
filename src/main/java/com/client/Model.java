@@ -338,7 +338,7 @@ public class Model extends Renderable implements RSModel {
 	}
 
 	//Players - graphics in particular
-	public Model(Model models[]) {
+	public Model(Model[] models) {
 		int modelCount = 2;
 		singleTile = false;
 		anInt1620++;
@@ -821,7 +821,7 @@ public class Model extends Renderable implements RSModel {
 
 	public void generateBones() {
 		if (vertexData != null) {
-			int ai[] = new int[256];
+			int[] ai = new int[256];
 			int j = 0;
 			for (int l = 0; l < verticesCount; l++) {
 				int j1 = vertexData[l];
@@ -841,7 +841,7 @@ public class Model extends Renderable implements RSModel {
 			vertexData = null;
 		}
 		if (triangleData != null) {
-			int ai1[] = new int[256];
+			int[] ai1 = new int[256];
 			int k = 0;
 			for (int i1 = 0; i1 < trianglesCount; i1++) {
 				int l1 = triangleData[i1];
@@ -862,7 +862,7 @@ public class Model extends Renderable implements RSModel {
 		}
 	}
 
-	private void transform(int animationType, int skinArray[], int x, int y, int z) {
+	private void transform(int animationType, int[] skinArray, int x, int y, int z) {
 
 		int length = skinArray.length;
 		if (animationType == 0) {
@@ -1032,7 +1032,7 @@ public class Model extends Renderable implements RSModel {
 	}
 
 
-	public void animate2(int label[], int idle, int current) {
+	public void animate2(int[] label, int idle, int current) {
 		if (current == -1)
 			return;
 
@@ -2425,8 +2425,8 @@ public class Model extends Renderable implements RSModel {
 	private int boundsType;
 	boolean isBoundsCalculated;
 
-	public int animayaGroups[][];
-	public int animayaScales[][];
+	public int[][] animayaGroups;
+	public int[][] animayaScales;
 
 	private float[] faceTextureUVCoordinates;
 	private int[] vertexNormalsX, vertexNormalsY, vertexNormalsZ;
@@ -2437,30 +2437,30 @@ public class Model extends Renderable implements RSModel {
 
 	public static int anInt1620;
 	public static Model emptyModel = new Model();
-	private static int sharedVerticesX[] = new int[2000];
-	private static int sharedVerticesY[] = new int[2000];
-	private static int sharedVerticesZ[] = new int[2000];
-	private static byte sharedTriangleAlpha[] = new byte[2000];
+	private static int[] sharedVerticesX = new int[2000];
+	private static int[] sharedVerticesY = new int[2000];
+	private static int[] sharedVerticesZ = new int[2000];
+	private static byte[] sharedTriangleAlpha = new byte[2000];
 	public int verticesCount;
-	public int verticesX[];
-	public int verticesY[];
-	public int verticesZ[];
+	public int[] verticesX;
+	public int[] verticesY;
+	public int[] verticesZ;
 	public int trianglesCount;
-	public int trianglesX[];
-	public int trianglesY[];
-	public int trianglesZ[];
-	public int colorsX[];
-	public int colorsY[];
-	public int colorsZ[];
-	public int drawType[];
+	public int[] trianglesX;
+	public int[] trianglesY;
+	public int[] trianglesZ;
+	public int[] colorsX;
+	public int[] colorsY;
+	public int[] colorsZ;
+	public int[] drawType;
 	public byte[] renderPriorities;
-	public byte triangleAlpha[];
-	public short colors[];
+	public byte[] triangleAlpha;
+	public short[] colors;
 	public byte facePriority = 0;
 	public int texturesCount;
-	public short texturesX[];
-	public short texturesY[];
-	public short texturesZ[];
+	public short[] texturesX;
+	public short[] texturesY;
+	public short[] texturesZ;
 	public int minX;
 	public int maxX;
 	public int maxZ;
@@ -2470,32 +2470,32 @@ public class Model extends Renderable implements RSModel {
 	public int diagonal3D;
 	public int diagonal3DAboveOrigin;
 	public int itemDropHeight;
-	public int vertexData[];
-	public int triangleData[];
-	public int vertexGroups[][];
-	public int faceGroups[][];
+	public int[] vertexData;
+	public int[] triangleData;
+	public int[][] vertexGroups;
+	public int[][] faceGroups;
 	public boolean singleTile;
-	public VertexNormal vertexNormalsOffsets[];
+	public VertexNormal[] vertexNormalsOffsets;
 	private FaceNormal[] faceNormals;
-	static ModelHeader modelHeaders[];
-	static boolean hasAnEdgeToRestrict[] = new boolean[6500];
-	static boolean outOfReach[] = new boolean[6500];
-	static int vertexScreenX[] = new int[6500];
-	static int vertexScreenY[] = new int[6500];
-	static int vertexScreenZ[] = new int[6500];
-	static int vertexMovedX[] = new int[6500];
-	static int vertexMovedY[] = new int[6500];
-	static int vertexMovedZ[] = new int[6500];
-	static int depth[] = new int[1600];
-	static int faceLists[][] = new int[1600][512];
-	static int anIntArray1673[] = new int[12];
-	static int anIntArrayArray1674[][] = new int[12][2000];
-	static int anIntArray1676[] = new int[2000];
-	static int anIntArray1675[] = new int[2000];
-	static int anIntArray1677[] = new int[12];
-	static int xPosition[] = new int[10];
-	static int yPosition[] = new int[10];
-	static int zPosition[] = new int[10];
+	static ModelHeader[] modelHeaders;
+	static boolean[] hasAnEdgeToRestrict = new boolean[6500];
+	static boolean[] outOfReach = new boolean[6500];
+	static int[] vertexScreenX = new int[6500];
+	static int[] vertexScreenY = new int[6500];
+	static int[] vertexScreenZ = new int[6500];
+	static int[] vertexMovedX = new int[6500];
+	static int[] vertexMovedY = new int[6500];
+	static int[] vertexMovedZ = new int[6500];
+	static int[] depth = new int[1600];
+	static int[][] faceLists = new int[1600][512];
+	static int[] anIntArray1673 = new int[12];
+	static int[][] anIntArrayArray1674 = new int[12][2000];
+	static int[] anIntArray1676 = new int[2000];
+	static int[] anIntArray1675 = new int[2000];
+	static int[] anIntArray1677 = new int[12];
+	static int[] xPosition = new int[10];
+	static int[] yPosition = new int[10];
+	static int[] zPosition = new int[10];
 	static int transformTempX;
 	static int transformTempY;
 	static int transformTempZ;
@@ -2503,11 +2503,11 @@ public class Model extends Renderable implements RSModel {
 	public static int cursorX;
 	public static int cursorY;
 	public static int objectsHovering;
-	public static long hoveringObjects[] = new long[1000];
-	public static int SINE[];
-	public static int COSINE[];
-	static int modelColors[];
-	static int modelLocations[];
+	public static long[] hoveringObjects = new long[1000];
+	public static int[] SINE;
+	public static int[] COSINE;
+	static int[] modelColors;
+	static int[] modelLocations;
 
 	HashMap<Integer, net.runelite.api.AABB> aabb = new HashMap<Integer, net.runelite.api.AABB>();
 
