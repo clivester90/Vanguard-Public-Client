@@ -170,7 +170,7 @@ public class Client extends GameEngine implements RSClient {
 
 		aClass9_1059.scrollPosition = scrollMax - scrollbar_position - (height - 4);
 		if(scrollMax > height)
-			method65(x, height, MouseHandler.mouseX - 0, MouseHandler.mouseY - y, aClass9_1059, y_pad, true, scrollMax);
+			method65(x, height, MouseHandler.mouseX, MouseHandler.mouseY - y, aClass9_1059, y_pad, true, scrollMax);
 
 		int pos = scrollMax - (height - 4) - aClass9_1059.scrollPosition;
 		if(pos < 0)
@@ -259,7 +259,7 @@ public class Client extends GameEngine implements RSClient {
 
 	private InformationFile informationFile = new InformationFile();
 
-	public static boolean snowVisible = Configuration.CHRISTMAS ? true : false;
+	public static boolean snowVisible = Configuration.CHRISTMAS;
 
 	public static int[][] runePouch = new int[][] { { -1, -1 }, { -1, -1 }, { -1, -1 } };
 
@@ -303,20 +303,14 @@ public class Client extends GameEngine implements RSClient {
 			return;
 		}
 
-		DataInputStream stream = new DataInputStream(new FileInputStream(file));
-
-		try {
-
-
-			for(int i = 0; i < Keybinding.KEYBINDINGS.length; i++) {
+		try (DataInputStream stream = new DataInputStream(new FileInputStream(file))) {
+			for (int i = 0; i < Keybinding.KEYBINDINGS.length; i++) {
 				Keybinding.KEYBINDINGS[i] = stream.readByte();
 			}
 
 		} catch (IOException e) {
 			System.out.println("Unable to load player data.");
 			file.delete();
-		} finally {
-			stream.close();
 		}
 	}
 	public void savePlayerData() {
@@ -325,14 +319,11 @@ public class Client extends GameEngine implements RSClient {
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
 
-			try {
-				for(int i = 0; i < 14; i++) {
+			try (DataOutputStream stream = new DataOutputStream(new FileOutputStream(file))) {
+				for (int i = 0; i < 14; i++) {
 					stream.writeByte(Keybinding.KEYBINDINGS[i]);
 				}
-			} finally {
-				stream.close();
 			}
 
 		} catch (IOException e) {
@@ -3134,19 +3125,19 @@ public class Client extends GameEngine implements RSClient {
 						redStones[3].drawSprite(208 + xOffset, 298 + yOffset);
 				}else {
 					if (Client.tabID == 0)
-						redStones[1].drawSprite(14 + xOffset, 0 + yOffset);
+						redStones[1].drawSprite(14 + xOffset, yOffset);
 					if (Client.tabID == 1)
-						redStones[2].drawSprite(47 + xOffset, 0 + yOffset);
+						redStones[2].drawSprite(47 + xOffset, yOffset);
 					if (Client.tabID == 2)
-						redStones[2].drawSprite(74 + xOffset, 0 + yOffset);
+						redStones[2].drawSprite(74 + xOffset, yOffset);
 					if (Client.tabID == 3)
-						redStones[3].drawSprite(102 + xOffset, 0 + yOffset);
+						redStones[3].drawSprite(102 + xOffset, yOffset);
 					if (Client.tabID == 4)
-						redStones[2].drawSprite(144 + xOffset, 0 + yOffset);
+						redStones[2].drawSprite(144 + xOffset, yOffset);
 					if (Client.tabID == 5)
-						redStones[2].drawSprite(172 + xOffset, 0 + yOffset);
+						redStones[2].drawSprite(172 + xOffset, yOffset);
 					if (Client.tabID == 6)
-						redStones[0].drawSprite(201 + xOffset, 0 + yOffset);
+						redStones[0].drawSprite(201 + xOffset, yOffset);
 					if (Client.tabID == 7)
 						redStones[4].drawSprite(13 + xOffset, 296 + yOffset);
 					if (Client.tabID == 8)
@@ -3165,12 +3156,32 @@ public class Client extends GameEngine implements RSClient {
 
 			}
 			for (int index = 0; index <= 14; index++) {
+				switch (Client.tabInterfaceIDs[6]) {
+					case 938://Main tab
+						sideIcons[6] = new Sprite("icons/icon 7");
+						break;
+					case 838://Ancient magic interface
+						sideIcons[6] = new Sprite("icons/icon 18");
+						break;
+					case 29999://Lunar magic tab
+						sideIcons[6] = new Sprite("icons/icon 17");
+						break;
+				}
+				switch (Client.tabInterfaceIDs[8]) {
+					case 5065://Friends tab
+						sideIcons[8] = new Sprite("gameframe/sideicons/sideicon8");
+						break;
+					case 5715://Ignore tab
+						sideIcons[8] = new Sprite("gameframe/sideicons/sideicon17");
+						break;
+				}
+
 				if (Client.tabInterfaceIDs[index] > 0) {
 					if (!getUserSettings().isOldGameframe()) {
-						if (index != 13 || (index == 13 && pollActive)) {
-							sideIcons[index].drawSprite(sideIconCoordinates[index][0] + xOffset, sideIconCoordinates[index][1] + yOffset - 8);
+						if (index == 13 && pollActive && Client.tabInterfaceIDs[13] == 21406) {
+							sideIcons[13] = new Sprite("gameframe/sideicons/sideicon15");
 						} else {
-							sideIcons[index + 1].drawSprite(sideIconCoordinates[index][0] + xOffset, sideIconCoordinates[index][1] + yOffset - 8);
+							sideIcons[index].drawSprite(sideIconCoordinates[index][0] + xOffset, sideIconCoordinates[index][1] + yOffset - 8);
 						}
 					} else {
 						sideIcons[index].drawSprite(sideIconCoordinates1[index][0] + xOffset, sideIconCoordinates1[index][1] + yOffset);
@@ -3189,7 +3200,7 @@ public class Client extends GameEngine implements RSClient {
 				if (stackTabs()) {
 					if (tabIndex != 6) {
 						x += 33;
-					} else if (tabIndex == 6) {
+					} else {
 						y += 36;
 						x = Client.canvasWidth - 231;
 					}
@@ -3206,7 +3217,7 @@ public class Client extends GameEngine implements RSClient {
 				if (stackTabs()) {
 					if (index != 6) {
 						x += 33;
-					} else if (index == 6) {
+					} else {
 						y += 36;
 						x = Client.canvasWidth - 231;
 					}
@@ -4366,95 +4377,6 @@ public class Client extends GameEngine implements RSClient {
 
 		if (!loggedIn)
 			return;
-//		synchronized (mouseDetection.syncObject) {
-//			if (flagged) {
-//				if (MouseHandler.instance.clickMode3 != 0 || mouseDetection.coordsIndex >= 40) {
-//					stream.createFrame(45);
-//					stream.writeUnsignedByte(0);
-//					int j2 = stream.currentOffset;
-//					int j3 = 0;
-//					for (int j4 = 0; j4 < mouseDetection.coordsIndex; j4++) {
-//						if (j2 - stream.currentOffset >= 240)
-//							break;
-//						j3++;
-//						int l4 = mouseDetection.coordsY[j4];
-//						if (l4 < 0)
-//							l4 = 0;
-//						else if (l4 > 502)
-//							l4 = 502;
-//						int k5 = mouseDetection.coordsX[j4];
-//						if (k5 < 0)
-//							k5 = 0;
-//						else if (k5 > 764)
-//							k5 = 764;
-//						int i6 = l4 * 765 + k5;
-//						if (mouseDetection.coordsY[j4] == -1 && mouseDetection.coordsX[j4] == -1) {
-//							k5 = -1;
-//							l4 = -1;
-//							i6 = 0x7ffff;
-//						}
-//						if (k5 == anInt1237 && l4 == anInt1238) {
-//							if (anInt1022 < 2047)
-//								anInt1022++;
-//						} else {
-//							int j6 = k5 - anInt1237;
-//							anInt1237 = k5;
-//							int k6 = l4 - anInt1238;
-//							anInt1238 = l4;
-//							if (anInt1022 < 8 && j6 >= -32 && j6 <= 31 && k6 >= -32 && k6 <= 31) {
-//								j6 += 32;
-//								k6 += 32;
-//								stream.writeWord((anInt1022 << 12) + (j6 << 6) + k6);
-//								anInt1022 = 0;
-//							} else if (anInt1022 < 8) {
-//								stream.writeDWordBigEndian(0x800000 + (anInt1022 << 19) + i6);
-//								anInt1022 = 0;
-//							} else {
-//								stream.writeDWord(0xc0000000 + (anInt1022 << 19) + i6);
-//								anInt1022 = 0;
-//							}
-//						}
-//					}
-//
-//					stream.writeBytes(stream.currentOffset - j2);
-//					if (j3 >= mouseDetection.coordsIndex) {
-//						mouseDetection.coordsIndex = 0;
-//					} else {
-//						mouseDetection.coordsIndex -= j3;
-//						for (int i5 = 0; i5 < mouseDetection.coordsIndex; i5++) {
-//							mouseDetection.coordsX[i5] = mouseDetection.coordsX[i5 + j3];
-//							mouseDetection.coordsY[i5] = mouseDetection.coordsY[i5 + j3];
-//						}
-//
-//					}
-//				}
-//			} else {
-//				mouseDetection.coordsIndex = 0;
-//			}
-//		}
-//		if (MouseHandler.instance.clickMode3 != 0) {
-//			long l = (MouseHandler.aLong29 - aLong1220) / 50L;
-//			if (l > 4095L)
-//				l = 4095L;
-//			aLong1220 = MouseHandler.aLong29;
-//			int k2 = MouseHandler.saveClickY; // Needs to be changed to absolute due to stretched mode changes
-//			if (k2 < 0)
-//				k2 = 0;
-//			else if (k2 > 502)
-//				k2 = 502;
-//			int k3 = MouseHandler.saveClickX;
-//			if (k3 < 0)
-//				k3 = 0;
-//			else if (k3 > 764)
-//				k3 = 764;
-//			int k4 = k2 * 765 + k3;
-//			int j5 = 0;
-//			if (MouseHandler.instance.clickMode3 == 2)
-//				j5 = 1;
-//			int l5 = (int) l;
-//			stream.createFrame(241);
-//			stream.writeDWord((l5 << 20) + (j5 << 19) + k4);
-//		}
 		if (anInt1016 > 0)
 			anInt1016--;
 		if (KeyHandler.keyArray[1] == 1 || KeyHandler.keyArray[2] == 1 || KeyHandler.keyArray[3] == 1 || KeyHandler.keyArray[4] == 1)
@@ -4787,7 +4709,7 @@ public class Client extends GameEngine implements RSClient {
 		if (percentage >= 100) {
 			newBoldFont.drawCenteredString("Finished loading " + Configuration.CLIENT_TITLE, (765 / 2), y + height / 2 + 6, 0xffffff, 1);
 		} else {
-			newBoldFont.drawCenteredString("Loading " + Configuration.CLIENT_TITLE + " - Please wait - " + (percentage) + "%", (765 / 2),
+			newBoldFont.drawCenteredString("Loading " + Configuration.CLIENT_TITLE + " - " + (percentage) + "%", (765 / 2),
 				y + height / 2 + 6, 0xffffff, 1);
 		}
 		rasterProvider.drawFull(0,0);
@@ -10729,7 +10651,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 
 
-		new CacheDownloader(this).downloadCache();
+		//new CacheDownloader(this).downloadCache();
 
 		SpriteLoader1.loadSprites();
 		cacheSprite1 = SpriteLoader1.sprites;

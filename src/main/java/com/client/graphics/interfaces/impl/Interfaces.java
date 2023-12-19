@@ -26,11 +26,9 @@ public final class Interfaces extends RSInterface {
 
 	public static void loadInterfaces() {
 		hiscores(defaultTextDrawingAreas);
-		//ironmanLeaderboard(defaultTextDrawingAreas);//Fix in game then reopen
 		upgradeInt(defaultTextDrawingAreas);
 		wellOfGoodWill(defaultTextDrawingAreas);
 		barrowsInterface(defaultTextDrawingAreas);//new barrows
-		//npcDropTable(defaultTextDrawingAreas); // needs some work first cam
 		crystalTele(defaultTextDrawingAreas);
 		tournamentLobby(defaultTextDrawingAreas);
 		pvpTab(defaultTextDrawingAreas);
@@ -38,25 +36,19 @@ public final class Interfaces extends RSInterface {
 		playerProfiler(defaultTextDrawingAreas);
 		profileTab(defaultTextDrawingAreas);
 		myProfile(defaultTextDrawingAreas);
-		staffTab(defaultTextDrawingAreas);
-		creditsTab(defaultTextDrawingAreas);
 		priceChecker(defaultTextDrawingAreas);
 		newQuest(defaultTextDrawingAreas);
 		raidsOverlay(defaultTextDrawingAreas);
 		sigilSystem(defaultTextDrawingAreas);
 		Nex.instance.load(defaultTextDrawingAreas);
 
-
- 		fireofExchange(defaultTextDrawingAreas);
 		wrathRune();
 		new SettingsInterface().load(defaultTextDrawingAreas);
 		mysteryBox(defaultTextDrawingAreas);
 		shopWidget(defaultTextDrawingAreas);
-		barrowsReward(defaultTextDrawingAreas);
+		barrowsReward();
 		keybinding(defaultTextDrawingAreas);
 		ancients(defaultTextDrawingAreas);
-		helpDatabaseComponent(defaultTextDrawingAreas);
-		helpComponent(defaultTextDrawingAreas);
 		new Bank().bank(defaultTextDrawingAreas);
 		bankPin(defaultTextDrawingAreas);
 		clanChatTab(defaultTextDrawingAreas);
@@ -109,8 +101,6 @@ public final class Interfaces extends RSInterface {
 		taskInterface = new TaskInterface();
 		taskInterface.actions.loadAchievements();
 		taskInterface.build();
-
-		//new QuestTab().load(defaultTextDrawingAreas);
 
 		fixDefensiveAutocast();
 		EventCalendar.getCalendar().load(defaultTextDrawingAreas);
@@ -185,47 +175,6 @@ public final class Interfaces extends RSInterface {
 		inter.child( inter.children.length - 1, 12323, 17, 201);
 	}
 
-	public static void fireofExchange(TextDrawingArea[] tda) {
-		RSInterface inter = addInterface(33400);
-		addSprite(33401, 0, "Interfaces/FireOfExchange/SPRITE");
-		addText(33402, "Shard Exchange", tda, 2, 0xff9933, true, true);
-		addHoverButton(33932, "Interfaces/HelpInterface/IMAGE", 2, 16, 16, "Close", -1, 33932, 3);
-		addHoveredButton(33933, "Interfaces/HelpInterface/IMAGE", 3, 16, 16, 33933);
-		addSprite(33406, 1, "Interfaces/FireOfExchange/SPRITE");
-		addText(33407, "Shard Value:", tda, 2, 0xff9933, true, true);
-		//addText(33408, "Total Exchange Points:", tda, 2, 0xff9933, true, true);
-		addText(33409, "0", tda, 2, 0xff0000, true, true);
-		//addText(33410, "00", tda, 2, 0xff0000, true, true);
-		//addButton(33411, 1, "Interfaces/FireOfExchange/BUTTON", "Open Exchange Store");
-		addButton(47003, 527, "Interfaces/MysteryBox/SPRITE", "Close");
-		//addText(33412, "Exchange Store", tda, 2, 0xffffff, true, true);
-		addButton(33413, 2, "Interfaces/FireOfExchange/ARROW", "Exchange Item");
-		inter.totalChildren(14);
-		setBounds(33401, 175, 77, 0, inter);
-		setBounds(33402, 247, 92, 1, inter);
-		setBounds(33932, 310, 91, 4, inter);
-		setBounds(33933, 310, 91, 3, inter);
-		setBounds(33406, 210, 142, 5, inter);
-		setBounds(33407, 257, 185, 6, inter);
-		//setBounds(33408, 332, 139, 7, inter);
-		setBounds(33409, 260, 205, 8, inter);
-		//setBounds(33410, 332, 159, 9, inter);
-		//setBounds(33411, 261, 197, 10, inter);
-		//setBounds(33412, 332, 206, 11, inter);
-		addItemContainer(33403, 1, 1, 0, 0, false);
-		setBounds(33403, 215, 142, 12, inter);
-		setBounds(33413, 281, 146, 13, inter);
-
-
-		inter = addInterface(33404);
-		inter.totalChildren(1);
-		addItemContainer(33405, 4, 7, 10, 4, true,
-				"Offer");
-		setBounds(33405, 16, 8, 0, inter);
-
-
-	}
-
 	public static void pollInterface(TextDrawingArea[] tda) {
 		RSInterface rsi = addInterface(21406);
 		RSInterface scroll = addInterface(21407);
@@ -239,7 +188,7 @@ public final class Interfaces extends RSInterface {
 		addText(childId++, "Time Left to Vote: 13 Hours", tda, 0, 0xFF9300, true, true);
 
 		for(int i = 0; i < 5; i++) {
-			addText(childId++, "" + (i + 1) + ")", tda, 0, 0xFF9300, true, true);
+			addText(childId++, (i + 1) + ")", tda, 0, 0xFF9300, true, true);
 			addConfigButton(childId++, 618, 2, 4, "Interfaces/Ironman/IMAGE", 17, 17, "Select", 1, 1, 30 + i);
 			addText(childId++, "Give bronze dagger\\na spec", tda, 0, 0xFF9300, false, true);
 		}
@@ -2027,78 +1976,6 @@ public final class Interfaces extends RSInterface {
 		rsi.type = 2;
 	}
 
-//	public static void groundItemCustomizing(TextDrawingArea[] tda) {
-//		RSInterface r = addInterface(37700);
-//		addSprite(37701, 2, "Interfaces/GroundItems/IMAGE");// they got saved as jpgs, need 2 convert lol il plz do
-//		addText(37702, "Ground items customizer", tda, 2, 0xFE9624, true, true);
-//		addHoverButton(37703, "Interfaces/GroundItems/IMAGE", 0, 16, 16, "Close", -1, 37704, 3);
-//		addHoveredButton(37704, "Interfaces/GroundItems/IMAGE", 1, 16, 16, 37705);
-//		addButton(37706, 4, "Interfaces/GroundItems/IMAGE", "Choose color");
-//		addText(37707, "Choose a color below!", tda, 2, 0xffffff, true, true);
-//		addButton(37708, 3, "Interfaces/GroundItems/IMAGE", "Enter Item Name");
-//		addText(37709, "Set Color To Item", tda, 0, 0xFE9624, true, true);
-//		addButton(37710, 3, "Interfaces/GroundItems/IMAGE", "Enter Minimum Item Value");
-//		addText(37711, "Enter Min. Value", tda, 0, 0xFE9624, true, true);
-//		addButton(37712, 3, "Interfaces/GroundItems/IMAGE", "Reset All Item Colors");
-//		addText(37713, "Reset All Colors", tda, 0, 0xFE9624, true, true);
-//		r.totalChildren(12);
-//		r.child(0, 37701, 130, 75);// opn skype need 2 send u some imgs
-//		r.child(1, 37702, 245, 85);
-//		r.child(2, 37703, 334, 85);
-//		r.child(3, 37704, 334, 85);
-//		r.child(4, 37706, 137, 215);
-//		r.child(5, 37707, 240, 195);
-//		r.child(6, 37708, 150, 120);
-//		r.child(7, 37709, 192, 125);
-//		r.child(8, 37710, 250, 120);
-//		r.child(9, 37711, 292, 125);
-//		r.child(10, 37712, 150, 150);
-//		r.child(11, 37713, 192, 155);
-//	}
-
-	public static void helpDatabaseComponent(TextDrawingArea[] tda) {
-		RSInterface widget = addInterface(59550);
-		addSprite(59551, 8, "Interfaces/HelpInterface/IMAGE");
-		addHoverButton(59552, "Interfaces/HelpInterface/IMAGE", 2, 16, 16, "Close", -1, 59553, 3);
-		addHoveredButton(59553, "Interfaces/HelpInterface/IMAGE", 3, 16, 16, 59554);
-		addText(59555, "Bug Database", tda, 2, 0xFF981F, true, true);
-		addText(59556, "Username/Date", tda, 1, 0xFF981F, false, true);
-		addText(59557, "Line2", tda, 1, 0xFF981F, true, true);
-		addText(59558, "Line3", tda, 1, 0xFF981F, true, true);
-		addText(59559, "Line4", tda, 1, 0xFF981F, true, true);
-		addText(59560, "Line5", tda, 1, 0xFF981F, true, true);
-
-		setChildren(10, widget);
-		setBounds(59551, 0, 2, 0, widget);
-		setBounds(59552, 375, 8, 1, widget);
-		setBounds(59553, 375, 8, 2, widget);
-		setBounds(59570, 120, 30, 3, widget);
-		setBounds(59555, 256, 8, 4, widget);
-		setBounds(59556, 20, 225, 5, widget);
-		setBounds(59557, 256, 245, 6, widget);
-		setBounds(59558, 256, 265, 7, widget);
-		setBounds(59559, 256, 285, 8, widget);
-		setBounds(59560, 256, 305, 9, widget);
-
-		RSInterface scroll = addInterface(59570);
-		scroll.scrollMax = 400;
-		scroll.width = 255;
-		scroll.height = 170;
-		setChildren(60, scroll);
-
-		int yPosition = 0;
-		int index = 0;
-		for (int i = 0; i < 80; i += 4) {
-			addText(59573 + i, "", tda, 1, 0xFF981F, false, true);
-			addButton(59574 + i, 10, "Interfaces/HelpInterface/IMAGE", 13, 10, "View Request", 1);
-			addButton(59575 + i, 9, "Interfaces/HelpInterface/IMAGE", 16, 15, "Remove Request", 1);
-			setBounds(59573 + i, 4, yPosition + 3, index++, scroll);
-			setBounds(59574 + i, 225, yPosition + 5, index++, scroll);
-			setBounds(59575 + i, 240, yPosition + 3, index++, scroll);
-			yPosition += 20;
-		}
-	}
-
 	private static void barrowsKillcount(TextDrawingArea[] tda) {
 		RSInterface barrow = addInterface(27500);
 		addText(27501, "Brothers", tda, 2, 0xFD851A, true, true);
@@ -3638,29 +3515,7 @@ interfaceId+=5000;
 		setBounds(28072, 307, 27, 1, timerWidget);
 	}
 
-	public static void helpComponent(TextDrawingArea[] tda) {
-		RSInterface widget = addInterface(59525);
-		addSprite(59526, 1, "Interfaces/HelpInterface/IMAGE");
-		addInputField(59527, 200, 0xFF981F, "Describe the bug you've experienced. (200 characters max)", 430, 28, false,
-				false, "[A-Za-z0-9 .,]");
-		addText(59528, "Help Request", tda, 2, 0xFF981F, true, true);
-		addText(59529,
-				"You are only allowed to request help when you need it. Situations such as being stuck,\\n"
-						+ "threatened by another player, problems with a donation, or experiencing a bug are all\\n"
-						+ "viable uses of the help system. Improper use of this system may lead to punishment.",
-				tda, 0, 0xFF981F, false, true);
-		addHoverButton(59530, "Interfaces/HelpInterface/IMAGE", 2, 16, 16, "Close", -1, 59531, 3);
-		addHoveredButton(59531, "Interfaces/HelpInterface/IMAGE", 3, 16, 16, 59532);
-		setChildren(6, widget);
-		setBounds(59526, 33, 106, 0, widget);
-		setBounds(59527, 40, 192, 1, widget);
-		setBounds(59528, 256, 113, 2, widget);
-		setBounds(59529, 40, 135, 3, widget);
-		setBounds(59530, 456, 112, 4, widget);
-		setBounds(59531, 456, 112, 5, widget);
-	}
-
-	public static void barrowsReward(TextDrawingArea[] wid) {
+	public static void barrowsReward() {
 		RSInterface tab = addInterface(64500);
 		addSprite(64501, 0, "Interfaces/Bankpin/IMAGE");
 		addHoverButton(64502, "Interfaces/Shop/IMAGE", 2, 21, 21, "Close Window", 201, 64502, 5);
@@ -3699,189 +3554,131 @@ interfaceId+=5000;
 
 
 	public static void hiscores(TextDrawingArea[] wid) {
-		RSInterface rsinterface = addInterface(46500);
-		addSprite(46501, 292, "Interfaces/Hiscores/BACKGROUND");
-		addText(46502, "Live Highscores", wid, 2, 0xff981f, true);
-		addText(46508, "Player Name:", wid, 2, 0xff981f, true);
-		addText(46509, "Kills:", wid, 2, 0xff981f, true);
-		addText(46510, "Deaths:", wid, 2, 0xff981f, true);
-		addText(46511, "KDR:", wid, 2, 0xff981f, true);
-		addText(46512, "Killstreak:", wid, 2, 0xff981f, true);
+		RSInterface rsinterface = addInterface(56500);
+		addSprite(56501, 292, "Interfaces/Hiscores/BACKGROUND");
+		addText(56502, "Live Highscores", wid, 2, 0xff981f, true);
+		addText(56508, "Player Name:", wid, 2, 0xff981f, true);
+		addText(56509, "Kills:", wid, 2, 0xff981f, true);
+		addText(56510, "Deaths:", wid, 2, 0xff981f, true);
+		addText(56511, "KDR:", wid, 2, 0xff981f, true);
+		addText(56512, "Killstreak:", wid, 2, 0xff981f, true);
 		/*First Row*/
-		addText(46513, "1) N/A", wid, 1, 0xff981f, false);
-		addText(46514, "2) N/A", wid, 1, 0xff981f, false);
-		addText(46515, "3) N/A", wid, 1, 0xff981f, false);
-		addText(46516, "4) N/A", wid, 1, 0xff981f, false);
-		addText(46517, "5) N/A", wid, 1, 0xff981f, false);
-		addText(46518, "6) N/A", wid, 1, 0xff981f, false);
-		addText(46519, "7) N/A", wid, 1, 0xff981f, false);
-		addText(46520, "8) N/A", wid, 1, 0xff981f, false);
-		addText(46521, "9) N/A", wid, 1, 0xff981f, false);
-		addText(46522, "10) N/A", wid, 1, 0xff981f, false);
+		addText(56513, "1) N/A", wid, 1, 0xff981f, false);
+		addText(56514, "2) N/A", wid, 1, 0xff981f, false);
+		addText(56515, "3) N/A", wid, 1, 0xff981f, false);
+		addText(56516, "4) N/A", wid, 1, 0xff981f, false);
+		addText(56517, "5) N/A", wid, 1, 0xff981f, false);
+		addText(56518, "6) N/A", wid, 1, 0xff981f, false);
+		addText(56519, "7) N/A", wid, 1, 0xff981f, false);
+		addText(56520, "8) N/A", wid, 1, 0xff981f, false);
+		addText(56521, "9) N/A", wid, 1, 0xff981f, false);
+		addText(56522, "10) N/A", wid, 1, 0xff981f, false);
 		/*Second Row*/
-		addText(46523, "11", wid, 0, 0xff981f, true);
-		addText(46524, "12", wid, 0, 0xff981f, true);
-		addText(46525, "13", wid, 0, 0xff981f, true);
-		addText(46526, "14", wid, 0, 0xff981f, true);
-		addText(46527, "15", wid, 0, 0xff981f, true);
-		addText(46528, "16", wid, 0, 0xff981f, true);
-		addText(46529, "17", wid, 0, 0xff981f, true);
-		addText(46530, "18", wid, 0, 0xff981f, true);
-		addText(46531, "19", wid, 0, 0xff981f, true);
-		addText(46532, "20", wid, 0, 0xff981f, true);
+		addText(56523, "11", wid, 0, 0xff981f, true);
+		addText(56524, "12", wid, 0, 0xff981f, true);
+		addText(56525, "13", wid, 0, 0xff981f, true);
+		addText(56526, "14", wid, 0, 0xff981f, true);
+		addText(56527, "15", wid, 0, 0xff981f, true);
+		addText(56528, "16", wid, 0, 0xff981f, true);
+		addText(56529, "17", wid, 0, 0xff981f, true);
+		addText(56530, "18", wid, 0, 0xff981f, true);
+		addText(56531, "19", wid, 0, 0xff981f, true);
+		addText(56532, "20", wid, 0, 0xff981f, true);
 		/*Third Row*/
-		addText(46533, "21", wid, 0, 0xff981f, true);
-		addText(46534, "22", wid, 0, 0xff981f, true);
-		addText(46535, "23", wid, 0, 0xff981f, true);
-		addText(46536, "24", wid, 0, 0xff981f, true);
-		addText(46537, "25", wid, 0, 0xff981f, true);
-		addText(46538, "26", wid, 0, 0xff981f, true);
-		addText(46539, "27", wid, 0, 0xff981f, true);
-		addText(46540, "28", wid, 0, 0xff981f, true);
-		addText(46541, "29", wid, 0, 0xff981f, true);
-		addText(46542, "30", wid, 0, 0xff981f, true);
+		addText(56533, "21", wid, 0, 0xff981f, true);
+		addText(56534, "22", wid, 0, 0xff981f, true);
+		addText(56535, "23", wid, 0, 0xff981f, true);
+		addText(56536, "24", wid, 0, 0xff981f, true);
+		addText(56537, "25", wid, 0, 0xff981f, true);
+		addText(56538, "26", wid, 0, 0xff981f, true);
+		addText(56539, "27", wid, 0, 0xff981f, true);
+		addText(56540, "28", wid, 0, 0xff981f, true);
+		addText(56541, "29", wid, 0, 0xff981f, true);
+		addText(56542, "30", wid, 0, 0xff981f, true);
 		/*Fourth Row*/
-		addText(46543, "31", wid, 0, 0xff981f, true);
-		addText(46544, "32", wid, 0, 0xff981f, true);
-		addText(46545, "33", wid, 0, 0xff981f, true);
-		addText(46546, "34", wid, 0, 0xff981f, true);
-		addText(46547, "35", wid, 0, 0xff981f, true);
-		addText(46548, "36", wid, 0, 0xff981f, true);
-		addText(46549, "37", wid, 0, 0xff981f, true);
-		addText(46550, "38", wid, 0, 0xff981f, true);
-		addText(46551, "39", wid, 0, 0xff981f, true);
-		addText(46552, "40", wid, 0, 0xff981f, true);
+		addText(56543, "31", wid, 0, 0xff981f, true);
+		addText(56544, "32", wid, 0, 0xff981f, true);
+		addText(56545, "33", wid, 0, 0xff981f, true);
+		addText(56546, "34", wid, 0, 0xff981f, true);
+		addText(56547, "35", wid, 0, 0xff981f, true);
+		addText(56548, "36", wid, 0, 0xff981f, true);
+		addText(56549, "37", wid, 0, 0xff981f, true);
+		addText(56550, "38", wid, 0, 0xff981f, true);
+		addText(56551, "39", wid, 0, 0xff981f, true);
+		addText(56552, "40", wid, 0, 0xff981f, true);
 		/*Fith Row*/
-		addText(46553, "41", wid, 0, 0xff981f, true);
-		addText(46554, "42", wid, 0, 0xff981f, true);
-		addText(46555, "43", wid, 0, 0xff981f, true);
-		addText(46556, "44", wid, 0, 0xff981f, true);
-		addText(46557, "45", wid, 0, 0xff981f, true);
-		addText(46558, "46", wid, 0, 0xff981f, true);
-		addText(46559, "47", wid, 0, 0xff981f, true);
-		addText(46560, "48", wid, 0, 0xff981f, true);
-		addText(46561, "49", wid, 0, 0xff981f, true);
-		addText(46562, "", wid, 0, 0xff981f, true);
-		addHoverButton(46563, "BankTab/BANK", 1, 15, 15, "Close Window", -1, 46564, 3);
-		addHoveredButton(46564, "BankTab/BANK", 2, 15, 15, 46565);
+		addText(56553, "41", wid, 0, 0xff981f, true);
+		addText(56554, "42", wid, 0, 0xff981f, true);
+		addText(56555, "43", wid, 0, 0xff981f, true);
+		addText(56556, "44", wid, 0, 0xff981f, true);
+		addText(56557, "45", wid, 0, 0xff981f, true);
+		addText(56558, "46", wid, 0, 0xff981f, true);
+		addText(56559, "47", wid, 0, 0xff981f, true);
+		addText(56560, "48", wid, 0, 0xff981f, true);
+		addText(56561, "49", wid, 0, 0xff981f, true);
+		addText(56562, "", wid, 0, 0xff981f, true);
+		addHoverButton(56563, "BankTab/BANK", 1, 15, 15, "Close Window", -1, 56564, 3);
+		addHoveredButton(56564, "BankTab/BANK", 2, 15, 15, 56565);
 		rsinterface.totalChildren(59);
-		rsinterface.child(0, 46501, 12, 23);
-		rsinterface.child(1, 46502, 255, 33);
-		rsinterface.child(2, 46508, 89, 66);
-		rsinterface.child(3, 46509, 202, 66);
-		rsinterface.child(4, 46510, 281, 66);
-		rsinterface.child(5, 46511, 355, 66);
-		rsinterface.child(6, 46512, 440, 66);
-		rsinterface.child(7, 46513, 25, 89);
-		rsinterface.child(8, 46514, 25, 109);
-		rsinterface.child(9, 46515, 25, 129);
-		rsinterface.child(10, 46516, 25, 149);
-		rsinterface.child(11, 46517, 25, 169);
-		rsinterface.child(12, 46518, 25, 189);
-		rsinterface.child(13, 46519, 25, 209);
-		rsinterface.child(14, 46520, 25, 229);
-		rsinterface.child(15, 46521, 25, 249);
-		rsinterface.child(16, 46522, 25, 269);
-		rsinterface.child(17, 46523, 200, 91);
-		rsinterface.child(18, 46524, 200, 111);
-		rsinterface.child(19, 46525, 200, 131);
-		rsinterface.child(20, 46526, 200, 151);
-		rsinterface.child(21, 46527, 200, 171);
-		rsinterface.child(22, 46528, 200, 191);
-		rsinterface.child(23, 46529, 200, 211);
-		rsinterface.child(24, 46530, 200, 231);
-		rsinterface.child(25, 46531, 200, 251);
-		rsinterface.child(26, 46532, 200, 271);
-		rsinterface.child(27, 46533, 280, 91);
-		rsinterface.child(28, 46534, 280, 111);
-		rsinterface.child(29, 46535, 280, 131);
-		rsinterface.child(30, 46536, 280, 151);
-		rsinterface.child(31, 46537, 280, 171);
-		rsinterface.child(32, 46538, 280, 191);
-		rsinterface.child(33, 46539, 280, 211);
-		rsinterface.child(34, 46540, 280, 231);
-		rsinterface.child(35, 46541, 280, 251);
-		rsinterface.child(36, 46542, 280, 271);
-		rsinterface.child(37, 46543, 355, 91);
-		rsinterface.child(38, 46544, 355, 111);
-		rsinterface.child(39, 46545, 355, 131);
-		rsinterface.child(40, 46546, 355, 151);
-		rsinterface.child(41, 46547, 355, 171);
-		rsinterface.child(42, 46548, 355, 191);
-		rsinterface.child(43, 46549, 355, 211);
-		rsinterface.child(44, 46550, 355, 231);
-		rsinterface.child(45, 46551, 355, 251);
-		rsinterface.child(46, 46552, 355, 271);
-		rsinterface.child(47, 46553, 438, 91);
-		rsinterface.child(48, 46554, 438, 111);
-		rsinterface.child(49, 46555, 438, 131);
-		rsinterface.child(50, 46556, 438, 151);
-		rsinterface.child(51, 46557, 438, 171);
-		rsinterface.child(52, 46558, 438, 191);
-		rsinterface.child(53, 46559, 438, 211);
-		rsinterface.child(54, 46560, 438, 231);
-		rsinterface.child(55, 46561, 438, 251);
-		rsinterface.child(56, 46562, 438, 271);
-		rsinterface.child(57, 46563, 470, 32);
-		rsinterface.child(58, 46564, 470, 32);
-	}
-
-
-	public static void ironmanLeaderboard(TextDrawingArea[] tda) {
-		RSInterface rsi = addInterface(62000);
-		addSprite(62001, 1, "Interfaces/IronmanLeaderboard/IMAGE");
-		addHoverButton(62002, "Interfaces/Achievements/IMAGE", 15, 16, 16, "Close Window", -1, 69003, 3);
-		//configHoverButtonTest(62002, "Close Window", "Interfaces/PreloadingGear/IMAGE", 3, 4, 3, 4, false, new int[] {});
-		addHoveredButton(62003, "Interfaces/Achievements/IMAGE", 16, 16, 16, 69004);
-		addText(62005, "<img=23> Group Ironman Leaderboards", tda, 2, 0xff981f, false, true);
-		addText(62006, "Top 10 Groups", tda, 2, 0xff981f, false, true);
-		addText(62007, "Recent Groups", tda, 2, 0xff981f, false, true);
-		addText(62008, "", tda, 0, 0xff981f, false, true);
-		addText(62009, "", tda, 0, 0xff981f, false, true);
-		addText(62010, "", tda, 0, 0xff981f, false, true);
-		addText(62011, "", tda, 0, 0xff981f, false, true);
-		addText(62012, "", tda, 0, 0xff981f, false, true);
-		setChildren(12, rsi);
-		setBounds(62001, 20, 24, 0, rsi);
-		setBounds(62002, 478, 30, 1, rsi);
-		setBounds(62003, 490, 6, 2, rsi);
-		setBounds(62005, 190, 30, 3, rsi);
-		setBounds(62006, 50, 57, 4, rsi);
-		setBounds(62007, 50, 208, 5, rsi);
-		setBounds(62008, 32, 230, 6, rsi);
-		setBounds(62009, 32, 247, 7, rsi);
-		setBounds(62010, 32, 264, 8, rsi);
-		setBounds(62011, 32, 281, 9, rsi);
-		setBounds(62012, 32, 298, 10, rsi);
-		setBounds(62100, 19, 75, 11, rsi);
-
-		RSInterface scroll = addInterface(62100);
-		setChildren(90, scroll);
-		scroll.scrollMax = 308;
-		scroll.height = 124;
-		scroll.width = 456;
-		int y = 0;
-		for(int i = 0; i < 10; i++) {
-			addSprite(62101 + i, 2, "Interfaces/IronmanLeaderboard/IMAGE");
-			addSprite(62201 + i, 2, "Interfaces/IronmanLeaderboard/IMAGE");
-			addText(62301 + i, "", tda, 2, 0xff981f, true, true);
-			addText(62401 + i, "Team Name", tda, 0, 0xff981f, false, true);
-			addText(62901 + i, "Member names", tda, 0, 0xff981f, false, true);
-			addText(62501 + i, "Avg. Combat:", tda, 0, 0xFFFF00, false, true);
-			addText(62601 + i, "Status", tda, 0, 0x00FF00, false, true);
-			addText(62701 + i, "Avg. Total Level:", tda, 0, 0x0080F0, false, true);
-			addText(62801 + i, "Avg. Total XP:", tda, 0, 0x97CFFF, false, true);
-			setBounds(62101 + i, 10, y, i, scroll);
-			setBounds(62201 + i, 155, y, 10 + i, scroll);
-			setBounds(62301 + i, 0, y, 20 + i, scroll); //unused.
-		    setBounds(62401 + i, 10, y + 1, 30 + i, scroll);
-			setBounds(62901 + i, 10, y + 15, 80 + i, scroll);
-			setBounds(62501 + i, 190, y + 1, 40 + i, scroll);
-			setBounds(62601 + i, 105, y + 1, 50 + i, scroll);
-			setBounds(62701 + i, 310, y + 1, 60 + i, scroll);
-			setBounds(62801 + i, 310, y + 15, 70 + i, scroll);
-			y += 31;
-		}
+		rsinterface.child(0, 56501, 12, 23);
+		rsinterface.child(1, 56502, 255, 33);
+		rsinterface.child(2, 56508, 89, 66);
+		rsinterface.child(3, 56509, 202, 66);
+		rsinterface.child(4, 56510, 281, 66);
+		rsinterface.child(5, 56511, 355, 66);
+		rsinterface.child(6, 56512, 440, 66);
+		rsinterface.child(7, 56513, 25, 89);
+		rsinterface.child(8, 56514, 25, 109);
+		rsinterface.child(9, 56515, 25, 129);
+		rsinterface.child(10, 56516, 25, 149);
+		rsinterface.child(11, 56517, 25, 169);
+		rsinterface.child(12, 56518, 25, 189);
+		rsinterface.child(13, 56519, 25, 209);
+		rsinterface.child(14, 56520, 25, 229);
+		rsinterface.child(15, 56521, 25, 249);
+		rsinterface.child(16, 56522, 25, 269);
+		rsinterface.child(17, 56523, 200, 91);
+		rsinterface.child(18, 56524, 200, 111);
+		rsinterface.child(19, 56525, 200, 131);
+		rsinterface.child(20, 56526, 200, 151);
+		rsinterface.child(21, 56527, 200, 171);
+		rsinterface.child(22, 56528, 200, 191);
+		rsinterface.child(23, 56529, 200, 211);
+		rsinterface.child(24, 56530, 200, 231);
+		rsinterface.child(25, 56531, 200, 251);
+		rsinterface.child(26, 56532, 200, 271);
+		rsinterface.child(27, 56533, 280, 91);
+		rsinterface.child(28, 56534, 280, 111);
+		rsinterface.child(29, 56535, 280, 131);
+		rsinterface.child(30, 56536, 280, 151);
+		rsinterface.child(31, 56537, 280, 171);
+		rsinterface.child(32, 56538, 280, 191);
+		rsinterface.child(33, 56539, 280, 211);
+		rsinterface.child(34, 56540, 280, 231);
+		rsinterface.child(35, 56541, 280, 251);
+		rsinterface.child(36, 56542, 280, 271);
+		rsinterface.child(37, 56543, 355, 91);
+		rsinterface.child(38, 56544, 355, 111);
+		rsinterface.child(39, 56545, 355, 131);
+		rsinterface.child(40, 56546, 355, 151);
+		rsinterface.child(41, 56547, 355, 171);
+		rsinterface.child(42, 56548, 355, 191);
+		rsinterface.child(43, 56549, 355, 211);
+		rsinterface.child(44, 56550, 355, 231);
+		rsinterface.child(45, 56551, 355, 251);
+		rsinterface.child(46, 56552, 355, 271);
+		rsinterface.child(47, 56553, 438, 91);
+		rsinterface.child(48, 56554, 438, 111);
+		rsinterface.child(49, 56555, 438, 131);
+		rsinterface.child(50, 56556, 438, 151);
+		rsinterface.child(51, 56557, 438, 171);
+		rsinterface.child(52, 56558, 438, 191);
+		rsinterface.child(53, 56559, 438, 211);
+		rsinterface.child(54, 56560, 438, 231);
+		rsinterface.child(55, 56561, 438, 251);
+		rsinterface.child(56, 56562, 438, 271);
+		rsinterface.child(57, 56563, 470, 32);
+		rsinterface.child(58, 56564, 470, 32);
 	}
 
 
@@ -4019,85 +3816,7 @@ interfaceId+=5000;
 		setBounds(38015, 385, 80, 14, wogw);
 		setBounds(38016, 385, 110, 15, wogw);
 		setBounds(38017, 385, 140, 16, wogw);
-		//setBounds(38018, 385, 170, 17, wogw);
-		//setBounds(38019, 360, 170, 18, wogw);
-		//setBounds(38020, 185, 170, 19, wogw);
-
-		/*RSInterface wogw = addInterface(38000);
-		addSprite(38001, 0, "Interfaces/Wogw/IMAGE");
-		addText(38002, "Well Of Goodwill", tda, 2, 0xFF981F, true, true);
-		addText(38003, "Experience (x2)", tda, 2, 0xFF981F, true, true);
-		addText(38004, "PC Points (+5)", tda, 2, 0xFF981F, true, true);
-		addText(38005, "Drops (x2 rate)", tda, 2, 0xFF981F, true, true);
-		addClickableSprites(38006, "Toggle", "Interfaces/Ironman/IMAGE", 2, 3, 4);
-		addClickableSprites(38007, "Toggle", "Interfaces/Ironman/IMAGE", 2, 3, 4);
-		addClickableSprites(38008, "Toggle", "Interfaces/Ironman/IMAGE", 2, 3, 4);
-		addText(38009, "How much would you like to donate?", tda, 0, 0xFF981F, true, true);
-		addHoverButton(38010, "Interfaces/Shop/IMAGE", 2, 21, 21, "Close Window", 201, 38010, 5);
-		addInputField(38011, 120, 0xFF981F, "Amount of coins", 144, 20, false, false, "[0-9]");
-		addText(38012, "10M/200M", tda, 0, 0xFF981F, true, true);
-		addText(38013, "10M/200M", tda, 0, 0xFF981F, true, true);
-		addText(38014, "10M/200M", tda, 0, 0xFF981F, true, true);
-		setChildren(16, wogw);
-		setBounds(38001, 256 - 120, 20, 0, wogw);
-		setBounds(38002, 270, 30, 1, wogw);
-		setBounds(38003, 290, 60, 2, wogw);
-		setBounds(38004, 273, 90, 3, wogw);
-		setBounds(38005, 260, 120, 4, wogw);
-		setBounds(38006, 360, 60, 5, wogw);
-		setBounds(38007, 360, 90, 6, wogw);
-		setBounds(38008, 360, 120, 7, wogw);
-		setBounds(38009, 260, 170, 8, wogw);
-		setBounds(38010, 366, 26, 9, wogw);
-		setBounds(38011, 190, 190, 10, wogw);
-		setBounds(38012, 183, 63, 11, wogw);
-		setBounds(38013, 183, 93, 12, wogw);
-		setBounds(38014, 183, 123, 13, wogw);
-		setBounds(38020, 0, 0, 14, wogw);
-		setBounds(38030, 0, 0, 15, wogw);
-
-		RSInterface confirmation = addInterface(38020);
-		setChildren(6, confirmation);
-		addSprite(38021, 0, "Interfaces/Wogw/IMAGE");
-		addText(38022, "Are you sure you want to contribute\\n# gp?", tda, 2, 0xFF981F, false, true);
-		addHoverButton(38023, "Interfaces/Ironman/IMAGE", 4, 21, 21, "Yes", 201, 38023, 5);
-		addHoverButton(38025, "Interfaces/Ironman/IMAGE", 3, 21, 21, "No", 201, 38023, 5);
-		addText(38024, "YES", tda, 0, 0xFF981F, false, true);
-		addText(38026, "NO", tda, 0, 0xFF981F, false, true);
-		setBounds(38021, 256 - 120, 20, 0, confirmation);
-		setBounds(38022, 145, 82, 1, confirmation);
-		setBounds(38023, 220, 152, 2, confirmation); // Yes button
-		setBounds(38024, 220, 140, 3, confirmation); // Yes text
-		setBounds(38025, 288, 152, 4, confirmation); // No button
-		setBounds(38026, 290, 140, 5, confirmation); // No text
-
-		RSInterface last = addInterface(38030);
-		addSprite(38031, 1, "Interfaces/Wogw/IMAGE");
-		addText(38032, "Recent Donators", tda, 2, 0xFF981F, false, true);
-		addText(38033, "Limp donated 10.000.000 towards x2 experience", tda, 0, 0xFF981F, false, true);
-		addText(38034, "Limp donated 10.000.000 towards +5 PC Points", tda, 0, 0xFF981F, false, true);
-		addText(38035, "Limp donated 10.000.000 towards Double drops", tda, 0, 0xFF981F, false, true);
-		addText(38036, "Limp donated 10.000.000 towards Double drops", tda, 0, 0xFF981F, false, true);
-		addText(38037, "Limp donated 10.000.000 towards Double drops", tda, 0, 0xFF981F, false, true);
-		setChildren(7, last);
-		setBounds(38031, 3, 235, 0, last);
-		setBounds(38032, 200, 240, 1, last);
-		setBounds(38033, 140, 260, 2, last);
-		setBounds(38034, 140, 272, 3, last);
-		setBounds(38035, 140, 284, 4, last);
-		setBounds(38036, 140, 296, 5, last);
-		setBounds(38037, 140, 308, 6, last);*/
 	}
-
-
-
-
-
-
-
-
-
-
 
 	public static void barrowsInterface(TextDrawingArea[] tda) {
 		RSInterface tab = RSInterface.addInterface(22045);
@@ -4107,110 +3826,9 @@ interfaceId+=5000;
 		String[] text = {"Dharok", "Guthan", "Ahrim", "Torag", "Verac", "Karil"};
 		for (int i = 0; i < 6; i++) {
 			RSInterface.addText(22046 + i, text[i], 0xff0000, true, true, -1, tda, 1);
-			tab.child(0 + i, 22046 + i, 470, y);
+			tab.child(i, 22046 + i, 470, y);
 			y += 15;
 		}
-	}
-
-
-
-
-
-	private static void npcDropTable(TextDrawingArea[] tda) {
-		RSInterface tab = RSInterface.addInterface(29050);// 54500
-		RSInterface.addSprite(29051, 962);// 54501
-		RSInterface.addHoverButton(29052, 148, 16, 16, "Close", 250, 29053, 3);// 54502
-		RSInterface.addHoveredButton(29053, 149, 16, 16, 29054);// 54503, 54504
-		RSInterface.addText(29055, "Npc Droptable", tda, 2, 0xff9933, true, true);// 54505
-		RSInterface.addText(29058, "Item:", tda, 1, 0xff9933, true, true);// 54508
-		RSInterface.addText(29059, "Quantity:", tda, 1, 0xff9933, true, true);// 54509
-		RSInterface.addText(29060, "Price:", tda, 1, 0xff9933, true, true);// 54510
-		RSInterface.addText(29061, "Chance:", tda, 1, 0xff9933, true, true);// 54511
-
-		int children = 0;
-		RSInterface.setChildren(16, tab);
-		RSInterface.setBounds(29051, 9, 5, children++, tab);
-		RSInterface.setBounds(29052, 479, 12, children++, tab);
-		RSInterface.setBounds(29053, 479, 12, children++, tab);
-		RSInterface.setBounds(29055, 255, 12, children++, tab);
-		RSInterface.setBounds(29058, 202, 38, children++, tab);
-		RSInterface.setBounds(29059, 331, 38, children++, tab);
-		RSInterface.setBounds(29060, 383, 38, children++, tab);
-		RSInterface.setBounds(29061, 445, 38, children++, tab);
-		RSInterface.setBounds(30500, 143, 56, children++, tab);
-		RSInterface.setBounds(27700, 23, 89, children++, tab);
-
-		RSInterface mainScroll = RSInterface.addTabInterface(30500);// 54550
-		mainScroll.width = 594 - 261;
-		mainScroll.height = 264;
-		mainScroll.scrollMax = 600;
-
-		int dropsAmount = 200;//100
-		RSInterface.setChildren((dropsAmount * 6), mainScroll);
-		int child = 0, y = 1, x = 0, sprite = 0;
-		int start = 33300;
-		for (int i = 0; i < dropsAmount * 6; i += 6) {
-			int id = sprite % 2 == 0 ? 965 : 966;
-			sprite++;
-			RSInterface.addSprite(start + i, id);// 54552
-			RSInterface.addText((start + (i + 1)), "", tda, 0, sprite % 2 == 0 ? 0xFFB83F : 0xFF981F,
-					false, false);
-			RSInterface.addText((start + (i + 2)), "", tda, 0, sprite % 2 == 0 ? 0xFFB83F : 0xFF981F,
-					true, false);
-			RSInterface.addText((start + (i + 3)), "", tda, 0, sprite % 2 == 0 ? 0xFFB83F : 0xFF981F,
-					true, false);
-			RSInterface.addText((start + (i + 4)), "", tda, 0, 0xFF981F, true, false);
-			RSInterface.addToItemGroup((start + (i + 5)), 0, 1, 1, 24, 24, false, null, null, null,
-					true, true);
-			mainScroll.child(child++, start + i, x + 254 - 254, y);
-			mainScroll.child(child++, (start + (i + 1)), x + 300 - 254, y + 10);
-			mainScroll.child(child++, (start + (i + 2)), x + 440 - 254, y + 10);
-			mainScroll.child(child++, (start + (i + 3)), x + 496 - 254, y + 10);
-			mainScroll.child(child++, (start + (i + 4)), x + 555 - 254, y + 10);
-			mainScroll.child(child++, (start + (i + 5)), x + 260 - 254, y + 0);
-			y += 32;
-		}
-
-		RSInterface npcListScroll = RSInterface.addTabInterface(27700);// 54515
-		npcListScroll.width = 100;
-		npcListScroll.height = 231;
-		npcListScroll.scrollMax = 300;
-		int npcListMax = 249;//149
-		RSInterface.setChildren(npcListMax, npcListScroll);
-		int y2 = 0, child2 = 0;
-		int interfaceId = 0;
-		for (int i = 0; i < npcListMax * 2; i += 2) {
-			RSInterface.addText((27701 + (i + 1)), "", tda, 0, Configuration.ORANGE, false, false,
-					Configuration.WHITE, "Select", 99);
-			RSInterface.textClicked((27701 + (i + 1)), 645, 1, 2);
-			npcListScroll.child(child2++, (27701 + (i + 1)), 0, y2 + 3);
-			interfaceId = (27701 + (i + 1));
-			y2 += 18;
-		}
-		interfaceId = 30420;
-
-		int yOffset = -57;
-		RSInterface.addHoverButtonComplete(interfaceId, children, 19, 95 + yOffset, 999, 1000, 120,
-				25, "Search an npc", tab, true);
-		RSInterface.setSpriteClicked(interfaceId, 1001);
-		children += 2;
-		interfaceId += 3;
-
-		RSInterface.addText(interfaceId, "Search an npc", tda, 0, Configuration.ORANGE, true);
-		RSInterface.setBounds(interfaceId, 88, 102 + yOffset, children, tab);
-		interfaceId++;
-		children++;
-
-		RSInterface.addHoverButtonComplete(interfaceId, children, 19, 120 + yOffset, 999, 1000, 120,
-				25, "Search an item", tab, true);
-		RSInterface.setSpriteClicked(interfaceId, 1001);
-		children += 2;
-		interfaceId += 3;
-
-		RSInterface.addText(interfaceId, "Search an item", tda, 0, Configuration.ORANGE, true);
-		RSInterface.setBounds(interfaceId, 88, 126 + yOffset, children, tab);
-		interfaceId++;
-		children++;
 	}
 
 	public static void crystalTele(TextDrawingArea[] tda) {
@@ -4621,87 +4239,6 @@ interfaceId+=5000;
 	}
 
 
-	public static void staffTab(TextDrawingArea[] TDA) {
-		RSInterface tab = addInterface(43700);
-		addSprite(43701, 360, "Interfaces/profileview/IMAGE");
-		addSprite(43702, 38, "Interfaces/profileview/IMAGE");
-		addText(43703, "Staff Tab", TDA, 2, 0xF7AA25, true, true);
-		addText(43704, "You have access to all commands!", TDA, 0, 0xF7AA25, true, true);
-		addText(43705, "</col>Rank: @red@<img=2> Owner", TDA, 0, 0xF7AA25, true, true);
-		addHoverText(43706, "> Back to Quest Tab <", "Go back", TDA, 0, 0xF7AA25, true, true, 60);
-
-		tab.totalChildren(8);
-		tab.child(0, 43701, -4, 34);
-		tab.child(1, 43702, -0, 34);
-		tab.child(2, 43702, -0, 229);
-		tab.child(3, 43703, 93, 4);
-		tab.child(4, 43704, 93, 235);
-		tab.child(5, 43710, 5, 36);
-		tab.child(6, 43705, 93, 20);
-		tab.child(7, 43706, 61, 247);
-
-		String[] titles = {
-				"Check bank user", "Kick user", "Mute user", "Unmute user", "Ban user",
-				"Unban user", "Jail user", "Unjail user", "Move home user", "Copy user",
-				"Ip ban user", "Get info user", "Demote user", "Give mod user", "Kill user",
-				"Tele to user", "Tele to me user", "Check inventory user", "Random NPC user", "Refresh"
-		};
-
-		int amount = titles.length;
-
-		RSInterface scrollInterface = addTabInterface(43710);
-		scrollInterface.width = 170;
-		scrollInterface.height = 192;
-		scrollInterface.scrollMax = 665;
-		setChildren(amount, scrollInterface);
-		int y = 0;
-		for (int i = 0; i < amount; i++) {
-			addHoverText(43720 + i, titles[i] , "", TDA, 0, 0xff981f, true, true, 136, 25);
-			setBounds(43720 + i, 15, y + 5, i, scrollInterface);
-			y += 35;
-		}
-
-	}
-
-
-
-
-	public static void creditsTab(TextDrawingArea[] TDA) {
-		RSInterface tab = addInterface(44500);
-		addSprite(44501, 38, "Interfaces/profileview/IMAGE");
-		addText(44502, Configuration.CLIENT_TITLE + " special tab", 0xff9933, true, true, -1, TDA, 2);
-		addSprite(44503, 55, "Interfaces/profileview/IMAGE");
-		addText(44504, "Current Donation Tokens:", 0xff9933, true, true, -1, TDA, 0);
-		addHoverText(44505, "Visit online store", "@red@Donate to Vanguard!", TDA, 0, 0xF7AA25, true, true, 168);
-		addSprite(44506, 56, "Interfaces/profileview/IMAGE");
-		tab.totalChildren(9);
-		tab.child(0, 44501, 0, 25);
-		tab.child(1, 44502, 95, 5);
-		tab.child(2, 44503, -5, 28);
-		tab.child(3, 44504, 95, 35);
-		tab.child(4, 44505, 12, 50);
-		tab.child(5, 44506, 2, 79);
-		tab.child(6, 44501, 0, 70);
-		tab.child(7, 44501, 0, 254);
-		tab.child(8, 44530, 5, 79);
-		RSInterface scrollInterface = addTabInterface(44530);
-		scrollInterface.parentID = 42500;
-		scrollInterface.scrollPosition = 0;
-		scrollInterface.atActionType = 0;
-		scrollInterface.contentType = 0;
-		scrollInterface.width = 169;
-		scrollInterface.height = 167;
-		scrollInterface.scrollMax = 600;//400
-		int x = 7, y = 9;
-		scrollInterface.totalChildren(35);
-		for (int i = 0; i < 35; i++) {
-			addHoverText(44531 + i, "", "Open shop", TDA, 0, 0xE3A724, true, true, 168, 25);//0xFFFFFF
-			scrollInterface.child(i, 44531 + i, x, y);
-			y += 18;
-		}
-	}
-
-
 	public static void priceChecker(TextDrawingArea[] TDA) {
 		RSInterface rsi = addInterface(45500);
 
@@ -4845,16 +4382,13 @@ interfaceId+=5000;
 		addButton(46471, 88, "Interfaces/newquesttab/IMAGE", "View achievements");
 		addButton(46201, 158, "Interfaces/newquesttab/IMAGE", "View event information");
 
-		addButton(46208, 323, "Interfaces/newquesttab/IMAGE", "Open the staff tab");
-
-
 		addSprite(46029, 85, "Interfaces/newquesttab/IMAGE");
 		addSprite(46224, 81, "Interfaces/newquesttab/IMAGE");
 		addSprite(46223, 82, "Interfaces/newquesttab/IMAGE");
 		addSprite(46025, 83, "Interfaces/newquesttab/IMAGE");
 
 		addText(46405, "", tda, 2, 0xff9b00, true, true);
-		tab.totalChildren(11);//10
+		tab.totalChildren(10);
 		tab.child(0, 46221, 20, 247);
 		tab.child(1, 46224, 3, 27+27);
 		tab.child(2, 46223, 3, 24+27);
@@ -4865,8 +4399,6 @@ interfaceId+=5000;
 		tab.child(7, 46471, 33+31, 2);
 		tab.child(8, 46222, 10, 31);
 		tab.child(9, 46201, 33+31+31, 2);
-
-		tab.child(10, 46208, 33+48+48, 2);
 
 		RSInterface infoList = addTabInterface(55280);
 		infoList.height = 188;
@@ -5104,7 +4636,7 @@ interfaceId+=5000;
 		newHoveredButton(componentId, "Close", 4, 3, dir);
 		setBounds(componentId++, 471, 28, mainIndex++, widget);
 
-		addText(componentId, ""+Configuration.CLIENT_TITLE+" Advanced Perk System", tda, 2, 16750623, true, true);
+		addText(componentId, Configuration.CLIENT_TITLE+" Advanced Perk System", tda, 2, 16750623, true, true);
 		setBounds(componentId++, 254, 31, mainIndex++, widget);
 
 		int leftContainerId = componentId++;

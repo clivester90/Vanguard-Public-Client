@@ -47,7 +47,7 @@ public class MonsterDropViewer extends RSInterface {
         //addText(42522, "Find npc/item drops", drawingArea, 0, 0xFF981F, true, false);
         int x = 7, y = 7;
         tab.totalChildren(11);
-        tab.child(0, 39501, 0 + x, 0 + y);
+        tab.child(0, 39501, x, y);
         tab.child(1, 39502, 472 + x, 7 + y);
         tab.child(2, 39503, 472 + x, 7 + y);
         tab.child(3, 43005, 250 + x, 11 + y);
@@ -93,7 +93,7 @@ public class MonsterDropViewer extends RSInterface {
             addText(34300 + i, "Common", tda, 0, 0xffffff, true, true);
             addText(34400 + i, "1/200", tda, 0, 0xffffff, true, true);
             int yy = (i * 32);
-            main.child(80 + i, 34010 + i, 1, 0 + yy);
+            main.child(80 + i, 34010 + i, 1, yy);
             main.child(160 + i, 34100 + i, 39, 6 + yy);
             main.child(240 + i, 34003, 175, 2 + yy);
             main.child(320 + i, 34004, 234, 2 + yy);
