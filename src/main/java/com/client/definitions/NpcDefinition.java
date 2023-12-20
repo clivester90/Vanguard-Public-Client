@@ -39,6 +39,9 @@ public final class NpcDefinition implements RSNPCComposition {
 		if (i == Npcs.BOB_BARTER_HERBS) {
 			entityDef.actions = new String[] { "Talk-to", "Prices", "Decant", "Clean", null };
 		}
+		if(i == 2989) {
+			entityDef.actions[2] = "View prestige manager";
+		}
 		if (i == Npcs.ZAHUR)
 			entityDef.actions[0] = "Trade";
 		if (i == Npcs.JOSSIK) {
@@ -63,18 +66,12 @@ public final class NpcDefinition implements RSNPCComposition {
 			entityDef.actions[0] = "Pick-up";
 		}
 
-		if (i == 4420) {//Tournament
-			entityDef.actions = new String[5];
-			entityDef.actions[0] = "Enter-tournament";
-		}
-
 		if (i == 1017) {//Lottery
 			entityDef.name = "@yel@[Lottery]";
 			entityDef.actions = new String[5];
 			entityDef.actions[0] = "Talk-to";
 			entityDef.actions[2] = "Enter-lottery";
 			entityDef.actions[3] = "Check-pot";
-			entityDef.actions[4] = "View-hiscores";
 		}
 
 		if (i == 3362) {//Daily tasks
@@ -493,11 +490,6 @@ public final class NpcDefinition implements RSNPCComposition {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Donator Shop";
 			entityDef.actions = new String[] { "Trade", null, "Claim", null, null };
-		}
-		if(i == 2662){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Tournament Manager";
-			entityDef.actions = new String[] { "Open-Shop", null, null, null, null };
 		}
 		if(i==603){
 			entityDef.combatLevel = 0;
