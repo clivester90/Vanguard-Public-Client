@@ -27,7 +27,6 @@ public final class Interfaces extends RSInterface {
 	public static void loadInterfaces() {
 		hiscores(defaultTextDrawingAreas);
 		upgradeInt(defaultTextDrawingAreas);
-		wellOfGoodWill(defaultTextDrawingAreas);
 		barrowsInterface(defaultTextDrawingAreas);//new barrows
 		crystalTele(defaultTextDrawingAreas);
 		tournamentLobby(defaultTextDrawingAreas);
@@ -86,10 +85,7 @@ public final class Interfaces extends RSInterface {
 		expLock(defaultTextDrawingAreas);
 		skillTabWithHovers(defaultTextDrawingAreas);
 		normals(defaultTextDrawingAreas);
-		tournamentInterface(defaultTextDrawingAreas);
-		tourneyJoinInterface(defaultTextDrawingAreas);
 		collectionLog(defaultTextDrawingAreas);
-		votePanel(defaultTextDrawingAreas);
 		pollInterface(defaultTextDrawingAreas);
         pollResults(defaultTextDrawingAreas);
 		SlayerRewards.initializeInterfaces(defaultTextDrawingAreas);
@@ -479,198 +475,6 @@ public final class Interfaces extends RSInterface {
 	}
 
 	/**
-	 * @author Grant_ | www.rune-server.ee/members/grant | 3/22/2020
-	 */
-	public static void votePanel(TextDrawingArea[] tda) {
-		RSInterface widget = addInterface(24127);
-		int childId = 24128;
-
-		addSprite(childId++, 0, "Interfaces/VotePanel/BACKGROUND");
-		addHoverButton(childId++, "Interfaces/CollectionLog/CLOSE", 0, 16, 16, "Close", -1, childId, 1);
-		addHoveredButton(childId++, "Interfaces/CollectionLog/CLOSE", 1, 16, 16, childId++);
-
-		addText(childId++, "Day Streak Points:", tda, 0, 0xFF9300, false, true);
-		addText(childId++, "6", tda, 0, 0xFFFFFF, true, true);
-		addText(childId++, "1", tda, 0, 0xFFFFFF, true, true);
-
-		addText(childId++, "Vote Panel", tda, 2, 0xFF9300, true, true);
-
-		addText(childId++, "", tda, 0, 0xFF9300, true, true);
-
-		addText(childId++, "Current Day Streak: @whi@4", tda, 2, 0xFF9300, true, true);
-
-		addSprites(childId++, "Interfaces/VotePanel/PIPE_UP", 0, 1, 2);
-		addSprites(childId++, "Interfaces/VotePanel/PIPE_DOWN", 0, 1, 2);
-		addSprites(childId++, "Interfaces/VotePanel/PIPE_UP", 0, 1, 2);
-		addSprites(childId++, "Interfaces/VotePanel/PIPE_DOWN", 0, 1, 2);
-
-		addSprites(childId++, "Interfaces/VotePanel/PENTA", 0, 1);
-		addSprites(childId++, "Interfaces/VotePanel/PENTA", 0, 1);
-		addSprites(childId++, "Interfaces/VotePanel/PENTA", 0, 1);
-		addSprites(childId++, "Interfaces/VotePanel/PENTA", 0, 1);
-		addSprites(childId++, "Interfaces/VotePanel/PENTA", 0, 1);
-
-		//Top pentagon labels
-		int[] days = {4, 8};
-		String[] circleTexts = {"+3", "+5"};
-		for(int i = 0; i < 2; i++) {
-			addSprite(childId++, 0, "Interfaces/VotePanel/CIRCLE");
-			addText(childId++, "@gre@Day " + days[i], tda, 0, 0xFF9300, true, true);
-			addText(childId++, circleTexts[i], tda, 0, 0xFFFFFF, true, true);
-		}
-
-		//Bottom pentagon labels
-		days = new int[]{2, 6};
-		circleTexts = new String[]{"+2", "+4"};
-		for(int i = 0; i < 2; i++) {
-			addSprite(childId++, 0, "Interfaces/VotePanel/CIRCLE");
-			addText(childId++, "@gre@Day " + days[i], tda, 0, 0xFF9300, true, true);
-			addText(childId++, circleTexts[i], tda, 0, 0xFFFFFF, true, true);
-		}
-
-		//Custom last pentagon
-		addText(childId++, "@gre@Day 10", tda, 0, 0xFFFFFF, true, true);
-		addSprite(childId++, 1, "Interfaces/VotePanel/CIRCLE");
-		addText(childId++, "+1", tda, 0, 0xFFFFFF, true, true);
-		addSprite(childId++, 0, "Interfaces/VotePanel/BOX");
-		addSprite(childId++, 1, "Interfaces/VotePanel/BOX");
-
-		String[] buttonText = {"30 Min. Bonus XP", "10% DR Boost 1HR", "Vote Crystal", "Ultra M. Box"};
-		int[] amounts = {2, 2, 1, 5};
-		for(int i = 0; i < 4; i++) {
-			addHoverButton(childId++, "Interfaces/VotePanel/BUTTON", 0, 139, 28, buttonText[i], -1, childId, 1);
-			addHoveredButton(childId++, "Interfaces/VotePanel/BUTTON", 1, 139, 28, childId++);
-			//System.out.println("ID: " + childId);
-			addText(childId++, buttonText[i], tda, 0, 0xFF9933, true, true);
-			addSprite(childId++, i == 3 ? 1 : 0, "Interfaces/VotePanel/CIRCLE");
-			addText(childId++, String.valueOf(amounts[i]), tda, 0, 0xFFFFFF, true, true);
-		}
-
-		addSprite(childId++, 2, "Interfaces/VotePanel/BOX");
-		addText(childId++, "Point Store", tda, 0, 0xFF9933, true, true);
-
-		addText(childId++, "Top 3 Weekly Voters:", tda, 2, 0xFF9300, true, true);
-
-		String[] names = {"1. Billy [12]", "2. Grant [7]", "3. Noah [3]"};
-		for(int i = 0; i < 3; i++) {
-			addText(childId++, names[i], tda, 0, 0xFF9300, false, true);
-			addText(childId++, "Prize:", tda, 0, 0xFF9300, false, true);
-		}
-
-		addHoverButton(childId++, "Interfaces/VotePanel/BUTTON", 2, 103, 26, "Claim Prize", -1, childId, 1);
-		addHoveredButton(childId++, "Interfaces/VotePanel/BUTTON", 3, 103, 26, childId++);
-
-		addText(childId++, "Claim Prize", tda, 2, 0xFF9300, true, true);
-		addText(childId++, "Top 3 Voters reset in:\\n4 days, 3 hrs, 2 min", tda, 0, 0xFFFFFF, true, true);
-
-		addToItemGroup(childId++, 1, 3, 0, 0, false);
-
-		widget.totalChildren(childId - 24128 - 6);
-		childId = 24128;
-		int frame = 0;
-
-		widget.child(frame++, childId++, 15, 30); //Background
-
-		widget.child(frame++, childId++, 476, 39); //Close button
-		widget.child(frame++, childId++, 476, 39);
-		childId++;
-
-		widget.child(frame++, childId++, 30, 42); //Day streak title
-		widget.child(frame++, childId++, 139, 42); //Blue count
-		widget.child(frame++, childId++, 160, 42); //Red count
-
-		widget.child(frame++, childId++, 267, 40); //Title
-
-		widget.child(frame++, childId++, 410, 42); //Vote Key
-
-		widget.child(frame++, childId++, 163, 70); //Current Day streak
-
-		int startX = 55;
-		int startY = 125;
-		for(int i = 0; i < 4; i++) {
-			widget.child(frame++, childId++, startX, startY); //Pipe
-			startX += 60;
-			if (i == 1) {
-				startX = 148;
-			}
-		}
-
-		widget.child(frame++, childId++, 47, 164); //Pentagon
-		widget.child(frame++, childId++, 95, 102); //Pentagon
-		widget.child(frame++, childId++, 140, 164); //Pentagon
-		widget.child(frame++, childId++, 185, 102); //Pentagon
-		widget.child(frame++, childId++, 234, 164); //Pentagon
-
-		startX = 115;
-		startY = 89;
-		//Top labels
-		for(int i = 0; i < 2; i++) {
-			widget.child(frame++, childId++, startX - 7, startY + 25);
-			widget.child(frame++, childId++, startX, startY);
-			widget.child(frame++, childId++, startX, startY + 28);
-
-			startX += 90;
-		}
-
-		startX = 68;
-		startY = 209;
-		//Bottom labels
-		for(int i = 0; i < 2; i++) {
-			widget.child(frame++, childId++, startX - 8, startY - 32);
-			widget.child(frame++, childId++, startX, startY);
-			widget.child(frame++, childId++, startX, startY - 28);
-
-			startX += 92;
-		}
-
-		//Custom last label
-		widget.child(frame++, childId++, 254, 209);
-		widget.child(frame++, childId++, 240, 173);
-		widget.child(frame++, childId++, 247, 176);
-		widget.child(frame++, childId++, 249, 184);
-		widget.child(frame++, childId++, 255, 168);
-
-		startX = 22;
-		startY = 240;
-		for(int i = 0; i < 4; i++) {
-			widget.child(frame++, childId++, startX, startY);
-			widget.child(frame++, childId++, startX, startY);
-			childId++;
-
-			widget.child(frame++, childId++, startX + 68, startY + 8);
-			widget.child(frame++, childId++, startX + 117, startY + 4);
-			widget.child(frame++, childId++, startX + 126, startY + 8);
-
-			startX += 139;
-			if (i == 1) {
-				startX = 22;
-				startY += 28;
-			}
-		}
-
-		widget.child(frame++, childId++, 169, 272); //M box icon
-		widget.child(frame++, childId++, 163, 227); //Point store text
-
-		widget.child(frame++, childId++, 400, 70);
-		startX = 314;
-		startY = 103;
-		for(int i = 0; i < 3; i++) {
-			widget.child(frame++, childId++, startX, startY);
-			widget.child(frame++, childId++, startX + 100, startY);
-			startY += 30;
-		}
-
-		widget.child(frame++, childId++, 347, 209);
-		widget.child(frame++, childId++, 347, 209);
-		childId++;
-
-		widget.child(frame++, childId++, 400, 215);
-		widget.child(frame++, childId++, 400, 252);
-
-		widget.child(frame++, childId++, 449, 93); //Items
-	}
-
-	/**
 	 * @author Grant_ | www.rune-server.ee/members/grant_ | 10/7/19
 	 * @param tda
 	 */
@@ -791,74 +595,7 @@ public final class Interfaces extends RSInterface {
 		claim.child(itemClaimFrame++, claimID+5, 236, 36);
 
 	}
-	
-	/**
-	 * @author Grant_ | www.rune-server.ee/members/grant_ | 10/6/19
-	 * @param tda
-	 */
-	public static void tourneyJoinInterface(TextDrawingArea[] tda) {
-		RSInterface widget = addInterface(270);
-		int childId = 271;
-		
-		addSprite(childId++, 0, "Interfaces/Tourney/BACKGROUND");
-		addText(childId++,
-				"\\n" +
-						"\\n" +
-						"\\n" +
-						"Outlast is a safe PvP tournament.\\n" +
-				"\\n" +
-				"Earn weapon and armour upgrades by killing targets. \\n" +
-				"Once the 3 minute timer runs out, the fog damage will begin.\\n" +
-				"Good luck!", tda, 2, 0xFF9300, true, true);
-		
-		addHoverButton(childId++, "Interfaces/Tourney/BUTTON", 0, 136, 32, "Fight", -1, childId, 1);
-		addHoveredButton(childId++, "Interfaces/Tourney/BUTTON", 0, 135, 32, childId++);
 
-		addHoverButton(childId++, "Interfaces/Tourney/BUTTON", 0, 136, 32, "Exit", -1, childId, 1);
-		addHoveredButton(childId++, "Interfaces/Tourney/BUTTON", 0, 135, 32, childId++);
-		
-		addText(childId++, "Fight", tda, 2, 0x00FF00, true, true);
-		addText(childId++, "Exit", tda, 2, 0xFF0000, true, true);
-		
-		widget.totalChildren(childId - 271 - 2);
-		childId = 271;
-		int frame = 0;
-		
-		widget.child(frame++, childId++, 11, 11);
-		widget.child(frame++, childId++, 257, 100);
-		
-		widget.child(frame++, childId++, 100, 255);
-		widget.child(frame++, childId++, 100, 255);
-		childId++;
-		
-		widget.child(frame++, childId++, 285, 255);
-		widget.child(frame++, childId++, 285, 255);
-		childId++;
-		
-		widget.child(frame++, childId++, 167, 263);
-		widget.child(frame++, childId++, 352, 263);
-	}
-	
-	/**
-	 * @author Grant_ | www.rune-server.ee/members/grant_ | 10/4/19
-	 * @param tda
-	 */
-	public static void tournamentInterface(TextDrawingArea[] tda) {
-		RSInterface widget = addInterface(264);
-		int childId = 265;
-		
-		addText(childId++, "Outlast", tda, 2, 0xFFFFFF, true, true);
-		addText(childId++, "Time Left: 5 min", tda, 1, 0xFFFFFF, true, true);
-		addText(childId++, "Current Players", tda, 1, 0xFFFFFF, true, true);
-		
-		widget.totalChildren(childId - 265);
-		childId = 265;
-		int frame = 0;
-		widget.child(frame++, childId++, 251, 5);
-		widget.child(frame++, childId++, 251, 17);
-		widget.child(frame++, childId++, 251, 29);
-	}
-	
 	/**
 	 * @author Grant_ | www.rune-server.ee/members/grant_ | 9/29/19
 	 * @param tda
@@ -3768,51 +3505,6 @@ interfaceId+=5000;
 		index = 0; x = 0; y = 0;
 		itemGroup(ingScrollId, 4, 2, 7, 3, true, true);
 		ingScroll.child(index, ingScrollId, x + 4, y + 2);
-	}
-
-
-	public static void wellOfGoodWill(TextDrawingArea[] tda) {
-		RSInterface wogw = addInterface(38000);
-		addSprite(38001, 0, "Interfaces/WellOfGoodWill/IMAGE");
-		addText(38002, "Well Of Goodwill", tda, 2, 0xFF981F, true, true);
-		addText(38003, "50% Bonus Experience", tda, 2, 0xFF981F, false, true);
-		addText(38004, "Bonus PC Points (x5)", tda, 2, 0xFF981F, false, true);
-		addText(38005, "Droprate Boost (20%)", tda, 2, 0xFF981F, false, true);
-		addClickableSprites(38006, "Toggle", "Interfaces/WellOfGoodWill/IMAGE", 5, 5, 6);
-		addClickableSprites(38007, "Toggle", "Interfaces/WellOfGoodWill/IMAGE", 5, 5, 6);
-		addClickableSprites(38008, "Toggle", "Interfaces/WellOfGoodWill/IMAGE", 5, 5, 6);
-		//addClickableSprites(38019, "Toggle", "Interfaces/WellOfGoodWill/IMAGE", 5, 5, 6);
-		configHoverButtonTest(38009, "Donate Coins", "Interfaces/WellOfGoodWill/SPRITE", 756, 757, 757, 757, false, 38009);
-		configHoverButtonTest(38010, "Close Window", "Interfaces/WellOfGoodWill/IMAGE", 1, 2, 2, 2, false, 38010);
-		addText(38011, "Add Gold", tda, 2, 0xFF981F, false, true);
-		addText(38012, "", tda, 2, 0xFF981F, false, true);
-		addClickableSprites(38013, "", "", 5, 5, 6);
-		addSprite(38014, 8, "Interfaces/WellOfGoodWill/IMAGE");
-		addText(38015, "Goal1", tda, 2, 0xcc6d00, false, true);
-		addText(38016, "Goal2", tda, 2, 0xcc6d00, false, true);
-		addText(38017, "Goal3", tda, 2, 0xcc6d00, false, true);
-		//addText(38018, "", tda, 2, 0xcc6d00, false, true);
-		//addText(38020, "", tda, 2, 0xFF981F, false, true);
-		//addInputField(38019, 30, 0xFF981F, "Amount of coins", 134, 20, false, true, "[0-9]");
-
-		setChildren(20, wogw);
-		setBounds(38001, 5, 8, 0, wogw);
-		setBounds(38002, 270, 25, 1, wogw);
-		setBounds(38003, 185, 80, 2, wogw);
-		setBounds(38004, 185, 110, 3, wogw);
-		setBounds(38005, 185, 140, 4, wogw);
-		setBounds(38006, 360, 80, 5, wogw);
-		setBounds(38007, 360, 110, 6, wogw);
-		setBounds(38008, 360, 140, 7, wogw);
-		setBounds(38009, 249, 211, 9, wogw);
-		setBounds(38010, 470, 25, 8, wogw);
-		setBounds(38011, 261, 214, 10, wogw);
-		setBounds(38012, 185, 170, 11, wogw);
-		setBounds(38013, 360, 170, 12, wogw);
-		setBounds(38014, 42, 64, 13, wogw);
-		setBounds(38015, 385, 80, 14, wogw);
-		setBounds(38016, 385, 110, 15, wogw);
-		setBounds(38017, 385, 140, 16, wogw);
 	}
 
 	public static void barrowsInterface(TextDrawingArea[] tda) {
