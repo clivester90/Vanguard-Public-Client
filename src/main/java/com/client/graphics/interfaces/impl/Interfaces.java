@@ -33,9 +33,6 @@ public final class Interfaces extends RSInterface {
 		tournamentLobby(defaultTextDrawingAreas);
 		pvpTab(defaultTextDrawingAreas);
 	    achievementInterface(defaultTextDrawingAreas);
-		playerProfiler(defaultTextDrawingAreas);
-		profileTab(defaultTextDrawingAreas);
-		myProfile(defaultTextDrawingAreas);
 		priceChecker(defaultTextDrawingAreas);
 		newQuest(defaultTextDrawingAreas);
 		raidsOverlay(defaultTextDrawingAreas);
@@ -313,7 +310,7 @@ public final class Interfaces extends RSInterface {
 			//addSpriteLoader(47201, 1076);
 			addSprite(47201, 532, "Interfaces/MysteryBox/SPRITE");
 			//addSprite(47201, 0, "");
-			setBounds(47201, 0 + x, 0, i, box);
+			setBounds(47201, x, 0, i, box);
 			x += 2880;
 		}
 
@@ -3999,9 +3996,9 @@ interfaceId+=5000;
 	public static void achievementInterface(TextDrawingArea[] TDA) {
 		RSInterface rsi = addTabInterface(35000);
 		addSprite(35001, 517, "Interfaces/newachievements/IMAGE");
-		addHoverButton(35002,"Interfaces/newachievements/IMAGE", 17, 15, 15, "Close", 250, 35003, 3);
-		addHoveredButton(35003,"Interfaces/newachievements/IMAGE", 18, 15, 15, 35004);
-		addText(35005, ""+Configuration.CLIENT_TITLE+" Achievements", TDA, 2, 0xF7AA25, true, true);
+		addHoverButton(35002, "Interfaces/newachievements/IMAGE", 17, 15, 15, "Close", 250, 35003, 3);
+		addHoveredButton(35003, "Interfaces/newachievements/IMAGE", 18, 15, 15, 35004);
+		addText(35005, "" + Configuration.CLIENT_TITLE + " Achievements", TDA, 2, 0xF7AA25, true, true);
 		addText(35006, "{ ACHIEVEMENT NAME }", TDA, 2, 0xBF7D0A, true, true);
 		addText(35007, "Description:", TDA, 1, 0xF7AA25, false, true);
 		addText(35008, "{ DESCRIPTION HERE }", TDA, 0, 0xD19732, false, true);
@@ -4016,16 +4013,16 @@ interfaceId+=5000;
 		addText(35016, "Points: 12", TDA, 0, 0xBF7D0A, true, true);
 
 		addItemContainer(36002, 2, 10, 0, 0, false);
-		addHoverButton(35017,"Interfaces/newachievements/IMAGE", 513, 37, 25, "Easy", -1, 35018, 1);
-		addHoveredButton(35018, "Interfaces/newachievements/IMAGE",514, 37, 25, 35019);
-		addHoverButton(35020,"Interfaces/newachievements/IMAGE", 513, 37, 25, "Medium", -1, 35021, 1);
-		addHoveredButton(35021,"Interfaces/newachievements/IMAGE", 514, 37, 25, 35022);
-		addHoverButton(35023,"Interfaces/newachievements/IMAGE", 513, 37, 25, "Hard", -1, 35024, 1);
-		addHoveredButton(35024,"Interfaces/newachievements/IMAGE", 514, 37, 25, 35025);
+		addHoverButton(35017, "Interfaces/newachievements/IMAGE", 513, 37, 25, "Easy", -1, 35018, 1);
+		addHoveredButton(35018, "Interfaces/newachievements/IMAGE", 514, 37, 25, 35019);
+		addHoverButton(35020, "Interfaces/newachievements/IMAGE", 513, 37, 25, "Medium", -1, 35021, 1);
+		addHoveredButton(35021, "Interfaces/newachievements/IMAGE", 514, 37, 25, 35022);
+		addHoverButton(35023, "Interfaces/newachievements/IMAGE", 513, 37, 25, "Hard", -1, 35024, 1);
+		addHoveredButton(35024, "Interfaces/newachievements/IMAGE", 514, 37, 25, 35025);
 		addText(35026, "Easy", TDA, 0, 0xBF7D0A, true, true);
 		addText(35027, "Med", TDA, 0, 0xBF7D0A, true, true);
 		addText(35028, "Hard", TDA, 0, 0xBF7D0A, true, true);
-		addConfigSpriteNew(35029,"Interfaces/newachievements/IMAGE", 518, 519, 0, 694);
+		addConfigSpriteNew(35029, "Interfaces/newachievements/IMAGE", 518, 519, 0, 694);
 		rsi.totalChildren(28);
 		rsi.child(0, 35001, 14, 18);
 		rsi.child(1, 35002, 467, 27);
@@ -4070,172 +4067,6 @@ interfaceId+=5000;
 			scrollInterface.child(i, 35031 + i, x, y);
 			y += 18;
 		}
-	}
-
-	public static void playerProfiler(TextDrawingArea[] TDA) {
-		RSInterface rsi = addInterface(41800);
-		addSprite(41801, 359, "Interfaces/profileview/IMAGE");
-		//addSprite(51801, 359);
-		addText(41802, "Player Profiler", TDA, 2, 0xff981f, true, true);
-
-		addHoverButton(41803,"Interfaces/newachievements/IMAGE", 17, 21, 21, "close", 250, 41804, 3);
-		addHoveredButton(41804, "Interfaces/newachievements/IMAGE",18, 21, 21, 41805);
-		addOtherChar(41806, 700);
-		addText(41807, "</col>Name: @gre@rogue", TDA, 1, 0xff981f, true, true);
-		addText(41808, "</col>Rank: @cr2@@gre@  Owner", TDA, 1, 0xff981f, true, true);
-		addText(41809, "</col>Level: @gre@126", TDA, 1, 0xff981f, true, true);
-		for (int i = 0; i < 21; i++) {
-			addSprite(41810 + i, 324 + i, "Interfaces/profileview/IMAGE");
-		}
-
-		addHoverButton(41990,"Interfaces/profileview/IMAGE", 363, 30, 30, "Like", 0, 41991, 1);
-		addHoveredButton(41991, "Interfaces/profileview/IMAGE",364, 30, 30, 41992);
-		addHoverButton(41993,"Interfaces/profileview/IMAGE", 365, 30, 30, "dislike", 0, 41994, 1);
-		addHoveredButton(41994, "Interfaces/profileview/IMAGE",366, 30, 30, 41995);
-
-		rsi.totalChildren(55);//55
-		rsi.child(8, 41880, 303, 49);
-		RSInterface scrollInterface = addTabInterface(41880);
-		scrollInterface.width = 170;
-		scrollInterface.height = 267;
-		scrollInterface.scrollMax = 450;
-		setChildren(35, scrollInterface);
-		int y = 0;
-		for (int i = 0; i < 35; i++) {
-			addHoverText(41881 + i, "" , "", TDA, 0, 0xff981f, true, true, 160, 0xff981f);
-			setBounds(41881 + i, 0, y, i, scrollInterface);
-			y += 20;
-		}
-		rsi.child(0, 41801, 10, 5);
-		rsi.child(1, 41802, 255, 13);
-		rsi.child(2, 41803, 478, 11);
-		rsi.child(3, 41804, 478, 11);
-		rsi.child(4, 41806, 35, 210);
-		rsi.child(5, 41807, 105, 55);
-		rsi.child(6, 41808, 105, 70);
-		rsi.child(7, 41809, 105, 85);
-		for (int i = 0; i < 20; i++) {
-			rsi.child(9 + i, 41810 + i, 205 + (i / 10) * 36, 50 + (i % 10) * 25);
-			addTooltipBoxNew(41832 + i, Skills.SKILL_NAMES[i].substring(0, 1).toUpperCase() + Skills.SKILL_NAMES[i].substring(1) + " level: 1/1\\nPrestige level: 1");
-			interfaceCache[41832 + i].width = 25;
-			interfaceCache[41832 + i].height = 25;
-			rsi.child(30 + i, 41832 + i, 205 + (i / 10) * 36, 50 + (i % 10) * 25);
-		}
-		rsi.child(29, 41810 + 20, 222, 290);
-		addTooltipBoxNew(41832 + 20, "Runecrafting level: 1/1\\nPrestige level: 1");
-		interfaceCache[41832 + 20].width = 25;
-		interfaceCache[41832 + 20].height = 25;
-		rsi.child(50, 41832 + 20, 222, 290);
-		rsi.child(51, 41990, 185, 10);
-		rsi.child(52, 41991, 185, 10);
-		rsi.child(53, 41993, 307, 10);
-		rsi.child(54, 41994, 307, 10);
-	}
-
-
-	public static void profileTab(TextDrawingArea[] TDA) {
-		RSInterface tab = addInterface(41500);
-		addSprite(41501, 360, "Interfaces/profileview/IMAGE");
-		addSprite(41502, 38, "Interfaces/profileview/IMAGE");
-
-		addText(41503, "Player Profiler", TDA, 2, 0xF7AA25, true, true);
-
-		addHoverButton(41504,"Interfaces/profileview/IMAGE", 44, 45, 45, "Search", 0, 41505, 1);
-		addHoveredButton(41505, "Interfaces/profileview/IMAGE",45, 45, 45, 41506);
-
-		addConfigButton(41507, 41500, 289, 290, "Interfaces/profileview/IMAGE", 14, 15, "Select", 1, 5, 1);
-		addConfigButton(41508, 41500, 289, 290, "Interfaces/profileview/IMAGE", 14, 15, "Select", 2, 5, 1);
-
-
-		addHoverText(41509, "Enable Privacy", "Enable", TDA, 0, 0xF7AA25, false, true, 60);
-		addHoverText(41510, "Disable Privacy", "Disable", TDA, 0, 0xF7AA25, false, true, 60);
-		addHoverButton(41511,"Interfaces/profileview/IMAGE", 36, 150, 35, "View my profile", 0, 41512, 1);
-		addHoveredButton(41512, "Interfaces/profileview/IMAGE",37, 150, 35, 41513);
-
-
-
-
-		addText(41514, "My Profile", TDA, 2, 0xF7AA25, true, true);
-		addHoverButton(41515,"Interfaces/profileview/IMAGE", 36, 150, 35, "View profile leaderboards", 0, 41516, 1);
-		addHoveredButton(41516, "Interfaces/profileview/IMAGE",37, 150, 35, 41517);
-
-
-		addText(41518, "Leaderboards", TDA, 2, 0xF7AA25, true, true);
-		addHoverButton(41519,"Interfaces/profileview/IMAGE", 362, 50, 20, "Settings", 0, 41520, 1);
-		addHoveredButton(41520, "Interfaces/profileview/IMAGE",361, 50, 20, 41521);
-
-
-		tab.totalChildren(18);
-		tab.child(0, 41501, -4, 34);
-		tab.child(1, 41502, -0, 34);
-		tab.child(2, 41502, -0, 229);
-		tab.child(3, 41503, 92, 9);
-		tab.child(4, 41504, 0, 37);//37
-		tab.child(5, 41505, 0, 37);//37
-		tab.child(6, 41507, 50, 37);
-		tab.child(7, 41508, 50, 56);
-		tab.child(8, 41509, 70, 39);
-		tab.child(9, 41510, 70, 58);
-		tab.child(10, 41511, 20, 95);
-		tab.child(11, 41512, 20, 95);
-		tab.child(12, 41514, 92, 103);
-		tab.child(13, 41515, 20, 155);
-		tab.child(14, 41516, 20, 155);
-		tab.child(15, 41518, 92, 163);
-		tab.child(16, 41519, 1000, 1000);
-		tab.child(17, 41520, 1000, 1000);
-	}
-
-	/**
-	 * My Profile
-	 * @param TDA
-	 */
-	public static void myProfile(TextDrawingArea[] TDA) {
-		RSInterface tab = addInterface(41600);
-		addSprite(41601, 359, "Interfaces/profileview/IMAGE");
-		addText(41602, "My Profile", TDA, 2, 0xff981f, true, true);
-		addHoverButton(41603,"Interfaces/newachievements/IMAGE", 17, 21, 21, "close", 250, 41604, 3);
-		addHoveredButton(41604, "Interfaces/newachievements/IMAGE",18, 21, 21, 41605);
-		addChar(41606, 700);//Adds the character to the interface
-		addText(41607, "</col>Name: @gre@Rogue", TDA, 1, 0xff981f, true, true);
-		addText(41608, "</col>Rank: @cr2@@gre@  Owner", TDA, 1, 0xff981f, true, true);
-		addText(41609, "</col>Level: @gre@126", TDA, 1, 0xff981f, true, true);
-		for (int i = 0; i < 21; i++) {
-			addSprite(41610 + i, 324 + i, "Interfaces/profileview/IMAGE");
-		}
-		tab.totalChildren(51);
-		tab.child(8, 41680, 303, 49);
-		RSInterface scrollInterface = addTabInterface(41680);
-		scrollInterface.width = 170;
-		scrollInterface.height = 267;
-		scrollInterface.scrollMax = 450;
-		setChildren(35, scrollInterface);
-		int y = 0;
-		for (int i = 0; i < 35; i++) {
-			addHoverText(41681 + i, "" , "", TDA, 0, 0xff981f, true, true, 160, 0xff981f);
-			setBounds(41681 + i, 0, y, i, scrollInterface);
-			y += 20;
-		}
-		tab.child(0, 41601, 10, 5);
-		tab.child(1, 41602, 255, 13);
-		tab.child(2, 41603, 478, 11);
-		tab.child(3, 41604, 478, 11);
-		tab.child(4, 41606, 35, 210);
-		tab.child(5, 41607, 105, 55);
-		tab.child(6, 41608, 105, 70);
-		tab.child(7, 41609, 105, 85);
-		for (int i = 0; i < 20; i++) {
-			tab.child(9 + i, 41610 + i, 205 + (i / 10) * 36, 50 + (i % 10) * 25);
-			addTooltipBoxNew(41632 + i, Skills.SKILL_NAMES[i].substring(0, 1).toUpperCase() + Skills.SKILL_NAMES[i].substring(1) + " level: 1/1\\nPrestige level: 1");
-			interfaceCache[41632 + i].width = 25;
-			interfaceCache[41632 + i].height = 25;
-			tab.child(30 + i, 41632 + i, 205 + (i / 10) * 36, 50 + (i % 10) * 25);
-		}
-		tab.child(29, 41610 + 20, 222, 290);
-		addTooltipBoxNew(41632 + 20, "Runecrafting level: 1/1\\nPrestige level: 1");
-		interfaceCache[41632 + 20].width = 25;
-		interfaceCache[41632 + 20].height = 25;
-		tab.child(50, 41632 + 20, 222, 290);
 	}
 
 
