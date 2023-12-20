@@ -383,134 +383,129 @@ public class PictureInPicturePlugin extends Plugin
 
 		int offset = getOffset();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			@Override
-			public void run()
+		SwingUtilities.invokeLater(() -> {
+			if (!pipUp)
 			{
-				if (!pipUp)
+
+				log.debug("Initializing PIP");
+
+				if (config.limitedDimension().toString().equals("Width"))
 				{
-
-					log.debug("Initializing PIP");
-
-					if (config.limitedDimension().toString().equals("Width"))
-					{
-						pipWidth = config.targetSize().getWidth();
-						pipScale = (double) pipWidth / (double) image.getWidth(null);
-						pipHeight = (int) (image.getHeight(null) * pipScale);
-					}
-					else
-					{
-						pipHeight = config.targetSize().getHeight();
-						pipScale = (double) pipHeight / (double) image.getHeight(null);
-						pipWidth = (int) (image.getWidth(null) * pipScale);
-					}
-
-					Image img = pipScale(image);
-					ImageIcon icon = new ImageIcon(img);
-
-					pipFrame = new JFrame("Picture in Picture");
-					pipFrame.setFocusableWindowState(false);
-					pipFrame.setType(Window.Type.UTILITY);
-					pipFrame.setLayout(new FlowLayout(FlowLayout.LEFT, config.borderWidth(), config.borderWidth()));
-					pipFrame.setSize(img.getWidth(null) + offset, img.getHeight(null));
-					lbl = new JLabel();
-					lbl.setIcon(icon);
-					pipFrame.setUndecorated(true);
-
-					//pull in bar info from config
-					if (leftSkill == Skill.HITPOINTS)
-					{
-						leftBar = new pipBar(maxHealth, currentHealth, healthColor);
-					}
-					else if (leftSkill == Skill.PRAYER)
-					{
-						leftBar = new pipBar(maxPrayer, currentPrayer, PRAYER);
-					}
-					if (rightSkill == Skill.HITPOINTS)
-					{
-						rightBar = new pipBar(maxHealth, currentHealth, healthColor);
-					}
-					else if (rightSkill == Skill.PRAYER)
-					{
-						rightBar = new pipBar(maxPrayer, currentPrayer, PRAYER);
-					}
-
-					//set the order of bars and pip window
-					if (position == 0)
-					{
-						if (leftSkill != null)
-						{
-							pipFrame.add(leftBar);
-						}
-						if (rightSkill != null)
-						{
-							pipFrame.add(rightBar);
-						}
-						pipFrame.add(lbl);
-					}
-					else if (position == 1)
-					{
-						pipFrame.add(lbl);
-						if (leftSkill != null)
-						{
-							pipFrame.add(leftBar);
-						}
-						if (rightSkill != null)
-						{
-							pipFrame.add(rightBar);
-						}
-					}
-					else
-					{
-						if (leftSkill != null)
-						{
-							pipFrame.add(leftBar);
-						}
-						pipFrame.add(lbl);
-						if (rightSkill != null)
-						{
-							pipFrame.add(rightBar);
-						}
-					}
-
-					pipFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					pipFrame.setAlwaysOnTop(true);
-
-					MoveMouseListener listener = new MoveMouseListener(pipFrame);
-					pipFrame.addMouseListener(listener);
-					pipFrame.addMouseMotionListener(listener);
-
-					//get effective screen area
-					Rectangle effectiveScreenArea = getEffectiveScreenArea();
-
-					//set location
-					if (config.quadrantID().getId() == 1)
-					{
-						pipPoint.setLocation(effectiveScreenArea.width - pipWidth - config.paddingX() - offset, config.paddingY());
-					}
-					else if (config.quadrantID().getId() == 2)
-					{
-						pipPoint.setLocation(config.paddingX(), config.paddingY());
-					}
-					else if (config.quadrantID().getId() == 3)
-					{
-						pipPoint.setLocation(config.paddingX(), effectiveScreenArea.height - pipHeight - config.paddingY() - 2 * config.borderWidth());
-					}
-					else
-					{
-						pipPoint.setLocation(effectiveScreenArea.width - pipWidth - config.paddingX() - offset, effectiveScreenArea.height - pipHeight - config.paddingY() - 2 * config.borderWidth());
-					}
-
-					pipFrame.setLocation(pipPoint);
-
-					// Display the window.
-					pipFrame.pack();
-					pipFrame.setVisible(true);
-					pipUp = true;
-
-					log.debug("PIP initialized");
+					pipWidth = config.targetSize().getWidth();
+					pipScale = (double) pipWidth / (double) image.getWidth(null);
+					pipHeight = (int) (image.getHeight(null) * pipScale);
 				}
+				else
+				{
+					pipHeight = config.targetSize().getHeight();
+					pipScale = (double) pipHeight / (double) image.getHeight(null);
+					pipWidth = (int) (image.getWidth(null) * pipScale);
+				}
+
+				Image img = pipScale(image);
+				ImageIcon icon = new ImageIcon(img);
+
+				pipFrame = new JFrame("Picture in Picture");
+				pipFrame.setFocusableWindowState(false);
+				pipFrame.setType(Window.Type.UTILITY);
+				pipFrame.setLayout(new FlowLayout(FlowLayout.LEFT, config.borderWidth(), config.borderWidth()));
+				pipFrame.setSize(img.getWidth(null) + offset, img.getHeight(null));
+				lbl = new JLabel();
+				lbl.setIcon(icon);
+				pipFrame.setUndecorated(true);
+
+				//pull in bar info from config
+				if (leftSkill == Skill.HITPOINTS)
+				{
+					leftBar = new pipBar(maxHealth, currentHealth, healthColor);
+				}
+				else if (leftSkill == Skill.PRAYER)
+				{
+					leftBar = new pipBar(maxPrayer, currentPrayer, PRAYER);
+				}
+				if (rightSkill == Skill.HITPOINTS)
+				{
+					rightBar = new pipBar(maxHealth, currentHealth, healthColor);
+				}
+				else if (rightSkill == Skill.PRAYER)
+				{
+					rightBar = new pipBar(maxPrayer, currentPrayer, PRAYER);
+				}
+
+				//set the order of bars and pip window
+				if (position == 0)
+				{
+					if (leftSkill != null)
+					{
+						pipFrame.add(leftBar);
+					}
+					if (rightSkill != null)
+					{
+						pipFrame.add(rightBar);
+					}
+					pipFrame.add(lbl);
+				}
+				else if (position == 1)
+				{
+					pipFrame.add(lbl);
+					if (leftSkill != null)
+					{
+						pipFrame.add(leftBar);
+					}
+					if (rightSkill != null)
+					{
+						pipFrame.add(rightBar);
+					}
+				}
+				else
+				{
+					if (leftSkill != null)
+					{
+						pipFrame.add(leftBar);
+					}
+					pipFrame.add(lbl);
+					if (rightSkill != null)
+					{
+						pipFrame.add(rightBar);
+					}
+				}
+
+				pipFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				pipFrame.setAlwaysOnTop(true);
+
+				MoveMouseListener listener = new MoveMouseListener(pipFrame);
+				pipFrame.addMouseListener(listener);
+				pipFrame.addMouseMotionListener(listener);
+
+				//get effective screen area
+				Rectangle effectiveScreenArea = getEffectiveScreenArea();
+
+				//set location
+				if (config.quadrantID().getId() == 1)
+				{
+					pipPoint.setLocation(effectiveScreenArea.width - pipWidth - config.paddingX() - offset, config.paddingY());
+				}
+				else if (config.quadrantID().getId() == 2)
+				{
+					pipPoint.setLocation(config.paddingX(), config.paddingY());
+				}
+				else if (config.quadrantID().getId() == 3)
+				{
+					pipPoint.setLocation(config.paddingX(), effectiveScreenArea.height - pipHeight - config.paddingY() - 2 * config.borderWidth());
+				}
+				else
+				{
+					pipPoint.setLocation(effectiveScreenArea.width - pipWidth - config.paddingX() - offset, effectiveScreenArea.height - pipHeight - config.paddingY() - 2 * config.borderWidth());
+				}
+
+				pipFrame.setLocation(pipPoint);
+
+				// Display the window.
+				pipFrame.pack();
+				pipFrame.setVisible(true);
+				pipUp = true;
+
+				log.debug("PIP initialized");
 			}
 		});
 	}
@@ -582,43 +577,33 @@ public class PictureInPicturePlugin extends Plugin
 	//update image
 	private void updatePip(Image image)
 	{
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Image img = pipScale(image);
-				ImageIcon icon = new ImageIcon(img);
-				icon.getImage().flush();
-				lbl.setIcon(icon);
-			}
+		SwingUtilities.invokeLater(() -> {
+			Image img = pipScale(image);
+			ImageIcon icon = new ImageIcon(img);
+			icon.getImage().flush();
+			lbl.setIcon(icon);
 		});
 	}
 
 	//update bars
 	private void updateBars()
 	{
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			@Override
-			public void run()
+		SwingUtilities.invokeLater(() -> {
+			if (leftSkill == Skill.HITPOINTS)
 			{
-				if (leftSkill == Skill.HITPOINTS)
-				{
-					leftBar.updateBar(maxHealth, currentHealth, healthColor);
-				}
-				else if (leftSkill == Skill.PRAYER)
-				{
-					leftBar.updateBar(maxPrayer, currentPrayer, PRAYER);
-				}
-				if (rightSkill == Skill.HITPOINTS)
-				{
-					rightBar.updateBar(maxHealth, currentHealth, healthColor);
-				}
-				else if (rightSkill == Skill.PRAYER)
-				{
-					rightBar.updateBar(maxPrayer, currentPrayer, PRAYER);
-				}
+				leftBar.updateBar(maxHealth, currentHealth, healthColor);
+			}
+			else if (leftSkill == Skill.PRAYER)
+			{
+				leftBar.updateBar(maxPrayer, currentPrayer, PRAYER);
+			}
+			if (rightSkill == Skill.HITPOINTS)
+			{
+				rightBar.updateBar(maxHealth, currentHealth, healthColor);
+			}
+			else if (rightSkill == Skill.PRAYER)
+			{
+				rightBar.updateBar(maxPrayer, currentPrayer, PRAYER);
 			}
 		});
 	}

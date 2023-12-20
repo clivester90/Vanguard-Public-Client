@@ -61,7 +61,7 @@ public class Misc {
 			return NUMBER_FORMAT_2.format(((double) amount) / 1_000d) + "K";
 		}
 
-		return "" + amount;
+		return String.valueOf(amount);
 	}
 
 	public static void dumpHeap(boolean live) {

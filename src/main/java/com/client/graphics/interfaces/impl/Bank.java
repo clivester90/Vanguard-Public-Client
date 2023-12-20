@@ -213,8 +213,8 @@ public class Bank extends RSInterface {
             RSInterface searchContainer = interfaceCache[SEARCH_CONTAINER];
             searchContainer.resetItems();
             if (!searchingBankString.isEmpty()) {
-                for (int index = 0; index < ITEM_CONTAINERS.length; index++) {
-                    RSInterface container = interfaceCache[ITEM_CONTAINERS[index]];
+                for (int itemContainer : ITEM_CONTAINERS) {
+                    RSInterface container = interfaceCache[itemContainer];
                     for (int itemIndex = 0; itemIndex < container.inventoryItemId.length; itemIndex++) {
                         if (container.inventoryItemId[itemIndex] > 0) {
                             ItemDefinition definition = ItemDefinition.lookup(container.inventoryItemId[itemIndex] - 1);
@@ -233,8 +233,7 @@ public class Bank extends RSInterface {
 
             if (getCurrentBankTab() == 0) {
                 // Init the main tab view
-                for (int index = 0; index < mainTabChildren.length; index++)
-                    bankScrollable.children[mainTabChildren[index]] = EMPTY_CHILD;
+                for (int mainTabChild : mainTabChildren) bankScrollable.children[mainTabChild] = EMPTY_CHILD;
                 int itemContainerIndex = 0;
                 for (int index = 0; index < mainTabChildren.length; index++) {
                     RSInterface container = interfaceCache[ITEM_CONTAINERS[index]];
@@ -266,10 +265,10 @@ public class Bank extends RSInterface {
                     bankScrollable.childY[mainTabChildren[index]] = height;
                     height += container.getItemContainerHeight();
                 }
-                bankScrollable.scrollMax = height > bankScrollable.height + 1 ? height : bankScrollable.height + 1;
+                bankScrollable.scrollMax = Math.max(height, bankScrollable.height + 1);
             } else {
                 int height = rsInterface.getItemContainerHeight();
-                bankScrollable.scrollMax = height > bankScrollable.height + 1 ? height : bankScrollable.height + 1;
+                bankScrollable.scrollMax = Math.max(height, bankScrollable.height + 1);
             }
         }
     }

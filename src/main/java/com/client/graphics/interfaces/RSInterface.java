@@ -43,7 +43,7 @@ public class RSInterface {
 					/**
 					 * To disable toggle {@link Configuration#PRINT_EMPTY_INTERFACE_SECTIONS}
 					 */
-					System.out.println(String.format("Found empty interface range starting at [%d] length [%d]", start, count));
+					System.out.printf("Found empty interface range starting at [%d] length [%d]%n", start, count);
 				}
 				start = 0;
 				count = 0;
@@ -289,10 +289,10 @@ public class RSInterface {
 		int start = 0;
 		int found = 0;
 		boolean[] checker = new boolean[3215];
-		for(int v = 0; v < interfaceCache.length; v++) {
-			if (interfaceCache[v] != null && interfaceCache[v].scripts != null) {
-				if (interfaceCache[v].scripts[0].length >= 2) {
-					checker[interfaceCache[v].scripts[0][1]] = true;
+		for (RSInterface rsInterface : interfaceCache) {
+			if (rsInterface != null && rsInterface.scripts != null) {
+				if (rsInterface.scripts[0].length >= 2) {
+					checker[rsInterface.scripts[0][1]] = true;
 				}
 			}
 		}
@@ -897,8 +897,8 @@ public class RSInterface {
 		Interface.contentType = 0;
 		Interface.opacity = 0;
 		Interface.hoverType = Hover;
-		Interface.sprite1 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca + "");
-		Interface.sprite2 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca + "");
+		Interface.sprite1 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca);
+		Interface.sprite2 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca);
 		Interface.width = 34;
 		Interface.height = 34;
 		Interface.anIntArray212 = new int[1];
@@ -919,8 +919,8 @@ public class RSInterface {
 		Interface.atActionType = 0;
 		Interface.contentType = 0;
 		Interface.opacity = 0;
-		Interface.sprite1 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca + "");
-		Interface.sprite2 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca + "");
+		Interface.sprite1 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca);
+		Interface.sprite2 = imageLoader(prayerSpriteID, "QuickPrayer/" + loca);
 		Interface.width = 34;
 		Interface.height = 34;
 		Interface.anIntArray212 = new int[1];
@@ -1804,7 +1804,7 @@ public class RSInterface {
 		rsInterface.centerText = true;
 		rsInterface.textDrawingAreas = font[0];
 		rsInterface.textShadow = true;
-		rsInterface.message = "%1/" + runeAmount + "";
+		rsInterface.message = "%1/" + runeAmount;
 		rsInterface.aString228 = "";
 		rsInterface.textColor = 12582912;
 		rsInterface.secondaryColor = 49152;

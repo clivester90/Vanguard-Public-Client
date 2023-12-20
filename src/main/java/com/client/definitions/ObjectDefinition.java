@@ -643,8 +643,7 @@ public final class ObjectDefinition implements RSObjectComposition {
 	public void method574(OnDemandFetcher class42_sub1) {
 		if (objectModels == null)
 			return;
-		for (int j = 0; j < objectModels.length; j++)
-			class42_sub1.method560(objectModels[j] & 0xffff, 0);
+		for (int objectModel : objectModels) class42_sub1.method560(objectModel & 0xffff, 0);
 	}
 
 	public static void nullLoader() {
@@ -680,8 +679,7 @@ public final class ObjectDefinition implements RSObjectComposition {
 				return true;
 			boolean flag1 = true;
 			Model model = (Model) ObjectDefinition.models.get(type);
-			for (int k = 0; k < objectModels.length; k++)
-				flag1 &= Model.isCached(objectModels[k] & 0xffff);
+			for (int objectModel : objectModels) flag1 &= Model.isCached(objectModel & 0xffff);
 
 			return flag1;
 		}
@@ -720,8 +718,7 @@ public final class ObjectDefinition implements RSObjectComposition {
 		if (objectModels == null)
 			return true;
 		boolean flag1 = true;
-		for (int i = 0; i < objectModels.length; i++)
-			flag1 &= Model.isCached(objectModels[i] & 0xffff);
+		for (int objectModel : objectModels) flag1 &= Model.isCached(objectModel & 0xffff);
 		return flag1;
 	}
 

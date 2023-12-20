@@ -637,7 +637,7 @@ public class ClientUI
 				);
 				ep.addHyperlinkListener(e ->
 				{
-					if (e.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED))
+					if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
 					{
 						LinkBrowser.browse(e.getURL().toString());
 					}

@@ -375,7 +375,7 @@ public final class Tile extends Linkable implements RSTile {
 			return null;
 		}
 
-		List<TileItem> result = new ArrayList<TileItem>();
+		List<TileItem> result = new ArrayList<>();
 		Node node = layer.getBottom();
 		while (node instanceof RSTileItem) {
 			RSTileItem item = (RSTileItem) node;

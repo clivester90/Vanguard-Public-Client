@@ -81,10 +81,10 @@ public class LeaderboardInterface extends InterfaceBuilder {
             addSprite(nextInterface(), i % 2 == 0 ? entryBackgroundDark : entryBackgroundLight);
             container.child(childId++, lastInterface(), 0, (i * 21));
 
-            addText(nextInterface(), 1, DEFAULT_TEXT_COLOR, false, "" + lastInterface());
+            addText(nextInterface(), 1, DEFAULT_TEXT_COLOR, false, String.valueOf(lastInterface()));
             container.child(childId++, lastInterface(), 12, 3 + (i * 21));
 
-            addText(nextInterface(), 1, DEFAULT_TEXT_COLOR, false, "" + lastInterface());
+            addText(nextInterface(), 1, DEFAULT_TEXT_COLOR, false, String.valueOf(lastInterface()));
             container.child(childId++, lastInterface(), 150, 3 + (i * 21));
 
             RSInterface rewards = addItemContainer(nextInterface(), 1, 1, 0, 0, true,

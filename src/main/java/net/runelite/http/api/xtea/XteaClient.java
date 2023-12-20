@@ -75,17 +75,11 @@ public class XteaClient
 			@Override
 			public void onResponse(Call call, Response response)
 			{
-				try
-				{
-					if (!response.isSuccessful())
-					{
-						log.debug("unsuccessful xtea response");
-					}
-				}
-				finally
-				{
-					response.close();
-				}
+                try (response) {
+                    if (!response.isSuccessful()) {
+                        log.debug("unsuccessful xtea response");
+                    }
+                }
 			}
 		});
 	}

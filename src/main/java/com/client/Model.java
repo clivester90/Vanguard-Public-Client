@@ -870,12 +870,10 @@ public class Model extends Renderable implements RSModel {
 			transformTempX = 0;
 			transformTempY = 0;
 			transformTempZ = 0;
-			for (int k2 = 0; k2 < length; k2++) {
-				int skin = skinArray[k2];
+			for (int skin : skinArray) {
 				if (skin < vertexGroups.length) {
 					int[] group = vertexGroups[skin];
-					for (int i5 = 0; i5 < group.length; i5++) {
-						int offset = group[i5];
+					for (int offset : group) {
 						transformTempX += verticesX[offset];
 						transformTempY += verticesY[offset];
 						transformTempZ += verticesZ[offset];
@@ -898,12 +896,10 @@ public class Model extends Renderable implements RSModel {
 			}
 		}
 		if (animationType == 1) {
-			for (int k1 = 0; k1 < length; k1++) {
-				int skin = skinArray[k1];
+			for (int skin : skinArray) {
 				if (skin < vertexGroups.length) {
 					int[] group = vertexGroups[skin];
-					for (int i4 = 0; i4 < group.length; i4++) {
-						int offset = group[i4];
+					for (int offset : group) {
 						verticesX[offset] += x;
 						verticesY[offset] += y;
 						verticesZ[offset] += z;
@@ -915,12 +911,10 @@ public class Model extends Renderable implements RSModel {
 			return;
 		}
 		if (animationType == 2) {
-			for (int l1 = 0; l1 < length; l1++) {
-				int skin = skinArray[l1];
+			for (int skin : skinArray) {
 				if (skin < vertexGroups.length) {
 					int[] group = vertexGroups[skin];
-					for (int j4 = 0; j4 < group.length; j4++) {
-						int offset = group[j4];
+					for (int offset : group) {
 						verticesX[offset] -= transformTempX;
 						verticesY[offset] -= transformTempY;
 						verticesZ[offset] -= transformTempZ;
@@ -959,12 +953,10 @@ public class Model extends Renderable implements RSModel {
 			return;
 		}
 		if (animationType == 3) {
-			for (int uid = 0; uid < length; uid++) {
-				int skin = skinArray[uid];
+			for (int skin : skinArray) {
 				if (skin < vertexGroups.length) {
 					int[] group = vertexGroups[skin];
-					for (int k4 = 0; k4 < group.length; k4++) {
-						int offset = group[k4];
+					for (int offset : group) {
 						verticesX[offset] -= transformTempX;
 						verticesY[offset] -= transformTempY;
 						verticesZ[offset] -= transformTempZ;
@@ -982,12 +974,10 @@ public class Model extends Renderable implements RSModel {
 			return;
 		}
 		if (animationType == 5 && faceGroups != null && triangleAlpha != null) {
-			for (int j2 = 0; j2 < length; j2++) {
-				int skin = skinArray[j2];
+			for (int skin : skinArray) {
 				if (skin < faceGroups.length) {
 					int[] group = faceGroups[skin];
-					for (int l4 = 0; l4 < group.length; l4++) {
-						int var13 = group[l4];
+					for (int var13 : group) {
 						int var14 = (this.triangleAlpha[var13] & 255) + x * 8;
 						if (var14 < 0) {
 							var14 = 0;
@@ -995,7 +985,7 @@ public class Model extends Renderable implements RSModel {
 							var14 = 255;
 						}
 
-						this.triangleAlpha[var13] = (byte)var14;
+						this.triangleAlpha[var13] = (byte) var14;
 					}
 
 				}
@@ -2509,7 +2499,7 @@ public class Model extends Renderable implements RSModel {
 	static int[] modelColors;
 	static int[] modelLocations;
 
-	HashMap<Integer, net.runelite.api.AABB> aabb = new HashMap<Integer, net.runelite.api.AABB>();
+	HashMap<Integer, net.runelite.api.AABB> aabb = new HashMap<>();
 
 	static {
 		SINE = Rasterizer3D.SINE;

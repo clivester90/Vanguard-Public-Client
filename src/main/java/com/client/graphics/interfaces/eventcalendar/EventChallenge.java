@@ -64,7 +64,7 @@ public enum EventChallenge {
                 newLine = true;
                 width = 0;
             }
-            builder.append((index != 0 && !newLine ? " " : "") + split[index]);
+            builder.append(index != 0 && !newLine ? " " : "").append(split[index]);
             width += font.getTextWidth(split[index]);
         }
         return builder.toString();

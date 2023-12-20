@@ -240,10 +240,7 @@ public class HoverMenuManager {
         if (Client.instance.toolTip.contains("Walk") || Client.instance.toolTip.contains("World")) {
             return false;
         }
-        if (Client.instance.menuOpen) {
-            return false;
-        }
-        return hintId != -1 && showMenu;
+        return !Client.instance.menuOpen && hintId != -1 && showMenu;
     }
 
     public static void drawHintMenu() {

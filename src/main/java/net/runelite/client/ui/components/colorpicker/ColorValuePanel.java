@@ -133,7 +133,7 @@ public class ColorValuePanel extends JPanel
 		value = ColorUtil.constrainValue(value);
 
 		slider.setValue(value);
-		input.setText(value + "");
+		input.setText(String.valueOf(value));
 	}
 
 	public int getValue()

@@ -56,11 +56,8 @@ public class BankItemQuery extends WidgetItemQuery
 		if (bank != null && !bank.isHidden())
 		{
 			Widget[] children = bank.getDynamicChildren();
-			for (int i = 0; i < children.length; i++)
-			{
-				Widget child = children[i];
-				if (child.getItemId() == ITEM_EMPTY || child.isSelfHidden())
-				{
+			for (Widget child : children) {
+				if (child.getItemId() == ITEM_EMPTY || child.isSelfHidden()) {
 					continue;
 				}
 				// set bounds to same size as default inventory

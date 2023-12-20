@@ -12,7 +12,7 @@ public class HoverManager {
 
     public static final int BACKGROUND_COLOUR = 0xFFFFFFF;
 
-    public static HashMap<Integer, HoverMenu> menus = new HashMap<Integer, HoverMenu>();
+    public static HashMap<Integer, HoverMenu> menus = new HashMap<>();
 
     public static void init() {
         // PETS:
@@ -407,19 +407,19 @@ public class HoverManager {
     }
 
     private static String split(String text, int length) {
-        String string = "";
+        StringBuilder string = new StringBuilder();
 
         int size = 0;
 
         for (String s : text.split(" ")) {
-            string += s + " ";
+            string.append(s).append(" ");
             size += s.length();
             if (size > length) {
-                string += "\n";
+                string.append("\n");
                 size = 0;
             }
         }
-        return string;
+        return string.toString();
     }
 
     public static void drawHoverBox(RSFont font, int xPos, int yPos, String text, int colour, int backgroundColour) {
@@ -433,8 +433,8 @@ public class HoverManager {
         Rasterizer2D.drawBox(xPos, yPos, width, height, backgroundColour);
         Rasterizer2D.drawBoxOutline(xPos, yPos, width, height, 0);
         yPos += 14;
-        for (int i = 0; i < results.length; i++) {
-            font.drawBasicString(results[i], xPos + 3, yPos, colour, 0);
+        for (String result : results) {
+            font.drawBasicString(result, xPos + 3, yPos, colour, 0);
             yPos += 16;
         }
     }

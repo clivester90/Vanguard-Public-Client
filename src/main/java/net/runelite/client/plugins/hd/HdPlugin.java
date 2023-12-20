@@ -2870,7 +2870,7 @@ public class HdPlugin extends Plugin implements DrawCallbacks
 					errStr = "INVALID_FRAMEBUFFER_OPERATION";
 					break;
 				default:
-					errStr = "" + err;
+					errStr = String.valueOf(err);
 					break;
 			}
 

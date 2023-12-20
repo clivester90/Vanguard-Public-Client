@@ -239,9 +239,9 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 				int b = CB[face];
 				int c = CC[face];
 				if (a == b && b == c) {
-					lines.add("" + face + ": " + a);
+					lines.add(face + ": " + a);
 				} else {
-					lines.add("" + face + ": [ " + a + ", " + b + ", " + c + " ]");
+					lines.add(face + ": [ " + a + ", " + b + ", " + c + " ]");
 				}
 			}
 		}
@@ -259,16 +259,15 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			GameObject[] gameObjects = tile.getGameObjects();
 			if (gameObjects.length > 0) {
 				int counter = 0;
-				for (int i = 0; i < gameObjects.length; i++) {
-					GameObject gameObject = gameObjects[i];
+				for (GameObject gameObject : gameObjects) {
 					if (gameObject == null)
 						continue;
 					counter++;
 					lines.add(String.format("ID %d: x=%d y=%d ori=%d",
-						gameObject.getId(),
-						ModelHash.getSceneX(gameObject.getHash()),
-						ModelHash.getSceneY(gameObject.getHash()),
-						gameObject.getModelOrientation()));
+							gameObject.getId(),
+							ModelHash.getSceneX(gameObject.getHash()),
+							ModelHash.getSceneY(gameObject.getHash()),
+							gameObject.getModelOrientation()));
 				}
 				if (counter > 0)
 					lines.add(lines.size() - counter, "Game objects: ");

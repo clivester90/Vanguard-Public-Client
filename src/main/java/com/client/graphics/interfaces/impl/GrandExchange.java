@@ -107,28 +107,28 @@ public class GrandExchange extends RSInterface {
 	private static void addBuyAndSellButtons(TextDrawingArea[] tda) {
 		RSInterface widget;
 		int childId = 0;
-		for(int index = 0; index < grandExchangeBuyAndSellBoxIds.length; index++) {
-			
-			childId = grandExchangeBuyAndSellBoxIds[index];
+		for (int grandExchangeBuyAndSellBoxId : grandExchangeBuyAndSellBoxIds) {
+
+			childId = grandExchangeBuyAndSellBoxId;
 			widget = addInterface(childId);
-			
+
 			setChildren(6, widget);
-			
+
 			addSprite(childId + 1, 2, "Interfaces/GE/IMAGE");
 			setBounds(childId + 1, 0, 0, 0, widget);
-			
+
 			addHoverButton(childId + 2, "Interfaces/GE/IMAGE", 3, 47, 46, "Create buy offer", 0, childId + 3, 1);
 			addHoveredButton(childId + 3, "Interfaces/GE/IMAGE", 4, 47, 46, childId + 4);
-			
+
 			setBounds(childId + 2, 7, 44, 1, widget);
 			setBounds(childId + 3, 7, 44, 2, widget);
-			
+
 			addHoverButton(childId + 5, "Interfaces/GE/IMAGE", 5, 47, 46, "Create sell offer", 0, childId + 6, 1);
 			addHoveredButton(childId + 6, "Interfaces/GE/IMAGE", 6, 47, 46, childId + 7);
-			
+
 			setBounds(childId + 5, 61, 44, 3, widget);
 			setBounds(childId + 6, 61, 44, 4, widget);
-			
+
 			addText(childId + 8, "Empty", tda, 2, 0xFF981F, true, true);
 			setBounds(childId + 8, 58, 6, 5, widget);
 		}
@@ -137,35 +137,35 @@ public class GrandExchange extends RSInterface {
 	private static void addItemBoxes(TextDrawingArea[] tda) {
 		RSInterface widget;
 		int childId = 0;
-		
-		for(int index = 0; index < grandExchangeItemBoxIds.length; index++) {
-			
-			childId = grandExchangeItemBoxIds[index];
+
+		for (int grandExchangeItemBoxId : grandExchangeItemBoxIds) {
+
+			childId = grandExchangeItemBoxId;
 			widget = addInterface(childId);
-			
+
 			setChildren(8, widget);
-			
+
 			addHoverButton(childId + 1, "Interfaces/GE/IMAGE", 2, 115, 110, "View offer", 0, childId + 2, 11);
 			addHoveredButton(childId + 2, "Interfaces/GE/IMAGE", 7, 115, 110, childId + 3);
 			setBounds(childId + 1, 0, 0, 0, widget);
 			setBounds(childId + 2, 0, 0, 1, widget);
-			
+
 			addSprite(childId + 3, 8, "Interfaces/GE/IMAGE");
 			setBounds(childId + 3, 5, 33, 2, widget);
-			
+
 			addToItemGroup(childId + 4, 1, 1, 0, 0, false, "", "", "");
 			setBounds(childId + 4, 7, 35, 3, widget);
-			
-			addProgressBar(childId + 5, 107, 15, new int[] { GREEN_COLOR, RED_COLOR });
+
+			addProgressBar(childId + 5, 107, 15, new int[]{GREEN_COLOR, RED_COLOR});
 			setBounds(childId + 5, 4, 75, 4, widget);
-			
-			addText(childId + 6, "" + (childId + 6), tda, 2, 0xFF981F, true, true);
+
+			addText(childId + 6, String.valueOf(childId + 6), tda, 2, 0xFF981F, true, true);
 			setBounds(childId + 6, 58, 6, 5, widget);
-			
-			addText(childId + 7, "" + (childId + 7), tda, 0, 0xFF981F, false, true);
+
+			addText(childId + 7, String.valueOf(childId + 7), tda, 0, 0xFF981F, false, true);
 			setBounds(childId + 7, 50, 35, 6, widget);
-			
-			addText(childId + 8, "" + (childId + 8), tda, 0, 0xFF981F, true, true);
+
+			addText(childId + 8, String.valueOf(childId + 8), tda, 0, 0xFF981F, true, true);
 			setBounds(childId + 8, 58, 92, 7, widget);
 		}
 	}
@@ -523,8 +523,8 @@ public class GrandExchange extends RSInterface {
 	}
 	
 	public static boolean isSmallItemSprite(int childId) {
-		for(int index = 0; index < grandExchangeItemBoxIds.length; index++)
-			if(childId == grandExchangeItemBoxIds[index] + 4)
+		for (int grandExchangeItemBoxId : grandExchangeItemBoxIds)
+			if (childId == grandExchangeItemBoxId + 4)
 				return true;
 		return false;
 	}

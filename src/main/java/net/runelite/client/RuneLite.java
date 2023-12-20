@@ -181,14 +181,12 @@ public class RuneLite
 			.withRequiredArg()
 			.ofType(ClientUpdateCheckMode.class)
 			.defaultsTo(ClientUpdateCheckMode.AUTO)
-			.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class)
-			{
-				@Override
-				public ClientUpdateCheckMode convert(String v)
-				{
-					return super.convert(v.toUpperCase());
-				}
-			});
+			.withValuesConvertedBy(new EnumConverter<>(ClientUpdateCheckMode.class) {
+                @Override
+                public ClientUpdateCheckMode convert(String v) {
+                    return super.convert(v.toUpperCase());
+                }
+            });
 
 		parser.accepts("help", "Show this text").forHelp();
 		OptionSet options = parser.parse(args);

@@ -59,7 +59,8 @@ public class JsonUtil {
 
     @Deprecated
     public static <T> T fromJson(String filePath) throws IOException {
-        return fromJson(filePath, new TypeToken<T>(){});
+        return fromJson(filePath, new TypeToken<>() {
+        });
     }
 
     @Deprecated

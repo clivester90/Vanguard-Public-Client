@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 import com.client.utilities.FileOperations;
@@ -100,11 +101,7 @@ public class SpriteLoader1 {
 	 * @return
 	 */
 	public static String getName(int index) {
-		if (cache[index].name != null) {
-			return cache[index].name;
-		} else {
-			return "null";
-		}
+		return Objects.requireNonNullElse(cache[index].name, "null");
 	}
 
 	/**

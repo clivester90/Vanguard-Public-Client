@@ -321,7 +321,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 		for (int i = 0; i < value.length(); i++)
 		{
 			int count = i - sb.length();
-			final String c = value.charAt(i) + "";
+			final String c = String.valueOf(value.charAt(i));
 			sb.append(c);
 			if (BREAK_MATCHER.matcher(c).matches())
 			{

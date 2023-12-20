@@ -5,7 +5,7 @@ import com.client.sign.Signlink;
 public final class StringUtils {
 
 	public static String insertCommas(long str) {
-		return insertCommas("" + str);
+		return insertCommas(String.valueOf(str));
 	}
 
 	public static String insertCommas(String str) {
@@ -89,10 +89,7 @@ public final class StringUtils {
 	}
 
 	public static String passwordAsterisks(String s) {
-		StringBuffer stringbuffer = new StringBuffer();
-		for (int j = 0; j < s.length(); j++)
-			stringbuffer.append("*");
-		return stringbuffer.toString();
+		return "*".repeat(s.length());
 	}
 
 	private static final char[] validChars = { '_', 'a', 'b', 'c', 'd', 'e',

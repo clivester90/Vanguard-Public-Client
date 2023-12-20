@@ -17,9 +17,7 @@ public class FileArchive {
 	}
 
 	public static byte[] getBytesFromFile(File file) throws IOException {
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
+		try (InputStream is = new FileInputStream(file)) {
 			long length = file.length();
 			byte[] bytes = new byte[(int) length];
 
@@ -34,10 +32,6 @@ public class FileArchive {
 			}
 
 			return bytes;
-		} finally {
-			if (is != null) {
-				is.close();
-			}
 		}
 	}
 

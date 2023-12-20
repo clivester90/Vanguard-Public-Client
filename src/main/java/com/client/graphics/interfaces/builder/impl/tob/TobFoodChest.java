@@ -59,7 +59,7 @@ public class TobFoodChest extends InterfaceBuilder {
             int foodCostX = containerX + (index % 4 * 34) + 15;
             int foostCostY = containerY + (index / 4 * 60) + 36;
             Supply supply = Supply.values()[index];
-            addText(nextInterface(), 0, RSInterface.DEFAULT_TEXT_COLOR, true, "" + supply.cost);
+            addText(nextInterface(), 0, RSInterface.DEFAULT_TEXT_COLOR, true, String.valueOf(supply.cost));
             child(foodCostX, foostCostY);
             container.inventoryItemId[index] = supply.itemId + 1;
             container.inventoryAmounts[index] = 1;

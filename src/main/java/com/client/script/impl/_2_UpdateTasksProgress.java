@@ -14,7 +14,8 @@ public class _2_UpdateTasksProgress {
     public static void handle(String typeString, String title, String progress, int claimed) throws IOException {
         TaskInterfaceActions actions = Interfaces.taskInterface.actions;
         TaskEntryType type = TaskEntryType.valueOf(typeString.toUpperCase());
-        List<String> progressList = JsonUtil.fromJsonString(progress, new TypeToken<List<String>>() {});
+        List<String> progressList = JsonUtil.fromJsonString(progress, new TypeToken<>() {
+        });
         actions.setProgress(type, title, progressList, claimed == 1);
     }
 

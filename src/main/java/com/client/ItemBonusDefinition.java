@@ -12,7 +12,7 @@ import java.util.Map;
 public class ItemBonusDefinition {
 
 	private static Map<Integer, ItemBonusDefinition> itemBonusDefinitions =
-			new HashMap<Integer, ItemBonusDefinition>();
+            new HashMap<>();
 
 	//private static XStream xStream = new XStream(new Sun14ReflectionProvider());
 	private short id;

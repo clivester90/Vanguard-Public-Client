@@ -27,12 +27,9 @@ public class Identity {
 			File file = new File(parentDir, fileName);
 				if(file.exists())
 					return;
-			BufferedWriter out = new BufferedWriter(new FileWriter(getPath()+fileName));
-			try {
-				out.write(getRandomKey());
-			} finally {
-				out.close();
-			}
+            try (BufferedWriter out = new BufferedWriter(new FileWriter(getPath() + fileName))) {
+                out.write(getRandomKey());
+            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,13 +41,13 @@ public class Identity {
 	 */
 	public String getRandomKey() {
     	Random r = new Random();
-    	String toWrite = "";
+    	StringBuilder toWrite = new StringBuilder();
     	for(int i = 0; i< 20; i++) {
     		char c = (char)(r.nextInt(40) + 'a');
-    		toWrite += c;
+    		toWrite.append(c);
     	}
     	
-		return toWrite + (new Client().getName().hashCode());
+		return toWrite.toString() + (new Client().getName().hashCode());
 	}
 	
 	/**

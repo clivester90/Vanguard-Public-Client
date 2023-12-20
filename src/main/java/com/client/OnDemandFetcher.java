@@ -142,12 +142,12 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	public void dumpMaps() {
 		if (!new File("./temp/index4/").exists())
 			new File("./temp/index4/").mkdirs();
-		for (int i = 0; i < mapIndices2.length; i++) {
+		for (int k : mapIndices2) {
 			try {
-				byte[] abyte = clientInstance.decompressors[4].read(mapIndices2[i]);
+				byte[] abyte = clientInstance.decompressors[4].read(k);
 				if (abyte == null || abyte.length == 0)
 					continue;
-				File map = new File("./temp/index4/"+mapIndices2[i]+".gz");
+				File map = new File("./temp/index4/" + k + ".gz");
 				FileOutputStream fos = new FileOutputStream(map);
 				fos.write(abyte);
 				fos.close();
@@ -155,12 +155,12 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 				e.printStackTrace();
 			}
 		}
-		for (int i = 0; i < mapIndices3.length; i++) {
+		for (int j : mapIndices3) {
 			try {
-				byte[] abyte = clientInstance.decompressors[4].read(mapIndices3[i]);
+				byte[] abyte = clientInstance.decompressors[4].read(j);
 				if (abyte == null || abyte.length == 0)
 					continue;
-				File map = new File("./temp/index4/"+mapIndices3[i]+".gz");
+				File map = new File("./temp/index4/" + j + ".gz");
 				FileOutputStream fos = new FileOutputStream(map);
 				fos.write(abyte);
 				fos.close();

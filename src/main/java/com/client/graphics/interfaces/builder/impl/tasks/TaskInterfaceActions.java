@@ -27,7 +27,8 @@ public class TaskInterfaceActions {
     public void loadAchievements() {
         try {
             achievements = JsonUtil.fromJson(Signlink.getCacheDirectory() + "etc/achievements.json",
-                    new TypeToken<List<TaskEntry>>() {});
+                    new TypeToken<>() {
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -495,11 +495,9 @@ public final class CollisionMap implements RSCollisionMap {
         int maxY = (finalY + height) - 1;
         if (x >= finalX && x <= maxX && y >= finalY && y <= maxY)
             return true;
-        if (x == finalX - 1 && y >= finalY && y <= maxY
+        return x == finalX - 1 && y >= finalY && y <= maxY
                 && (clipData[x - xOffset][y - yOffset] & 8) == 0
-                && (rotation & 8) == 0)
-            return true;
-        return x == maxX + 1 && y >= finalY && y <= maxY
+                && (rotation & 8) == 0 || x == maxX + 1 && y >= finalY && y <= maxY
                 && (clipData[x - xOffset][y - yOffset] & 0x80) == 0
                 && (rotation & 2) == 0 || y == finalY - 1 && x >= finalX && x <= maxX
                 && (clipData[x - xOffset][y - yOffset] & 2) == 0

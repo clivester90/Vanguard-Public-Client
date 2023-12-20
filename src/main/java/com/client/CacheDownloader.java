@@ -61,7 +61,7 @@ public class CacheDownloader {
 		if(versionFile.exists())
 			versionFile.delete();
 		try(BufferedWriter br = new BufferedWriter(new FileWriter(versionFile))) {
-			br.write(version + "");
+			br.write(String.valueOf(version));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}

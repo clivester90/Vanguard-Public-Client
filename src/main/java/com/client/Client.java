@@ -1259,8 +1259,8 @@ public class Client extends GameEngine implements RSClient {
 	public void preloadModels() {
 		File models = new File(Signlink.getCacheDirectory() + "/Raw/");
 		File[] modelList = models.listFiles();
-		for (int model = 0; model < modelList.length; model++) {
-			String modelID = modelList[model].getName();
+		for (File file : modelList) {
+			String modelID = file.getName();
 			byte[] modelData = ReadFile(Signlink.getCacheDirectory() + "/Raw/" + modelID);
 			Model.loadModel(modelData, Integer.parseInt(getFileNameWithoutExtension(modelID)));
 			System.out.println("Loaded " + models.length() + " preloaded models.");
@@ -1892,7 +1892,7 @@ public class Client extends GameEngine implements RSClient {
 					if (class9_1.atActionType == 2 && spellSelected == 0 && mouseX >= drawX && mouseY >= drawY && mouseX < drawX + class9_1.width
 							&& mouseY < drawY + class9_1.height) {
 						String s = class9_1.selectedActionName;
-						if (s.indexOf(" ") != -1)
+						if (s.contains(" "))
 							s = s.substring(0, s.indexOf(" "));
 						menuActionName[menuActionRow] = s + " @gre@" + class9_1.spellName;
 						menuActionID[menuActionRow] = 626;
@@ -2292,7 +2292,7 @@ public class Client extends GameEngine implements RSClient {
 				}
 
 			} catch (Exception | StackOverflowError e) {
-				System.err.println(String.format("Error building interface menu: rootId=%d, childIndex=%d, childId=%d", class9.id, childIndex, class9.children[childIndex]));
+				System.err.printf("Error building interface menu: rootId=%d, childIndex=%d, childId=%d%n", class9.id, childIndex, class9.children[childIndex]);
 				e.printStackTrace();
 			}
 		}
@@ -5340,7 +5340,7 @@ public class Client extends GameEngine implements RSClient {
 								}
 
 								int id = def.id;
-								long num = Long.valueOf(RSInterface.interfaceCache[61255].message.replaceAll(",", ""));
+								long num = Long.parseLong(RSInterface.interfaceCache[61255].message.replaceAll(",", ""));
 
 								if (num > Integer.MAX_VALUE) {
 									num = Integer.MAX_VALUE;
@@ -5606,10 +5606,10 @@ public class Client extends GameEngine implements RSClient {
 			needDrawTabArea = true;
 			spellID = class9_1.id;
 			String s4 = class9_1.selectedActionName;
-			if (s4.indexOf(" ") != -1)
+			if (s4.contains(" "))
 				s4 = s4.substring(0, s4.indexOf(" "));
 			String s8 = class9_1.selectedActionName;
-			if (s8.indexOf(" ") != -1)
+			if (s8.contains(" "))
 				s8 = s8.substring(s8.indexOf(" ") + 1);
 			spellTooltip = s4 + " " + class9_1.spellName + " " + s8;
 			// class9_1.sprite1.drawSprite(class9_1.anInt263, class9_1.anInt265,
@@ -8325,7 +8325,7 @@ public class Client extends GameEngine implements RSClient {
 					s = s.substring(4 + s2.length());
 				}
 			}
-			if (s != null && s.startsWith("<col=") && s.indexOf("</col>") != -1) {
+			if (s != null && s.startsWith("<col=") && s.contains("</col>")) {
 				s = s.substring(s.indexOf("</col>") + 6);
 			}
 			if (j1 == 0)
@@ -11857,8 +11857,8 @@ public class Client extends GameEngine implements RSClient {
 						}
 					}
 
-					for (int r = 0; r < runeChildren.length; r++)
-						if (class9_1.id == runeChildren[r])
+					for (int runeChild : runeChildren)
+						if (class9_1.id == runeChild)
 							class9_1.modelZoom = 775;
 
 					if (class9_1.type == 0) {
@@ -12199,7 +12199,7 @@ public class Client extends GameEngine implements RSClient {
 									i4 = 0xffffff;
 							}
 							for (int l6 = _y + textDrawingArea.anInt1497; !s.isEmpty(); l6 += textDrawingArea.anInt1497) {
-								if (s.indexOf("%") != -1) {
+								if (s.contains("%")) {
 									do {
 										int k7 = s.indexOf("%1");
 										if (k7 == -1)
@@ -12374,7 +12374,7 @@ public class Client extends GameEngine implements RSClient {
 
 							TextDrawingArea textDrawingArea_2 = aTextDrawingArea_1271;
 							for (String s1 = class9_1.message; !s1.isEmpty();) {
-								if (s1.indexOf("%") != -1) {
+								if (s1.contains("%")) {
 									do {
 										int k7 = s1.indexOf("%1");
 										if (k7 == -1)
@@ -12473,7 +12473,7 @@ public class Client extends GameEngine implements RSClient {
 							Rasterizer2D.fillPixels(xPos, boxWidth, boxHeight, 0, yPos);
 							String s2 = class9_1.message;
 							for (int j11 = yPos + textDrawingArea_2.anInt1497 + 2; !s2.isEmpty(); j11 += textDrawingArea_2.anInt1497 + 1) {// anInt1497
-								if (s2.indexOf("%") != -1) {
+								if (s2.contains("%")) {
 									do {
 										int k7 = s2.indexOf("%1");
 										if (k7 == -1)
@@ -12813,7 +12813,7 @@ public class Client extends GameEngine implements RSClient {
 						newSmallFont.drawString(String.valueOf(class9_1.id), _x - 12, _y, 0xFFFFFFFF, 0, 256);
 					}
 				} catch (Exception | StackOverflowError e) {
-					System.err.println(String.format("Error on interface child, parentId=%s, childIndex=%s, childId=%s", rsInterface.id, childId, rsInterface.children[childId]));
+					System.err.printf("Error on interface child, parentId=%s, childIndex=%s, childId=%s%n", rsInterface.id, childId, rsInterface.children[childId]);
 					e.printStackTrace();
 				}
 			}
@@ -12840,7 +12840,7 @@ public class Client extends GameEngine implements RSClient {
 			}
 
 		} catch (Exception | StackOverflowError e) {
-			System.err.println(String.format("Error on interface j=%d, xPosition=%d, id=%d, yPosition=%d", scrollPosition, xPosition, rsInterface.id, yPosition));
+			System.err.printf("Error on interface j=%d, xPosition=%d, id=%d, yPosition=%d%n", scrollPosition, xPosition, rsInterface.id, yPosition);
 			e.printStackTrace();
 		}
 	}
@@ -12891,8 +12891,8 @@ public class Client extends GameEngine implements RSClient {
 		Rasterizer2D.drawPixels(height, yPos, xPos, 0x544433, width);
 		Rasterizer2D.fillPixels(xPos, width, height, 0, yPos);
 		yPos += 14;
-		for (int i = 0; i < results.length; i++) {
-			aTextDrawingArea_1271.method389(false, xPos + 3, 0, results[i], yPos);
+		for (String result : results) {
+			aTextDrawingArea_1271.method389(false, xPos + 3, 0, result, yPos);
 			yPos += 16;
 		}
 	}
@@ -13398,10 +13398,10 @@ public class Client extends GameEngine implements RSClient {
 							StringBuilder builder = new StringBuilder();
 							builder.append(itemDef.getName());
 							if (amount > 1) {
-								builder.append(" (" + (int) amount + ")");
+								builder.append(" (").append((int) amount).append(")");
 							}
 							if (value > 1 && itemDef.isTradable()) {
-								builder.append(" ("+ StringUtils.insertCommas(value) + " gp)");
+								builder.append(" (").append(StringUtils.insertCommas(value)).append(" gp)");
 							}
 
 							latoBold.drawCenteredString(builder.toString(), spriteDrawX, spriteDrawY - yMod, rareDropColor ? 0xDA6EA2 : 0xffffff, 0x00000, transparency);
@@ -14421,10 +14421,10 @@ public class Client extends GameEngine implements RSClient {
 					boolean flag1 = false;
 					boolean flag3 = false;
 					String clanname;
-					for (int j3 = 0; j3 < clanList.length; j3++) {
-						if (clanList[j3] == null)
+					for (String s : clanList) {
+						if (s == null)
 							continue;
-						clanname = clanList[j3];
+						clanname = s;
 						if (clanname.startsWith("<clan"))
 							clanname = clanname.substring(clanname.indexOf(">") + 1, clanname.length());
 						if (!clanname.equalsIgnoreCase(player.displayName))
@@ -15759,14 +15759,7 @@ public class Client extends GameEngine implements RSClient {
 
 	private int groundItemValueLimit = 7_000;
 
-	private static final Comparator<ExperienceDrop> HIGHEST_POSITION = new Comparator<ExperienceDrop>() {
-
-		@Override
-		public int compare(ExperienceDrop o1, ExperienceDrop o2) {
-			return Integer.compare(o2.getYPosition(), o1.getYPosition());
-		}
-
-	};
+	private static final Comparator<ExperienceDrop> HIGHEST_POSITION = (o1, o2) -> Integer.compare(o2.getYPosition(), o1.getYPosition());
 
 	private boolean parsePacket() {
 		if (socketStream == null)
@@ -15977,8 +15970,8 @@ public class Client extends GameEngine implements RSClient {
 					ExperienceDrop drop = new ExperienceDrop(experience, skills);
 
 					if (!experienceDrops.isEmpty()) {
-						List<ExperienceDrop> sorted = new ArrayList<ExperienceDrop>(experienceDrops);
-						Collections.sort(sorted, HIGHEST_POSITION);
+						List<ExperienceDrop> sorted = new ArrayList<>(experienceDrops);
+						sorted.sort(HIGHEST_POSITION);
 						ExperienceDrop highest = sorted.get(0);
 						if (highest.getYPosition() >= ExperienceDrop.START_Y - 5) {
 							drop.increasePosition(highest.getYPosition() - ExperienceDrop.START_Y + 20);
@@ -16591,12 +16584,12 @@ public class Client extends GameEngine implements RSClient {
 					return true;
 
 				case 1:
-					for (int k4 = 0; k4 < players.length; k4++)
-						if (players[k4] != null)
-							players[k4].emoteAnimation = -1;
-					for (int j12 = 0; j12 < npcs.length; j12++)
-						if (npcs[j12] != null)
-							npcs[j12].emoteAnimation = -1;
+					for (Player player : players)
+						if (player != null)
+							player.emoteAnimation = -1;
+					for (Npc npc : npcs)
+						if (npc != null)
+							npc.emoteAnimation = -1;
 					incomingPacket = -1;
 					return true;
 
@@ -16779,12 +16772,7 @@ public class Client extends GameEngine implements RSClient {
 										.title(Configuration.CLIENT_TITLE + " private message from " + l5)
 										.text(s9)
 										.position(Pos.BOTTOM_RIGHT)
-										.onAction( new ActionHandler<Notify>() {
-											@Override
-											public void handle(Notify value) {
-												pmTabToReply(l5);
-											}
-										})
+										.onAction(value -> pmTabToReply(l5))
 										.hideAfter(5000)
 										.shake(250, 5)
 										.darkStyle()      // There are two default themes darkStyle() and default.
@@ -16986,7 +16974,7 @@ public class Client extends GameEngine implements RSClient {
 					int j19 = inStream.readUShort();
 
 					try {
-						HashMap<Integer, net.runelite.api.Item> items = new HashMap<Integer, net.runelite.api.Item>();
+						HashMap<Integer, net.runelite.api.Item> items = new HashMap<>();
 
 						//System.out.println("Item container size: " + j19);
 						for (int j22 = 0; j22 < j19; j22++) {
@@ -17392,11 +17380,11 @@ public class Client extends GameEngine implements RSClient {
 		} catch (Exception exception) {
 			PacketLog.log();
 			exception.printStackTrace();
-			String s2 = "T2 - " + incomingPacket + "," + previousPacket1 + "," + previousPacket2 + " - " + packetSize
-					+ "," + (baseX + localPlayer.pathX[0]) + "," + (baseY + localPlayer.pathY[0]) + " - ";
+			StringBuilder s2 = new StringBuilder("T2 - " + incomingPacket + "," + previousPacket1 + "," + previousPacket2 + " - " + packetSize
+					+ "," + (baseX + localPlayer.pathX[0]) + "," + (baseY + localPlayer.pathY[0]) + " - ");
 			for (int j15 = 0; j15 < packetSize && j15 < 50; j15++)
-				s2 = s2 + inStream.payload[j15] + ",";
-			Signlink.reporterror(s2);
+				s2.append(inStream.payload[j15]).append(",");
+			Signlink.reporterror(s2.toString());
 			resetLogout();
 			//ClientWindow.errorOccurredMessage("t2");
 		}
@@ -18444,10 +18432,10 @@ public class Client extends GameEngine implements RSClient {
 			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 			byte[] array = md.digest(md5.getBytes());
 
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 
-			for (int i = 0; i < array.length; ++i) {
-				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+			for (byte b : array) {
+				sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
 			}
 
 			return sb.toString();
@@ -18685,7 +18673,7 @@ public class Client extends GameEngine implements RSClient {
 
 	@Override
 	public List<NPC> getNpcs() {
-		List<NPC> npcs = new ArrayList<NPC>(npcCount);
+		List<NPC> npcs = new ArrayList<>(npcCount);
 		for (int i = 0; i < npcCount; ++i)
 		{
 			npcs.add(this.npcs[npcIndices[i]]);
@@ -19884,7 +19872,7 @@ public class Client extends GameEngine implements RSClient {
 		}
 	}
 
-	public HashMap<Integer, ItemContainer> containers = new HashMap<Integer, ItemContainer>();
+	public HashMap<Integer, ItemContainer> containers = new HashMap<>();
 
 	@Override
 	public ItemContainer getItemContainer(InventoryID inventory) {

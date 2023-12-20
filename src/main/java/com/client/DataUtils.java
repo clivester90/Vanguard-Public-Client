@@ -18,11 +18,8 @@ public class DataUtils {
 
 	public static void writeFile(File f, byte[] data) {
 		try {
-			RandomAccessFile raf = new RandomAccessFile(f, "rw");
-			try {
+			try (RandomAccessFile raf = new RandomAccessFile(f, "rw")) {
 				raf.write(data);
-			} finally {
-				raf.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -52,14 +49,12 @@ public class DataUtils {
 	public static byte[] gZipDecompress(byte[] b) throws IOException {
 		GZIPInputStream gzi = new GZIPInputStream(new ByteArrayInputStream(b));
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		byte[] buf = new byte[1024];
-		int len;
-		try {
+		try (out) {
+			byte[] buf = new byte[1024];
+			int len;
 			while ((len = gzi.read(buf, 0, buf.length)) > 0) {
 				out.write(buf, 0, len);
 			}
-		} finally {
-			out.close();
 		}
 		return out.toByteArray();
 	}
@@ -79,17 +74,12 @@ public class DataUtils {
 	static byte[] unzip(byte[] data) throws IOException {
 		InputStream in = new ByteArrayInputStream(data);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
+		try (out) {
 			in = new GZIPInputStream(in);
 			byte[] buffer = new byte[65536];
 			int noRead;
 			while ((noRead = in.read(buffer)) != -1) {
 				out.write(buffer, 0, noRead);
-			}
-		} finally {
-			try {
-				out.close();
-			} catch (Exception e) {
 			}
 		}
 		return out.toByteArray();
@@ -98,8 +88,8 @@ public class DataUtils {
 	public static byte[] readFile(String name) {
 		try {
 			RandomAccessFile raf = new RandomAccessFile(name, "r");
-			ByteBuffer buf = raf.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, raf.length());
-			try {
+			try (raf) {
+				ByteBuffer buf = raf.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, raf.length());
 				if (buf.hasArray()) {
 					return buf.array();
 				} else {
@@ -107,8 +97,6 @@ public class DataUtils {
 					buf.get(array);
 					return array;
 				}
-			} finally {
-				raf.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,12 +106,8 @@ public class DataUtils {
 
 	public static byte[] gZipCompress(byte[] data, int off, int len) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		GZIPOutputStream gzo = new GZIPOutputStream(bos);
-		try {
+		try (bos; GZIPOutputStream gzo = new GZIPOutputStream(bos)) {
 			gzo.write(data, off, len);
-		} finally {
-			gzo.close();
-			bos.close();
 		}
 		return bos.toByteArray();
 	}

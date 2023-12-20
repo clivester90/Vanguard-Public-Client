@@ -69,7 +69,7 @@ public class MultiplexingPluginPanel extends PluginPanel
 		}
 		current = subpanel;
 
-		String name = System.identityHashCode(subpanel) + "";
+		String name = String.valueOf(System.identityHashCode(subpanel));
 
 		if (index != -1)
 		{
@@ -104,7 +104,7 @@ public class MultiplexingPluginPanel extends PluginPanel
 			subpanel.onActivate();
 			current = subpanel;
 		}
-		layout.show(this, System.identityHashCode(subpanel) + "");
+		layout.show(this, String.valueOf(System.identityHashCode(subpanel)));
 		onRemove((PluginPanel) getComponent(count - 1));
 		remove(count - 1);
 		revalidate();

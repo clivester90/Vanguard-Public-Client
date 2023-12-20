@@ -71,8 +71,8 @@ public final class IDK {
 		if (modelIds == null)
 			return true;
 		boolean flag = true;
-		for (int j = 0; j < modelIds.length; j++)
-			if (!Model.isCached(modelIds[j]))
+		for (int modelId : modelIds)
+			if (!Model.isCached(modelId))
 				flag = false;
 
 		return flag;

@@ -202,7 +202,7 @@ public class QuantityFormatter
 			throw new ParseException(string + " does not resemble a properly formatted stack.", string.length() - 1);
 		}
 
-		if (!suffix.equals(""))
+		if (!suffix.isEmpty())
 		{
 			for (int i = 1; i < SUFFIXES.length; i++)
 			{

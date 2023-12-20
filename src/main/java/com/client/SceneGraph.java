@@ -24,7 +24,7 @@ public final class SceneGraph implements RSScene {
     public static int[] tmpX = new int[6];
     public static int[] tmpY = new int[6];
     public static int roofRemovalMode = 0;
-    public static final Set<RSTile> tilesToRemove = new HashSet<RSTile>();
+    public static final Set<RSTile> tilesToRemove = new HashSet<>();
 
 
     public SceneGraph(int[][][] heightMap) {

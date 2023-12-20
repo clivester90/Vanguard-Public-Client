@@ -560,7 +560,7 @@ public class RSFont extends Rasterizer2D {
 									yMod = 0;
 								}
 								modifierOffset++;
-								int iconId = Integer.valueOf(effectString.substring(4));
+								int iconId = Integer.parseInt(effectString.substring(4));
 								Sprite icon = chatImages[iconId];
 								int iconOffsetY = icon.maxHeight;
 								if (transparency == 256) {
@@ -588,7 +588,7 @@ public class RSFont extends Rasterizer2D {
 									yMod = 0;
 								}
 								modifierOffset++;
-								int iconId = Integer.valueOf(effectString.substring(5));
+								int iconId = Integer.parseInt(effectString.substring(5));
 								Sprite icon = iconPack[iconId];
 								int iconOffsetY = icon.maxHeight;
 								if (transparency == 256) {
@@ -671,23 +671,23 @@ public class RSFont extends Rasterizer2D {
 				} else if (string.equals(endColor)) {
 					textColor = defaultColor;
 				} else if (string.startsWith(startTransparency)) {
-					transparency = Integer.valueOf(string.substring(6));
+					transparency = Integer.parseInt(string.substring(6));
 				} else if (string.equals(endTransparency)) {
 					transparency = defaultTransparency;
 				} else if (string.startsWith(startStrikethrough)) {
-					strikethroughColor = Integer.valueOf(string.substring(4));
+					strikethroughColor = Integer.parseInt(string.substring(4));
 				} else if (string.equals(defaultStrikethrough)) {
 					strikethroughColor = 8388608;
 				} else if (string.equals(endStrikethrough)) {
 					strikethroughColor = -1;
 				} else if (string.startsWith(startUnderline)) {
-					underlineColor = Integer.valueOf(string.substring(2));
+					underlineColor = Integer.parseInt(string.substring(2));
 				} else if (string.equals(startDefaultUnderline)) {
 					underlineColor = 0;
 				} else if (string.equals(endUnderline)) {
 					underlineColor = -1;
 				} else if (string.startsWith(startShadow)) {
-					textShadowColor = Integer.valueOf(string.substring(5));
+					textShadowColor = Integer.parseInt(string.substring(5));
 				} else if (string.equals(startDefaultShadow)) {
 					textShadowColor = 0;
 				} else if (string.equals(endShadow)) {
@@ -764,7 +764,7 @@ public class RSFont extends Rasterizer2D {
 					} else {
 						if (effectString.startsWith(startImage)) {
 							try {// <img=
-								int iconId = Integer.valueOf(effectString.substring(4));
+								int iconId = Integer.parseInt(effectString.substring(4));
 								finalWidth += chatImages[iconId].maxWidth;
 							} catch (Exception exception) {
 								exception.printStackTrace();
@@ -772,7 +772,7 @@ public class RSFont extends Rasterizer2D {
 						}
 						if (effectString.startsWith(startClanImage)) {
 							try {// <img=
-								int iconId = Integer.valueOf(effectString.substring(5));
+								int iconId = Integer.parseInt(effectString.substring(5));
 								finalWidth += clanImages[iconId].maxWidth;
 							} catch (Exception exception) {
 								exception.printStackTrace();
@@ -780,7 +780,7 @@ public class RSFont extends Rasterizer2D {
 						}
 						if (effectString.startsWith(startIcon)) {
 							try {// <img=
-								int iconId = Integer.valueOf(effectString.substring(5));
+								int iconId = Integer.parseInt(effectString.substring(5));
 								finalWidth += iconPack[iconId].maxWidth;
 							} catch (Exception exception) {
 								exception.printStackTrace();

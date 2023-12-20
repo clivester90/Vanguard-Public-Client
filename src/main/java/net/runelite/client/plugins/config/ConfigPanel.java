@@ -695,12 +695,12 @@ class ConfigPanel extends PluginPanel
 		if (component instanceof JCheckBox)
 		{
 			JCheckBox checkbox = (JCheckBox) component;
-			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), "" + checkbox.isSelected());
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), String.valueOf(checkbox.isSelected()));
 		}
 		else if (component instanceof JSpinner)
 		{
 			JSpinner spinner = (JSpinner) component;
-			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), "" + spinner.getValue());
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), String.valueOf(spinner.getValue()));
 		}
 		else if (component instanceof JTextComponent)
 		{
@@ -710,7 +710,7 @@ class ConfigPanel extends PluginPanel
 		else if (component instanceof RuneliteColorPicker)
 		{
 			RuneliteColorPicker colorPicker = (RuneliteColorPicker) component;
-			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), colorPicker.getSelectedColor().getRGB() + "");
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), String.valueOf(colorPicker.getSelectedColor().getRGB()));
 		}
 		else if (component instanceof JComboBox)
 		{

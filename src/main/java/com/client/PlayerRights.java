@@ -166,7 +166,7 @@ public enum PlayerRights {
         StringBuilder builder = new StringBuilder();
         for (PlayerRights right : rights) {
             if (right.hasCrown()) {
-                builder.append("@cr" + right.crownId() + "@");
+                builder.append("@cr").append(right.crownId()).append("@");
             }
         }
         return builder.toString();

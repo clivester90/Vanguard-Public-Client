@@ -114,10 +114,6 @@ public enum SlayerUnlock
 	 */
 	public boolean isEnabled(Client client)
 	{
-		if (isOwned(client))
-		{
-            return toggleVarbit == null || client.getVar(toggleVarbit) == 0;
-        }
-		return false;
-	}
+        return isOwned(client) && (toggleVarbit == null || client.getVar(toggleVarbit) == 0);
+    }
 }

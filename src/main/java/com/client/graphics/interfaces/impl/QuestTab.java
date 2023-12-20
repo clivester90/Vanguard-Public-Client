@@ -339,8 +339,7 @@ public class QuestTab extends RSInterface {
 
         int startY = 0;
 
-        for(int i = 0; i < tabs.length; i++) {
-            CoinTab coinTab = tabs[i];
+        for (CoinTab coinTab : tabs) {
             addHoverButton(childId++, "Interfaces/HelpTab/BUTTON", 1, 151, 28, coinTab.string, -1, childId, 1);
             addHoveredButton(childId++, "Interfaces/HelpTab/BUTTON", 0, 151, 28, childId++);
 

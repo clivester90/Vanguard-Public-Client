@@ -40,6 +40,7 @@ public class _1_UpdateTasksInterface {
     }
 
     private static List<TaskEntry> getEntry(String data) throws IOException {
-        return JsonUtil.fromJsonString(data, new TypeToken<List<TaskEntry>>() {});
+        return JsonUtil.fromJsonString(data, new TypeToken<>() {
+        });
     }
 }
