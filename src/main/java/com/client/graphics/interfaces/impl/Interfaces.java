@@ -543,7 +543,7 @@ public final class Interfaces extends RSInterface {
 			//System.out.println("ID: " + childId);
 			addText(childId++, buttonText[i], tda, 0, 0xFF9933, true, true);
 			addSprite(childId++, i == 3 ? 1 : 0, "Interfaces/VotePanel/CIRCLE");
-			addText(childId++, amounts[i] + "", tda, 0, 0xFFFFFF, true, true);
+			addText(childId++, String.valueOf(amounts[i]), tda, 0, 0xFFFFFF, true, true);
 		}
 
 		addSprite(childId++, 2, "Interfaces/VotePanel/BOX");
@@ -2219,7 +2219,7 @@ interfaceId+=5000;
 			childNew++;
 			interfaceId += 3;
 
-			RSInterface.addText(interfaceId, ""+interfaceId, textDrawingAreas, 1, 0xff981f, true);
+			RSInterface.addText(interfaceId, String.valueOf(interfaceId), textDrawingAreas, 1, 0xff981f, true);
 			scrollTab1.child(childNew, interfaceId, 104, increaseY + 4);
 			increaseY += 25;
 			interfaceId++;
@@ -3998,7 +3998,7 @@ interfaceId+=5000;
 		addSprite(35001, 517, "Interfaces/newachievements/IMAGE");
 		addHoverButton(35002, "Interfaces/newachievements/IMAGE", 17, 15, 15, "Close", 250, 35003, 3);
 		addHoveredButton(35003, "Interfaces/newachievements/IMAGE", 18, 15, 15, 35004);
-		addText(35005, "" + Configuration.CLIENT_TITLE + " Achievements", TDA, 2, 0xF7AA25, true, true);
+		addText(35005, Configuration.CLIENT_TITLE + " Achievements", TDA, 2, 0xF7AA25, true, true);
 		addText(35006, "{ ACHIEVEMENT NAME }", TDA, 2, 0xBF7D0A, true, true);
 		addText(35007, "Description:", TDA, 1, 0xF7AA25, false, true);
 		addText(35008, "{ DESCRIPTION HERE }", TDA, 0, 0xD19732, false, true);
