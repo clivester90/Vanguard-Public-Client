@@ -40,7 +40,7 @@ public final class NpcDefinition implements RSNPCComposition {
 			entityDef.actions = new String[] { "Talk-to", "Prices", "Decant", "Clean", null };
 		}
 		if(i == 2989) {
-			entityDef.actions[2] = "View prestige manager";
+			entityDef.actions[2] = "Prestige manager";
 		}
 		if (i == Npcs.ZAHUR)
 			entityDef.actions[0] = "Trade";
