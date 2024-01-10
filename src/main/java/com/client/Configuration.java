@@ -20,9 +20,9 @@ public class Configuration {
 	public static final String CACHE_LINK = "http://vanguard317.com/resources/cache.zip";
 
 	public static boolean developerMode = true;
-	public static final String CLIENT_TITLE = "Runescape";
+	public static final String CLIENT_TITLE = "Voodoo";
 	public static final String DISCORD = "https://discord.gg/g6hBw3ws6w";
-	public static final String DEDICATED_SERVER_ADDRESS = "127.0.0.1";
+	public static final String DEDICATED_SERVER_ADDRESS = "135.148.171.87";
 	public static final int PORT = 43594;
 	public static String CACHE_NAME = "."+ CLIENT_TITLE.toLowerCase();
 	public static final String DEV_CACHE_NAME = "local_cache";

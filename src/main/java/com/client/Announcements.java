@@ -13,7 +13,7 @@ public class Announcements {
     public static int announcementMovement = 765 - 2;
 
     private static final String[] announcements = {
-            "Welcome to Vanguard!",
+            "Welcome to "+Configuration.CLIENT_TITLE+"!",
             "Owners: Grim & Dbcrazy",
             "Be sure to ::vote every 12 hours!",
             "Keep up with updates & more at ::discord!"

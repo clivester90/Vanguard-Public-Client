@@ -623,7 +623,7 @@ public final class ItemDefinition implements RSItemComposition {
 				break;
 
 			case 21752:
-				itemDef.name = "@red@Ring of Vanguard";
+				itemDef.name = "@red@Ring of Voodoo";
 				//itemDef.description = "<img=10> <col=996633>This item will collect all drops and send them to inventory or bank when equipped.";
 				itemDef.interfaceOptions = new String[] { null, "Wield", "Check config", "Toggle config", null};
 				break;
@@ -1240,7 +1240,7 @@ public final class ItemDefinition implements RSItemComposition {
 				//itemDef.description = "I can see some coins inside.";
 				break;
 			case 22316:
-				itemDef.name = "Sword of Vanguard";
+				itemDef.name = "Sword of Voodoo";
 				//itemDef.description = "The Sword of Vanguard.";
 				break;
 			case 19942:
