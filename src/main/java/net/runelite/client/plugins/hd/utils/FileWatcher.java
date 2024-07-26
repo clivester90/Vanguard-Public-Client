@@ -177,15 +177,15 @@ public class FileWatcher
 
 	private static void watchRecursively(Path path) {
 		try {
-			Files.walkFileTree(path, new SimpleFileVisitor<>() {
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    WatchKey key = dir.register(watchService, eventKinds);
-                    log.debug("Watching {}", dir);
-                    watchKeys.put(key, dir);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
+			Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+					WatchKey key = dir.register(watchService, eventKinds);
+					log.debug("Watching {}", dir);
+					watchKeys.put(key, dir);
+					return FileVisitResult.CONTINUE;
+				}
+			});
 		} catch (IOException ex) {
 			throw new RuntimeException("Failed to register recursive file watcher for path: " + path, ex);
 		}

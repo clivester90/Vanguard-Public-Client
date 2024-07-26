@@ -310,7 +310,7 @@ public class RuneliteColorPicker extends JDialog
 
 				if (!Objects.equals(previousColor, selectedColor))
 				{
-					recentColors.add(String.valueOf(selectedColor.getRGB()));
+					recentColors.add(selectedColor.getRGB() + "");
 				}
 
 				RuneliteColorPicker cp = colorPickerManager.getCurrentPicker();

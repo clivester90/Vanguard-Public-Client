@@ -37,7 +37,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import lombok.EqualsAndHashCode;
@@ -190,7 +189,10 @@ public class EventBus
 	 */
 	public synchronized void unregister(@Nonnull final Object object)
 	{
-		subscribers = ImmutableMultimap.copyOf(subscribers.entries().stream().filter(e -> e.getValue().getObject() != object).collect(Collectors.toList()));
+		subscribers = ImmutableMultimap.copyOf(Iterables.filter(
+			subscribers.entries(),
+			e -> e.getValue().getObject() != object
+		));
 	}
 
 	public synchronized void unregister(Subscriber sub)
@@ -200,7 +202,10 @@ public class EventBus
 			return;
 		}
 
-		subscribers = ImmutableMultimap.copyOf(subscribers.entries().stream().filter(e -> sub != e.getValue()).collect(Collectors.toList()));
+		subscribers = ImmutableMultimap.copyOf(Iterables.filter(
+			subscribers.entries(),
+			e -> sub != e.getValue()
+		));
 	}
 
 	/**

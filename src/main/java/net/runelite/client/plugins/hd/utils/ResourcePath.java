@@ -161,7 +161,7 @@ public class ResourcePath {
         String path = toPosixPath();
         if (root != null)
             path = normalize(root.toPosixPath(), path.startsWith("/") ? path.substring(1) : path);
-        return path.isEmpty() ? "." : path;
+        return path.length() == 0 ? "." : path;
     }
 
     public ResourcePath toAbsolute() {
@@ -234,7 +234,9 @@ public class ResourcePath {
     }
 
     public boolean isClassResource() {
-        return root != null && root.isClassResource();
+        if (root != null)
+            return root.isClassResource();
+        return false;
     }
 
     /**
@@ -384,14 +386,14 @@ public class ResourcePath {
 
     private static String normalize(@Nullable String workingDirectory, String[] parts) {
         Stack<String> resolvedParts = new Stack<>();
-        if (workingDirectory != null && !workingDirectory.isEmpty() && !workingDirectory.equals("."))
+        if (workingDirectory != null && workingDirectory.length() > 0 && !workingDirectory.equals("."))
             resolvedParts.addAll(Arrays.asList(normalizeSlashes(workingDirectory).split("/")));
 
         if (parts.length > 0)
             parts[0] = resolveTilde(parts[0]);
 
         for (String part : parts) {
-            if (part == null || part.isEmpty() || part.equals("."))
+            if (part == null || part.length() == 0 || part.equals("."))
                 continue;
 
             part = normalizeSlashes(part);
@@ -401,7 +403,7 @@ public class ResourcePath {
 
             for (String normalizedPart : part.split("/")) {
                 if (normalizedPart.equals("..") &&
-                        !resolvedParts.isEmpty() &&
+                    resolvedParts.size() > 0 &&
                     !resolvedParts.peek().equals("..")
                 ) {
                     resolvedParts.pop();
@@ -487,7 +489,9 @@ public class ResourcePath {
          */
         public boolean isFileSystemResource() {
             URL url = root.getResource("/");
-            return url != null && url.getProtocol().equals("file");
+            if (url == null)
+                return false;
+            return url.getProtocol().equals("file");
         }
 
         @Override
@@ -556,7 +560,9 @@ public class ResourcePath {
          */
         public boolean isFileSystemResource() {
             URL url = root.getResource("/");
-            return url != null && url.getProtocol().equals("file");
+            if (url == null)
+                return false;
+            return url.getProtocol().equals("file");
         }
 
         @Override

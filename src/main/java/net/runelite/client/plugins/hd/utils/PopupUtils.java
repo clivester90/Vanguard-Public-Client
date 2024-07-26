@@ -42,7 +42,7 @@ public class PopupUtils {
             messagePane.setEditable(false);
             messagePane.setOpaque(false);
             messagePane.addHyperlinkListener(e -> {
-                if (Desktop.isDesktopSupported() && e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                if (Desktop.isDesktopSupported() && e.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED)) {
                     try {
                         Desktop.getDesktop().browse(e.getURL().toURI());
                     } catch (IOException | URISyntaxException ex) {

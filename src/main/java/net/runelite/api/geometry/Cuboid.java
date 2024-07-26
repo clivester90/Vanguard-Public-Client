@@ -44,6 +44,14 @@ public class Cuboid
 
 	public boolean contains(WorldPoint worldPoint)
 	{
-		return worldPoint.getPlane() >= southWest.getPlane() && worldPoint.getPlane() <= northEast.getPlane() && worldPoint.getY() >= southWest.getY() && worldPoint.getY() <= northEast.getY() && worldPoint.getX() >= southWest.getX() && worldPoint.getX() <= northEast.getX();
+		if (worldPoint.getPlane() < southWest.getPlane() || worldPoint.getPlane() > northEast.getPlane())
+		{
+			return false;
+		}
+		if (worldPoint.getY() < southWest.getY() || worldPoint.getY() > northEast.getY())
+		{
+			return false;
+		}
+		return worldPoint.getX() >= southWest.getX() && worldPoint.getX() <= northEast.getX();
 	}
 }

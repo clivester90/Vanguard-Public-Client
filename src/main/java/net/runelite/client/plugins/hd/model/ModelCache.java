@@ -102,7 +102,7 @@ public class ModelCache {
     // 2) use the data from the previous frame to determine the cache usage for the scene (e.g. 85% vertex, 10% normal, 5% uv)
     // 3) makeRoom here based on those weights to try and reactively match the cache pressure with usage
     public boolean makeRoom() {
-        if (this.uvDataCache.size() * 16 > this.normalDataCache.size() && !this.normalDataCache.isEmpty()) {
+        if (this.uvDataCache.size() * 16 > this.normalDataCache.size() && this.normalDataCache.size() > 0) {
             return this.uvDataCache.makeRoom();
         } else if (this.normalDataCache.size() * 2 > this.vertexDataCache.size()) {
             return this.normalDataCache.makeRoom();

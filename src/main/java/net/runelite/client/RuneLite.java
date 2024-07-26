@@ -26,7 +26,6 @@ package net.runelite.client;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import com.client.Configuration;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -41,6 +40,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
+import static org.reflections.Reflections.log;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -92,7 +93,7 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class RuneLite
 {
-	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), "." + Configuration.CLIENT_TITLE.toLowerCase());
+	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), "." + "vanguard");
 	public static final File CACHE_DIR = new File(RUNELITE_DIR, "cache");
 	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugins");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
@@ -181,12 +182,14 @@ public class RuneLite
 			.withRequiredArg()
 			.ofType(ClientUpdateCheckMode.class)
 			.defaultsTo(ClientUpdateCheckMode.AUTO)
-			.withValuesConvertedBy(new EnumConverter<>(ClientUpdateCheckMode.class) {
-                @Override
-                public ClientUpdateCheckMode convert(String v) {
-                    return super.convert(v.toUpperCase());
-                }
-            });
+			.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class)
+			{
+				@Override
+				public ClientUpdateCheckMode convert(String v)
+				{
+					return super.convert(v.toUpperCase());
+				}
+			});
 
 		parser.accepts("help", "Show this text").forHelp();
 		OptionSet options = parser.parse(args);

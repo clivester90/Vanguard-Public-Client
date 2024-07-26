@@ -26,7 +26,6 @@
  */
 package net.runelite.client.rs;
 
-import com.client.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.FatalErrorDialog;
 import net.runelite.client.ui.SplashScreen;
@@ -74,7 +73,7 @@ public class ClientLoader implements Supplier<Applet>
 	{
 		try
 		{
-			SplashScreen.stage(.465, "Starting", "Starting " + Configuration.CLIENT_TITLE);
+			SplashScreen.stage(.465, "Starting", "Starting " + "Infernal");
 
 			Applet rs = loadVanilla();
 

@@ -416,7 +416,11 @@ public class Notifier
 		{
 			// The PATH seen by Cocoa apps does not resemble that seen by the shell, so we defer to the latter.
 			final Process exec = Runtime.getRuntime().exec(new String[]{"sh", "-lc", "terminal-notifier -help"});
-			return exec.waitFor(2, TimeUnit.SECONDS) && exec.exitValue() == 0;
+			if (!exec.waitFor(2, TimeUnit.SECONDS))
+			{
+				return false;
+			}
+			return exec.exitValue() == 0;
 		}
 		catch (IOException | InterruptedException e)
 		{

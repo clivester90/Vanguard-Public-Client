@@ -178,22 +178,26 @@ public class ItemManager
 		itemImages = CacheBuilder.newBuilder()
 			.maximumSize(128L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<>() {
-                @Override
-                public AsyncBufferedImage load(ImageKey key) throws Exception {
-                    return loadImage(key.itemId, key.itemQuantity, key.stackable);
-                }
-            });
+			.build(new CacheLoader<ImageKey, AsyncBufferedImage>()
+			{
+				@Override
+				public AsyncBufferedImage load(ImageKey key) throws Exception
+				{
+					return loadImage(key.itemId, key.itemQuantity, key.stackable);
+				}
+			});
 
 		itemOutlines = CacheBuilder.newBuilder()
 			.maximumSize(128L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<>() {
-                @Override
-                public BufferedImage load(OutlineKey key) throws Exception {
-                    return loadItemOutline(key.itemId, key.itemQuantity, key.outlineColor);
-                }
-            });
+			.build(new CacheLoader<OutlineKey, BufferedImage>()
+			{
+				@Override
+				public BufferedImage load(OutlineKey key) throws Exception
+				{
+					return loadItemOutline(key.itemId, key.itemQuantity, key.outlineColor);
+				}
+			});
 	}
 
 	private void loadPrices()

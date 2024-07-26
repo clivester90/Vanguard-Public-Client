@@ -94,7 +94,7 @@ public class RuntimeConfigLoader implements Supplier<RuntimeConfig>
             {
                 log.info("Using local runtime config");
 
-                String strConf = Files.readString(Paths.get(prop));
+                String strConf = new String(Files.readAllBytes(Paths.get(prop)), StandardCharsets.UTF_8);
                 RuntimeConfig conf = RuneLiteAPI.GSON.fromJson(strConf, RuntimeConfig.class);
                 future.complete(conf);
                 return future;
@@ -120,11 +120,18 @@ public class RuntimeConfigLoader implements Supplier<RuntimeConfig>
             @Override
             public void onResponse(Call call, Response response)
             {
-                try (response) {
+                try // NOPMD: UseTryWithResources
+                {
                     RuntimeConfig config = RuneLiteAPI.GSON.fromJson(response.body().charStream(), RuntimeConfig.class);
                     future.complete(config);
-                } catch (Throwable ex) {
+                }
+                catch (Throwable ex)
+                {
                     future.completeExceptionally(ex);
+                }
+                finally
+                {
+                    response.close();
                 }
             }
         });

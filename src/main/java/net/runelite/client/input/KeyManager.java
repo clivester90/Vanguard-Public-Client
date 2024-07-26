@@ -150,7 +150,11 @@ public class KeyManager
 
 		final GameState gameState = client.getGameState();
 
-        return gameState != GameState.LOGIN_SCREEN && gameState != GameState.LOGIN_SCREEN_AUTHENTICATOR || keyListener.isEnabledOnLoginScreen();
+		if (gameState == GameState.LOGIN_SCREEN || gameState == GameState.LOGIN_SCREEN_AUTHENTICATOR)
+		{
+			return keyListener.isEnabledOnLoginScreen();
+		}
 
-    }
+		return true;
+	}
 }

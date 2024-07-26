@@ -203,7 +203,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			if (materials.size() <= 1 || numChars < 26)
 			{
 				StringBuilder sb = new StringBuilder("Materials: { ");
-				if (materials.isEmpty())
+				if (materials.size() == 0)
 				{
 					sb.append("null");
 				}
@@ -239,9 +239,9 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 				int b = CB[face];
 				int c = CC[face];
 				if (a == b && b == c) {
-					lines.add(face + ": " + a);
+					lines.add("" + face + ": " + a);
 				} else {
-					lines.add(face + ": [ " + a + ", " + b + ", " + c + " ]");
+					lines.add("" + face + ": [ " + a + ", " + b + ", " + c + " ]");
 				}
 			}
 		}
@@ -259,15 +259,16 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			GameObject[] gameObjects = tile.getGameObjects();
 			if (gameObjects.length > 0) {
 				int counter = 0;
-				for (GameObject gameObject : gameObjects) {
+				for (int i = 0; i < gameObjects.length; i++) {
+					GameObject gameObject = gameObjects[i];
 					if (gameObject == null)
 						continue;
 					counter++;
 					lines.add(String.format("ID %d: x=%d y=%d ori=%d",
-							gameObject.getId(),
-							ModelHash.getSceneX(gameObject.getHash()),
-							ModelHash.getSceneY(gameObject.getHash()),
-							gameObject.getModelOrientation()));
+						gameObject.getId(),
+						ModelHash.getSceneX(gameObject.getHash()),
+						ModelHash.getSceneY(gameObject.getHash()),
+						gameObject.getModelOrientation()));
 				}
 				if (counter > 0)
 					lines.add(lines.size() - counter, "Game objects: ");
@@ -306,7 +307,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 		for (String line : lines)
 		{
 			Pair<String, String> pair = splitter.apply(line);
-			if (pair.getRight().isEmpty())
+			if (pair.getRight().length() == 0)
 			{
 				int halfWidth = fm.stringWidth(pair.getLeft()) / 2;
 				leftWidth = Math.max(leftWidth, halfWidth);
@@ -345,7 +346,7 @@ public class TileInfoOverlay extends net.runelite.client.ui.overlay.Overlay
 			Pair<String, String> pair = splitter.apply(line);
 			offsetY += lineHeight;
 			Point p;
-			if (pair.getRight().isEmpty())
+			if (pair.getRight().length() == 0)
 			{
 				// centered
 				p = new Point(

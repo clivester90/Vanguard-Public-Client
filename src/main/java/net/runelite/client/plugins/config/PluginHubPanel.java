@@ -217,7 +217,7 @@ class PluginHubPanel extends PluginPanel
 			}
 			else
 			{
-				help.setToolTipText("Open help: " + manifest.getSupport());
+				help.setToolTipText("Open help: " + manifest.getSupport().toString());
 				help.addActionListener(ev -> LinkBrowser.browse(manifest.getSupport().toString()));
 			}
 

@@ -95,7 +95,7 @@ public class GsonUtils {
 
     public static void writeIDArray(JsonWriter out, HashSet<Integer> listToWrite, @Nullable Class<?> idContainer) throws IOException
     {
-        if (listToWrite.isEmpty())
+        if (listToWrite.size() == 0)
         {
             out.nullValue();
             return;

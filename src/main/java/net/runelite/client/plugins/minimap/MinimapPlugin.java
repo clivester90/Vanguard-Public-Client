@@ -122,17 +122,21 @@ public class MinimapPlugin extends Plugin implements MouseWheelListener
 			return;
 		}
 
-		switch (event.getKey()) {
-			case "hideMinimap":
-				updateMinimapWidgetVisibility(config.hideMinimap());
-				return;
-			case "zoom":
-				client.setMinimapZoom(config.zoom());
-				return;
-			case "hdminimap":
-				client.setHdMinimapEnabled(config.hdMinimap());
-				client.setGameState(1);
-				return;
+		if (event.getKey().equals("hideMinimap"))
+		{
+			updateMinimapWidgetVisibility(config.hideMinimap());
+			return;
+		}
+		else if (event.getKey().equals("zoom"))
+		{
+			client.setMinimapZoom(config.zoom());
+			return;
+		}
+		else if (event.getKey().equals("hdminimap"))
+		{
+			client.setHdMinimapEnabled(config.hdMinimap());
+			client.setGameState(1);
+			return;
 		}
 		replaceMapDots();
 	}

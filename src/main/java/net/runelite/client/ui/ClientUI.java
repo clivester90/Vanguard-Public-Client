@@ -637,7 +637,7 @@ public class ClientUI
 				);
 				ep.addHyperlinkListener(e ->
 				{
-					if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+					if (e.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED))
 					{
 						LinkBrowser.browse(e.getURL().toString());
 					}
@@ -668,10 +668,19 @@ public class ClientUI
 		return null;
 	}
 
-	private boolean showWarningOnExit() {
-		return config.warningOnExit() == WarningOnExit.ALWAYS
-				|| config.warningOnExit() == WarningOnExit.LOGGED_IN && client instanceof Client
-				&& ((Client) client).getGameState() != GameState.LOGIN_SCREEN;
+	private boolean showWarningOnExit()
+	{
+		if (config.warningOnExit() == WarningOnExit.ALWAYS)
+		{
+			return true;
+		}
+
+		if (config.warningOnExit() == WarningOnExit.LOGGED_IN && client instanceof Client)
+		{
+			return ((Client) client).getGameState() != GameState.LOGIN_SCREEN;
+		}
+
+		return false;
 	}
 
 	private void shutdownClient()

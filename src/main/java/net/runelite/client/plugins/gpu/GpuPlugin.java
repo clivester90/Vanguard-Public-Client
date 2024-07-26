@@ -1757,7 +1757,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 					errStr = "INVALID_FRAMEBUFFER_OPERATION";
 					break;
 				default:
-					errStr = String.valueOf(err);
+					errStr = "" + err;
 					break;
 			}
 

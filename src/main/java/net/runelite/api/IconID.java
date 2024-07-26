@@ -55,6 +55,6 @@ public enum IconID
 	@Override
 	public String toString()
 	{
-		return "<img=" + this.index + ">";
+		return "<img=" + String.valueOf(this.index) + ">";
 	}
 }

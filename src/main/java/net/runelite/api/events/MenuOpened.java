@@ -75,18 +75,21 @@ public class MenuOpened implements Iterable<MenuEntry>
 	@Override
 	public Iterator<MenuEntry> iterator()
 	{
-		return new Iterator<>() {
-            int index = 0;
+		return new Iterator<MenuEntry>()
+		{
+			int index = 0;
 
-            @Override
-            public boolean hasNext() {
-                return index < menuEntries.length;
-            }
+			@Override
+			public boolean hasNext()
+			{
+				return index < menuEntries.length;
+			}
 
-            @Override
-            public MenuEntry next() {
-                return menuEntries[index++];
-            }
-        };
+			@Override
+			public MenuEntry next()
+			{
+				return menuEntries[index++];
+			}
+		};
 	}
 }

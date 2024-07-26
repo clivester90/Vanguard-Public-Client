@@ -57,7 +57,7 @@ public class RectangleUnion
 	public static Shapes<SimplePolygon> union(List<Rectangle> lefts)
 	{
 		// https://stackoverflow.com/a/35362615/2977136
-		if (lefts.isEmpty())
+		if (lefts.size() == 0)
 		{
 			return null;
 		}

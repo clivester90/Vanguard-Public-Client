@@ -290,9 +290,13 @@ public class SimplePolygon implements Shape
 	@Override
 	public boolean contains(double cx, double cy)
 	{
-        return size() >= 3 && (crossings(cx, cy, false) & 1) != 0;
+		if (size() < 3)
+		{
+			return false;
+		}
 
-    }
+		return (crossings(cx, cy, false) & 1) != 0;
+	}
 
 	private int crossings(double cx, double cy, boolean swap)
 	{
@@ -373,9 +377,13 @@ public class SimplePolygon implements Shape
 	@Override
 	public boolean contains(double x, double y, double w, double h)
 	{
-        return getBounds().contains(x, y, w, h) && !intersects(x, y, w, h);
+		if (!getBounds().contains(x, y, w, h))
+		{
+			return false;
+		}
 
-    }
+		return !intersects(x, y, w, h);
+	}
 
 	@Override
 	public boolean contains(Rectangle2D r)

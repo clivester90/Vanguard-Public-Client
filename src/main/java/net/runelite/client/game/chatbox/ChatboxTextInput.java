@@ -321,7 +321,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 		for (int i = 0; i < value.length(); i++)
 		{
 			int count = i - sb.length();
-			final String c = String.valueOf(value.charAt(i));
+			final String c = value.charAt(i) + "";
 			sb.append(c);
 			if (BREAK_MATCHER.matcher(c).matches())
 			{
@@ -362,7 +362,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 		Rectangle bounds = new Rectangle(container.getCanvasLocation().getX() + container.getWidth(), y, 0, editLines.size() * oh);
 		for (int i = 0; i < editLines.size() || i == 0; i++)
 		{
-			final Line line = !editLines.isEmpty() ? editLines.get(i) : new Line(0, 0, "");
+			final Line line = editLines.size() > 0 ? editLines.get(i) : new Line(0, 0, "");
 			final String text = line.text;
 			final int len = text.length();
 
@@ -409,7 +409,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				bounds.setSize(fullWidth, bounds.height);
 			}
 
-			if (editLines.isEmpty() || isStartLine)
+			if (editLines.size() == 0 || isStartLine)
 			{
 				cursor.setOriginalX(mtx - 1);
 				cursor.setOriginalY(y);

@@ -206,7 +206,7 @@ public class TextureManager
 				continue;
 			}
 
-			String textureName = material == Material.NONE ? String.valueOf(i) : material.name().toLowerCase();
+			String textureName = material == Material.NONE ? "" + i : material.name().toLowerCase();
 
 			BufferedImage image = loadTextureImage(textureName);
 			if (image == null)

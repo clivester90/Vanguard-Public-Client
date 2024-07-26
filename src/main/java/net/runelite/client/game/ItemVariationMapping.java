@@ -51,8 +51,7 @@ public class ItemVariationMapping
 	{
 		final Gson gson = new Gson();
 		// CHECKSTYLE:OFF
-		final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<>() {
-        };
+		final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<Map<String, Collection<Integer>>>(){};
 		// CHECKSTYLE:ON
 
 		final Map<String, Collection<Integer>> itemVariations;
